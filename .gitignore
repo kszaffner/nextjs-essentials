@@ -23,8 +23,12 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# Testing
+/coverage
+
 # Editor / OS
 .DS_Store
+*.pem
 .vscode/
 .idea/
 
