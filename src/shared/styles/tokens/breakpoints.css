@@ -1,0 +1,13 @@
+/**
+ * Reference values only. `@media` queries cannot read `var()`, so these
+ * exist as a documented source of truth to copy the raw pixel value from
+ * (e.g. `@media (min-width: 640px)`), not as functioning tokens inside a
+ * media query. They can still be used with `var()` outside of `@media`
+ * (e.g. a `max-width` on a container).
+ */
+:root {
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+}
