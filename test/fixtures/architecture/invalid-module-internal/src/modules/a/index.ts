@@ -1,1 +1,0 @@
-export { bad } from "./bad";

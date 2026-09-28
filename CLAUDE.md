@@ -1,146 +1,216 @@
 # CLAUDE.md
 
-## Project identity
+## Goal
 
-`nextjs-essentials` — a showcase application covering **every major
-Next.js feature**, built on the **latest major version** currently
-available. Its purpose is to serve as an interview-readiness reference:
-each feature gets its own isolated, clearly presented demo.
+`nextjs-essentials` is a complete, interview-ready compendium of the
+**Next.js App Router**, written in TypeScript. Every feature lives in its
+own isolated route/module, and every topic page has three sections:
 
-Content requirements:
+1. **Basics** — how the feature works, with a minimal working demo.
+2. **Edge cases** — pitfalls, surprising behavior, and failure modes.
+3. **Interview questions** — questions a Next.js technical interview could
+   reasonably ask, with concise answers grounded in the demo.
 
-- Must reflect the **current, official Next.js documentation** (App
-  Router) — no legacy/Pages Router patterns or outdated caching APIs.
-- Every significant Next.js feature gets a **dedicated route/section** in
-  the app: routing, rendering strategies (SSR/SSG/ISR/PPR), Server vs
-  Client Components, Server Actions, middleware/proxy, data fetching,
-  caching (`use cache`, `cacheLife`, `cacheTag`, `revalidatePath`/
-  `revalidateTag`), layouts/templates, streaming + Suspense, parallel and
-  intercepting routes, error handling (`error.tsx`, `not-found.tsx`),
-  metadata API, image/font optimization, etc.
-- Beyond the happy path, demos must cover **edge cases and pitfalls**
-  that come up in real technical interviews (cache behavior differences
-  client vs. server, hydration mismatches, Server Action execution order,
-  streaming boundaries, and similar).
-- Scope should be broad enough to cover what a Next.js technical
-  interview could reasonably ask.
-- Keep the app updated to each new Next.js major version rather than
-  freezing it at whatever version it was built on.
+Content must reflect the current official documentation
+(nextjs.org/docs, App Router). Legacy Pages Router patterns may appear
+only as a deliberate, clearly labeled contrast. For any version-sensitive
+behavior (caching, routing, data fetching, proxy), check the installed
+version in `node_modules/next/package.json` and prefer the docs shipped
+with that version over general knowledge.
 
-## Engineering workflow source
+All required context is recorded in this repository. Do not assume access
+to any other repository.
 
-The `.claude/`, `AGENTS.md`, and `ai-workflow-config/` files in this repo
-are copied from the dedicated starter repository
-**`kszaffner/nextjs-claude-starter`** ("AI-native engineering starter for
-Next.js projects using Claude Code — Rules, Skills, Knowledge,
-architecture enforcement, verification, and code review"). That repo is
-the source of truth for the workflow itself; this file only states how it
-applies here. Its extended docs (`docs/`) and its own worked example
-(`example/`, `src/`) are not duplicated into this repo — consult the
-source repo directly when the *why* behind a rule or skill isn't
-self-evident from the file.
+## Scope
 
-The workflow's job in this repo specifically is to keep the app the best
-possible reference implementation as features are added: sound
-**architecture**, strong **performance** (rendering strategy, caching,
-bundle size, image/font handling), and adherence to current **best
-practices and tooling** — not just "does it run."
+### In scope
 
-## Architecture summary
+#### App Router fundamentals
 
-Feature-oriented, three layers (see `.claude/rules/architecture.md` for
-the enforced rationale):
+- File-system routing and file conventions: `page`, `layout`, `template`,
+  `loading`, `error`, `not-found`, `global-error`, route groups `(group)`,
+  private folders `_folder`
+- Dynamic segments `[slug]`, catch-all `[...slug]`, optional catch-all
+  `[[...slug]]`
+- Parallel routes (`@slot`) and intercepting routes (`(.)folder`)
+- Navigation: `<Link>`, `useRouter`, `usePathname`, `useSearchParams`,
+  prefetching
+
+#### Rendering and strategies
+
+- Static rendering (SSG) vs dynamic rendering (SSR): when Next.js picks each
+- Incremental Static Regeneration (ISR): `revalidate`, on-demand
+  revalidation
+- Partial Prerendering (PPR): `"use cache"`, `cacheLife`, `cacheTag`
+- Streaming SSR and Suspense boundaries as a Next.js mechanism
+  (`loading.tsx`, `<Suspense>` in the Server Component tree)
+
+#### Server Components vs Client Components
+
+- The `"use client"` boundary: prop serialization rules, and what can and
+  cannot cross it
+- Composition: passing Client Components as `children` to Server Components
+- Server Components as the default, and common pitfalls such as event
+  handlers or state in a Server Component
+
+#### Data fetching and caching
+
+- `fetch()` with Next.js extensions: `cache`, `next.revalidate`,
+  `next.tags`
+- The mental model of Data Cache, Full Route Cache, Router Cache, and
+  Request Memoization
+- Parallel vs sequential fetching and the waterfall problem
+- `revalidatePath` / `revalidateTag`
+- Migrating from `unstable_cache` to `"use cache"` (Cache Components)
+
+#### Server Actions and forms
+
+- `"use server"`, invoked from Client and Server Components
+- `<form action={...}>` integration and progressive enhancement
+- `useActionState`, `useFormStatus`, `useOptimistic` with Server Actions
+- Validation, error handling, redirect after an action
+
+#### Advanced routing
+
+- Route Handlers (`app/api`): GET/POST/etc., `NextRequest`/`NextResponse`
+- Routing Middleware / `proxy.ts`: intercepting requests before the cache,
+  rewrites/redirects, personalization
+- Edge Runtime vs Node.js runtime for middleware/proxy
+
+#### Metadata and SEO
+
+- `generateMetadata` (static and dynamic), `metadataBase`
+- `sitemap.ts`, `robots.ts`, generated Open Graph images
+  (`opengraph-image.tsx`)
+
+#### Next.js-specific optimization and performance
+
+- `next/image`: lazy loading, `srcset`, `priority`, LCP
+- `next/font`: self-hosting, avoiding layout shift
+- `next/dynamic`: code splitting, `ssr: false`
+- Turbopack vs Webpack: the mental model and when to use each
+- Bundle analysis and Core Web Vitals in a Next.js context
+
+#### Error handling and edge cases
+
+- `error.tsx` vs `global-error.tsx`: App Router error boundary scope
+- `not-found.tsx` and `notFound()`
+- Error handling in Server Actions and Route Handlers
+
+#### Testing in a Next.js context
+
+- Testing Server Components vs Client Components
+- Mocking `fetch`/cache in tests, testing Server Actions
+
+### React APIs allowed in this project
+
+Only React APIs that are tied to the Next.js App Router rendering and
+data model:
+
+- Server Components vs Client Components
+- `useActionState`, `useOptimistic`, `useFormStatus` (with Server Actions)
+- `use()` with Server Components and Suspense
+
+### Out of scope (permanent exclusions)
+
+This project does not cover generic, framework-independent React engine
+APIs. Do not create modules, routes, or sections for these topics, not
+even as an introduction or refresher:
+
+- `useState`, `useEffect`, `useLayoutEffect`, `useRef`, `useContext`,
+  `useReducer`, `useMemo`, `useCallback`, `useTransition`,
+  `useDeferredValue`, `useId`, `useSyncExternalStore`,
+  `useImperativeHandle`
+- Custom hooks, render props, `forwardRef`
+- Controlled vs uncontrolled components
+- `memo`, `lazy`, generic code splitting (Next.js `next/dynamic` stays in
+  scope)
+- Profiling
+- Unit testing of components in general (Next.js-specific testing stays
+  in scope)
+- Accessibility (a11y) as a topic
+
+If one of these topics is needed only as background for a Next.js
+mechanism (for example, Suspense as a prerequisite for streaming), mention
+it in one sentence without a dedicated section.
+
+### Proposed `app/` structure
+
+One routing segment per topic. Each `page.tsx` holds the Basics / Edge
+cases / Interview questions sections for that topic.
 
 ```text
-src/
-├── app/       # routes/layouts per showcased feature — stays thin
-├── modules/   # one module per feature demo, public API via index.ts
-└── shared/    # genuinely reusable, feature-agnostic code only
+app/
+├── layout.tsx                      # root layout + topic navigation
+├── page.tsx                        # index of all topics
+├── global-error.tsx
+├── not-found.tsx
+├── sitemap.ts
+├── robots.ts
+├── fundamentals/
+│   ├── file-conventions/           # page/layout/template/loading/error/not-found, (groups), _private
+│   ├── dynamic-segments/           # [slug], [...slug], [[...slug]]
+│   ├── parallel-routes/            # @slot
+│   ├── intercepting-routes/        # (.)folder
+│   └── navigation/                 # Link, useRouter, usePathname, useSearchParams, prefetching
+├── rendering/
+│   ├── static-vs-dynamic/
+│   ├── isr/
+│   ├── ppr/
+│   └── streaming/
+├── components/
+│   ├── use-client-boundary/        # serialization rules
+│   ├── composition/                # Client Components as children
+│   └── pitfalls/
+├── data/
+│   ├── fetch-extensions/
+│   ├── cache-layers/               # Data / Full Route / Router cache, memoization
+│   ├── parallel-vs-sequential/
+│   ├── revalidation/               # revalidatePath / revalidateTag
+│   └── use-cache-migration/        # unstable_cache -> "use cache"
+├── server-actions/
+│   ├── basics/
+│   ├── forms/                      # progressive enhancement
+│   ├── form-hooks/                 # useActionState, useFormStatus, useOptimistic
+│   └── validation-and-redirect/
+├── advanced-routing/
+│   ├── route-handlers/
+│   ├── proxy/                      # proxy.ts lives at the project root
+│   └── runtimes/                   # Edge vs Node.js
+├── api/                            # Route Handlers used by the demos
+├── metadata/
+│   ├── generate-metadata/
+│   ├── sitemap-robots/
+│   └── og-images/                  # opengraph-image.tsx
+├── optimization/
+│   ├── image/
+│   ├── font/
+│   ├── dynamic-import/
+│   ├── bundlers/                   # Turbopack vs Webpack
+│   └── web-vitals/                 # bundle analysis, Core Web Vitals
+├── errors/
+│   ├── error-boundaries/           # error.tsx vs global-error.tsx
+│   ├── not-found/                  # not-found.tsx, notFound()
+│   └── actions-and-handlers/
+└── testing/
+    ├── server-vs-client/
+    └── mocking-and-actions/
 ```
 
-`shared → modules` and reaching into another module's internals are
-forbidden and mechanically enforced via
-`ai-workflow-config/dependency-cruiser.cjs`. This layout does not exist
-yet in this repo — scaffold the Next.js app deliberately against this
-convention rather than keeping `create-next-app`'s default structure
-unmodified.
+## Stack
 
-## Engineering workflow
+- **Next.js**: latest stable version, App Router only (no `pages/`)
+- **TypeScript**: strict mode
+- **ESLint**
+- **Structure**: one route/segment in `app/` per topic from the scope above
+- **Deployment target**: Vercel
 
-Classify every task as **SMALL**, **NORMAL**, or **LARGE**. If unsure,
-pick the higher level.
+## Project status
 
-- **SMALL** (copy tweak, rename, obvious small fix): Understand → Implement → Verify.
-- **NORMAL** (new feature demo, moderate bug fix, refactor within a module): Understand → Explore → Plan → Implement → Verify → Code Review.
-- **LARGE** (new feature category, cross-module or infra change, app scaffolding): Understand → Explore → Knowledge Check → Architecture → Plan → **Developer Approval** → Implement → Verify → Code Review → Fix/Verify/Review loop → Knowledge Review.
-
-**LARGE tasks require explicit developer approval before implementation.**
-If the plan must change materially mid-implementation: stop, explain
-what/why, present the revised plan, get approval again.
-
-Run this via `/new-feature` (see `.claude/skills/new-feature/SKILL.md`
-for the full procedure — do not duplicate it here).
-
-## Key commands
-
-```text
-pnpm dev                    # dev server
-pnpm lint                   # eslint
-pnpm typecheck              # tsc --noEmit
-pnpm test                   # vitest
-pnpm architecture:check     # dependency-cruiser
-pnpm build                  # production build
-pnpm check                  # lint + typecheck + architecture:check + test
-```
-
-> Not wired up yet — no `package.json`/Next.js app exists in this repo
-> yet. Add these scripts once the app is scaffolded.
-
-Never claim a check passed without actually running it.
-
-## Non-negotiable rules
-
-- All file content (code, comments, docs, commit messages, PR
-  descriptions, config) is written in **English only**, regardless of
-  what language the developer uses to talk to Claude. This applies to
-  what gets written to files/history, not to the conversation itself —
-  reply to the developer in whatever language they use.
-- Never commit or push directly to `main`/`master`. Always work on a
-  `feat/`, `fix/`, `chore/`, or `hotfix/` branch and open a PR. This is
-  enforced mechanically by a `PreToolUse` hook
-  (`.claude/hooks/protect-main-branch.sh`, registered in
-  `.claude/settings.json`) that blocks `git commit`/`git push` against a
-  protected branch — do not rely on remembering this instead of the hook,
-  and do not work around the hook if it blocks something.
-- Full rules: `.claude/rules/` (architecture, react, nextjs, typescript,
-  testing, security) — loaded selectively by file path, do not restate
-  them here.
-- No `shared → modules` dependency. No reaching into another module's
-  internals — use its `index.ts` public API. No circular dependencies.
-- LARGE tasks: no implementation before developer approval.
-- Never modify a test to hide an incorrect implementation.
-- Deterministic work (lint/typecheck/test/build/architecture check) uses
-  tooling; reasoning work (tradeoffs, requirements, security judgment,
-  whether an abstraction is justified) uses Claude. Don't swap the two.
-- For any version-sensitive Next.js behavior (caching, routing, data
-  fetching), check the installed version first
-  (`node_modules/next/package.json`) and prefer documentation shipped
-  with that installed version over general training knowledge, which may
-  describe a different major version.
-
-## Knowledge behavior
-
-If `.claude/knowledge/` exists and isn't disabled: check the index
-(`index.md`) for relevant topics before a task, ask before loading
-("Do you want to load the knowledge base for this task?"), and ask before
-saving after a task with a meaningful WHY-level change. Never auto-load
-the whole base. Full flow: `.claude/skills/knowledge/SKILL.md`. If
-Knowledge doesn't exist or is disabled, skip all of this silently — don't
-ask.
-
-## Context efficiency
-
-Load the minimum context required to make the correct decision: scoped
-Rules (via `paths:`), on-demand Skills, index-first Knowledge, targeted
-`@` references and shell commands over broad dumps, forked `/explore` for
-large repository searches instead of reading everything inline.
+- The repository currently contains only this `CLAUDE.md`. Previous
+  scaffolding and workflow files were deliberately removed.
+- Next step: initialize the Next.js project (App Router, TypeScript,
+  ESLint, no Pages Router) and create the skeleton from the proposed
+  `app/` structure above: structure and configuration only.
+- After the skeleton is in place, stop and wait for further instructions
+  before implementing individual topic modules.
