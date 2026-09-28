@@ -207,6 +207,10 @@ app/
 
 ## Project status
 
+- Features are implemented separately and iteratively. `ROADMAP.md` is
+  the living plan and progress log: check it before starting work, and
+  update it (status + change log) in the same change that adds, finishes,
+  reorders, or drops an item.
 - The repository currently contains only this `CLAUDE.md`. Previous
   scaffolding and workflow files were deliberately removed.
 - Next step: initialize the Next.js project (App Router, TypeScript,
