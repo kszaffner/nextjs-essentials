@@ -21,15 +21,15 @@ Status values: `planned` · `in progress` · `done` · `blocked` · `dropped`
 
 ## Current focus
 
-- **Now:** S0-02 (initialize the Next.js project)
-- **Next:** S0-03 (route skeleton)
+- **Now:** S0-03 (route skeleton)
+- **Next:** S0-04 (root layout, topic navigation, index page)
 
 ## Stage 0: Foundation
 
 | ID    | Item                                                                                  | Route / location     | Status  | Notes |
 | ----- | ------------------------------------------------------------------------------------- | -------------------- | ------- | ----- |
 | S0-01 | Add and review the `.claude/` workflow                                                | `.claude/`, `CLAUDE.md`, `AGENTS.md` | done    | Merged into `CLAUDE.md`, cross-references fixed |
-| S0-02 | Initialize Next.js (latest stable, App Router, TypeScript strict, ESLint, `src/`, no `pages/`) | repo root  | planned |       |
+| S0-02 | Initialize Next.js (latest stable, App Router, TypeScript strict, ESLint, `src/`, no `pages/`) | repo root  | done    | Next.js 16.3.6, `cacheComponents` + React Compiler on, CSS Modules + tokens |
 | S0-03 | Skeleton: empty route segments from the proposed structure                            | `src/app/`           | planned |       |
 | S0-04 | Root layout, topic navigation, and topic index page                                   | `src/app/layout.tsx`, `src/app/page.tsx` | planned |       |
 | S0-05 | Shared topic page template (Basics / Edge cases / Interview questions)                | TBD                  | planned |       |
@@ -135,6 +135,8 @@ Unscheduled candidates. Promote an item to a stage when it is planned.
 
 Newest first. One line per change: date, IDs, what changed.
 
+- 2026-09-28: S0-02 done — Next.js 16.3.6 initialized with pnpm;
+  `cacheComponents` enabled from the start; CSS Modules + tokens chosen.
 - 2026-09-28: S0-01 done; S0-08, S0-09 added (Sentry adopted, pnpm chosen);
   routes moved under `src/` to match `.claude/rules/architecture.md`.
 - 2026-09-28: Initial roadmap created from the scope in `CLAUDE.md`.

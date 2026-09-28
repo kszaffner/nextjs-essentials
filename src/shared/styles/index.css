@@ -1,0 +1,24 @@
+/* The one global style entry point: design tokens + minimal base styles. */
+@import "./tokens/color.css";
+@import "./tokens/typography.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  color-scheme: light dark;
+}
+
+body {
+  min-height: 100dvh;
+  color: var(--color-fg);
+  background: var(--color-bg);
+  font-family: var(--font-family-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
