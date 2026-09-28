@@ -1,0 +1,5 @@
+:root {
+  /* --font-geist-sans / --font-geist-mono are injected by next/font in the root layout. */
+  --font-family-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-family-mono: var(--font-geist-mono), ui-monospace, monospace;
+}

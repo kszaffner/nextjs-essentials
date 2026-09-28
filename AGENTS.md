@@ -1,3 +1,13 @@
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
+
 # AGENTS.md
 
 This project uses [Claude Code](https://claude.com/claude-code). This file
@@ -14,6 +24,7 @@ is maintained in exactly one place:
 | Review agents (architecture, Next.js, perf, security)  | [`.claude/agents/`](./.claude/agents/)  |
 | Mechanical enforcement (branch, secrets, files)        | [`.claude/hooks/`](./.claude/hooks/) via [`.claude/settings.json`](./.claude/settings.json) |
 | Tooling config templates (ESLint, dependency-cruiser, Sentry) | [`claude-config/`](./claude-config/) |
+| Next.js docs for the installed version                 | `node_modules/next/dist/docs/` (after `pnpm install`) |
 
 Before changing a file, read `CLAUDE.md`, check `ROADMAP.md` for the
 current focus, and apply every rule under `.claude/rules/` whose `paths:`

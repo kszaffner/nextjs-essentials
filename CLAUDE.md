@@ -16,7 +16,8 @@ Content must reflect the current official documentation
 only as a deliberate, clearly labeled contrast. For any version-sensitive
 behavior (caching, routing, data fetching, proxy), check the installed
 version in `node_modules/next/package.json` and prefer the docs shipped
-with that version over general knowledge.
+with that version (`node_modules/next/dist/docs/`) over general
+knowledge.
 
 All required context is recorded in this repository. Do not assume access
 to any other repository.
@@ -218,9 +219,16 @@ src/
 
 ## Stack
 
-- **Next.js**: latest stable version, App Router only (no `pages/`)
+- **Next.js**: latest stable version (currently 16.3.6), App Router only
+  (no `pages/`), Turbopack (default bundler)
+- **`next.config.ts`**: `cacheComponents: true` (current caching model,
+  required for `"use cache"`/PPR demos), `reactCompiler: true`
+- **React**: 19.2
 - **TypeScript**: strict mode
-- **ESLint**
+- **ESLint**: flat config with `eslint-config-next` (core-web-vitals +
+  typescript)
+- **Styling**: CSS Modules + design tokens as CSS custom properties in
+  `src/shared/styles/` (see `.claude/rules/design-tokens.md`); no Tailwind
 - **Package manager**: pnpm
 - **Error monitoring**: Sentry (`@sentry/nextjs`) — adopted, wired up in a
   later stage (see `ROADMAP.md`)
@@ -233,13 +241,23 @@ src/
   the living plan and progress log: check it before starting work, and
   update it (status + change log) in the same change that adds, finishes,
   reorders, or drops an item.
-- The Next.js app does not exist yet. Next step (see `ROADMAP.md`):
-  initialize the project and create the skeleton from the proposed
-  structure above: structure and configuration only. Then stop and wait
-  for further instructions before implementing individual topic modules.
-- No `package.json` yet, so there are no lint/typecheck/test/architecture
-  commands to run. Add them to this file when the app is scaffolded.
-  Never claim a check passed without actually running it.
+- The Next.js app is initialized (S0-02). Next step (see `ROADMAP.md`):
+  the route skeleton from the proposed structure above, structure only.
+  Then stop and wait for further instructions before implementing
+  individual topic modules.
+
+## Key commands
+
+```text
+pnpm dev          # dev server (Turbopack)
+pnpm build        # production build
+pnpm lint         # eslint
+pnpm typecheck    # next typegen (route types, e.g. LayoutProps) + tsc --noEmit
+pnpm check        # lint + typecheck
+```
+
+`test` and `architecture:check` are added with S0-06 and S0-08. Never
+claim a check passed without actually running it.
 
 ## How work happens here
 
