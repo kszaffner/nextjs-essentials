@@ -21,20 +21,22 @@ Status values: `planned` · `in progress` · `done` · `blocked` · `dropped`
 
 ## Current focus
 
-- **Now:** S0-01 (review the `.claude/` workflow)
-- **Next:** S0-02 (initialize the Next.js project)
+- **Now:** S0-02 (initialize the Next.js project)
+- **Next:** S0-03 (route skeleton)
 
 ## Stage 0: Foundation
 
 | ID    | Item                                                                                  | Route / location     | Status  | Notes |
 | ----- | ------------------------------------------------------------------------------------- | -------------------- | ------- | ----- |
-| S0-01 | Add and review the `.claude/` workflow                                                | `.claude/`           | planned |       |
-| S0-02 | Initialize Next.js (latest stable, App Router, TypeScript strict, ESLint, no `pages/`) | repo root            | planned |       |
-| S0-03 | Skeleton: empty route segments from the proposed `app/` structure                     | `app/`               | planned |       |
-| S0-04 | Root layout, topic navigation, and topic index page                                   | `app/layout.tsx`, `app/page.tsx` | planned |       |
+| S0-01 | Add and review the `.claude/` workflow                                                | `.claude/`, `CLAUDE.md`, `AGENTS.md` | done    | Merged into `CLAUDE.md`, cross-references fixed |
+| S0-02 | Initialize Next.js (latest stable, App Router, TypeScript strict, ESLint, `src/`, no `pages/`) | repo root  | planned |       |
+| S0-03 | Skeleton: empty route segments from the proposed structure                            | `src/app/`           | planned |       |
+| S0-04 | Root layout, topic navigation, and topic index page                                   | `src/app/layout.tsx`, `src/app/page.tsx` | planned |       |
 | S0-05 | Shared topic page template (Basics / Edge cases / Interview questions)                | TBD                  | planned |       |
 | S0-06 | Test tooling for Server/Client Components and Server Actions                          | repo root            | planned |       |
 | S0-07 | First Vercel deployment                                                               | Vercel               | planned |       |
+| S0-08 | Wire `claude-config/` templates: dependency-cruiser (`architecture:check`), ESLint rules | repo root         | planned |       |
+| S0-09 | Wire Sentry: `claude-config/sentry.*.config.ts`, `instrumentation.ts`, `withSentryConfig` | repo root         | planned | Adopted 2026-09-28; wire after the skeleton exists |
 
 ## Stage 1: App Router fundamentals
 
@@ -133,4 +135,6 @@ Unscheduled candidates. Promote an item to a stage when it is planned.
 
 Newest first. One line per change: date, IDs, what changed.
 
+- 2026-09-28: S0-01 done; S0-08, S0-09 added (Sentry adopted, pnpm chosen);
+  routes moved under `src/` to match `.claude/rules/architecture.md`.
 - 2026-09-28: Initial roadmap created from the scope in `CLAUDE.md`.

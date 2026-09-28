@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-## Goal
+## Project identity
 
 `nextjs-essentials` is a complete, interview-ready compendium of the
 **Next.js App Router**, written in TypeScript. Every feature lives in its
@@ -102,7 +102,7 @@ to any other repository.
 - Testing Server Components vs Client Components
 - Mocking `fetch`/cache in tests, testing Server Actions
 
-### React APIs allowed in this project
+### React APIs allowed as topics
 
 Only React APIs that are tied to the Next.js App Router rendering and
 data model:
@@ -134,67 +134,86 @@ If one of these topics is needed only as background for a Next.js
 mechanism (for example, Suspense as a prerequisite for streaming), mention
 it in one sentence without a dedicated section.
 
-### Proposed `app/` structure
+These exclusions limit what the app *teaches*, not how its code is
+written. Engineering rules under `.claude/rules/` (for example
+`component-fundamentals.md` on state, effects, memoization, and
+accessibility) still apply to every line of code in the demos.
 
-One routing segment per topic. Each `page.tsx` holds the Basics / Edge
-cases / Interview questions sections for that topic.
+### Proposed structure
+
+Feature-oriented, three layers (enforced rationale in
+`.claude/rules/architecture.md`):
+
+- `src/app/` — one routing segment per topic. Stays thin: route files
+  compose a module's public API. Next.js file conventions that are
+  themselves the subject of a demo (`@slot`, `(.)folder`, `error.tsx`,
+  `loading.tsx`, …) naturally live here.
+- `src/modules/<topic>/` — the demo UI, content (Basics / Edge cases /
+  Interview questions), and server code for one topic, exposed only via
+  `index.ts`.
+- `src/shared/` — genuinely topic-agnostic code (topic page template,
+  layout primitives, design tokens).
 
 ```text
-app/
-├── layout.tsx                      # root layout + topic navigation
-├── page.tsx                        # index of all topics
-├── global-error.tsx
-├── not-found.tsx
-├── sitemap.ts
-├── robots.ts
-├── fundamentals/
-│   ├── file-conventions/           # page/layout/template/loading/error/not-found, (groups), _private
-│   ├── dynamic-segments/           # [slug], [...slug], [[...slug]]
-│   ├── parallel-routes/            # @slot
-│   ├── intercepting-routes/        # (.)folder
-│   └── navigation/                 # Link, useRouter, usePathname, useSearchParams, prefetching
-├── rendering/
-│   ├── static-vs-dynamic/
-│   ├── isr/
-│   ├── ppr/
-│   └── streaming/
-├── components/
-│   ├── use-client-boundary/        # serialization rules
-│   ├── composition/                # Client Components as children
-│   └── pitfalls/
-├── data/
-│   ├── fetch-extensions/
-│   ├── cache-layers/               # Data / Full Route / Router cache, memoization
-│   ├── parallel-vs-sequential/
-│   ├── revalidation/               # revalidatePath / revalidateTag
-│   └── use-cache-migration/        # unstable_cache -> "use cache"
-├── server-actions/
-│   ├── basics/
-│   ├── forms/                      # progressive enhancement
-│   ├── form-hooks/                 # useActionState, useFormStatus, useOptimistic
-│   └── validation-and-redirect/
-├── advanced-routing/
-│   ├── route-handlers/
-│   ├── proxy/                      # proxy.ts lives at the project root
-│   └── runtimes/                   # Edge vs Node.js
-├── api/                            # Route Handlers used by the demos
-├── metadata/
-│   ├── generate-metadata/
-│   ├── sitemap-robots/
-│   └── og-images/                  # opengraph-image.tsx
-├── optimization/
-│   ├── image/
-│   ├── font/
-│   ├── dynamic-import/
-│   ├── bundlers/                   # Turbopack vs Webpack
-│   └── web-vitals/                 # bundle analysis, Core Web Vitals
-├── errors/
-│   ├── error-boundaries/           # error.tsx vs global-error.tsx
-│   ├── not-found/                  # not-found.tsx, notFound()
-│   └── actions-and-handlers/
-└── testing/
-    ├── server-vs-client/
-    └── mocking-and-actions/
+src/
+├── proxy.ts                        # Routing Middleware / proxy (demo: advanced-routing/proxy)
+├── app/
+│   ├── layout.tsx                  # root layout + topic navigation
+│   ├── page.tsx                    # index of all topics
+│   ├── global-error.tsx
+│   ├── not-found.tsx
+│   ├── sitemap.ts
+│   ├── robots.ts
+│   ├── fundamentals/
+│   │   ├── file-conventions/       # page/layout/template/loading/error/not-found, (groups), _private
+│   │   ├── dynamic-segments/       # [slug], [...slug], [[...slug]]
+│   │   ├── parallel-routes/        # @slot
+│   │   ├── intercepting-routes/    # (.)folder
+│   │   └── navigation/             # Link, useRouter, usePathname, useSearchParams, prefetching
+│   ├── rendering/
+│   │   ├── static-vs-dynamic/
+│   │   ├── isr/
+│   │   ├── ppr/
+│   │   └── streaming/
+│   ├── components/
+│   │   ├── use-client-boundary/    # serialization rules
+│   │   ├── composition/            # Client Components as children
+│   │   └── pitfalls/
+│   ├── data/
+│   │   ├── fetch-extensions/
+│   │   ├── cache-layers/           # Data / Full Route / Router cache, memoization
+│   │   ├── parallel-vs-sequential/
+│   │   ├── revalidation/           # revalidatePath / revalidateTag
+│   │   └── use-cache-migration/    # unstable_cache -> "use cache"
+│   ├── server-actions/
+│   │   ├── basics/
+│   │   ├── forms/                  # progressive enhancement
+│   │   ├── form-hooks/             # useActionState, useFormStatus, useOptimistic
+│   │   └── validation-and-redirect/
+│   ├── advanced-routing/
+│   │   ├── route-handlers/
+│   │   ├── proxy/
+│   │   └── runtimes/               # Edge vs Node.js
+│   ├── api/                        # Route Handlers used by the demos
+│   ├── metadata/
+│   │   ├── generate-metadata/
+│   │   ├── sitemap-robots/
+│   │   └── og-images/              # opengraph-image.tsx
+│   ├── optimization/
+│   │   ├── image/
+│   │   ├── font/
+│   │   ├── dynamic-import/
+│   │   ├── bundlers/               # Turbopack vs Webpack
+│   │   └── web-vitals/             # bundle analysis, Core Web Vitals
+│   ├── errors/
+│   │   ├── error-boundaries/       # error.tsx vs global-error.tsx
+│   │   ├── not-found/              # not-found.tsx, notFound()
+│   │   └── actions-and-handlers/
+│   └── testing/
+│       ├── server-vs-client/
+│       └── mocking-and-actions/
+├── modules/                        # one module per topic, public API via index.ts
+└── shared/                         # topic-agnostic code only
 ```
 
 ## Stack
@@ -202,7 +221,10 @@ app/
 - **Next.js**: latest stable version, App Router only (no `pages/`)
 - **TypeScript**: strict mode
 - **ESLint**
-- **Structure**: one route/segment in `app/` per topic from the scope above
+- **Package manager**: pnpm
+- **Error monitoring**: Sentry (`@sentry/nextjs`) — adopted, wired up in a
+  later stage (see `ROADMAP.md`)
+- **Structure**: `src/` directory, one route segment per topic (see above)
 - **Deployment target**: Vercel
 
 ## Project status
@@ -211,10 +233,88 @@ app/
   the living plan and progress log: check it before starting work, and
   update it (status + change log) in the same change that adds, finishes,
   reorders, or drops an item.
-- The repository currently contains only this `CLAUDE.md`. Previous
-  scaffolding and workflow files were deliberately removed.
-- Next step: initialize the Next.js project (App Router, TypeScript,
-  ESLint, no Pages Router) and create the skeleton from the proposed
-  `app/` structure above: structure and configuration only.
-- After the skeleton is in place, stop and wait for further instructions
-  before implementing individual topic modules.
+- The Next.js app does not exist yet. Next step (see `ROADMAP.md`):
+  initialize the project and create the skeleton from the proposed
+  structure above: structure and configuration only. Then stop and wait
+  for further instructions before implementing individual topic modules.
+- No `package.json` yet, so there are no lint/typecheck/test/architecture
+  commands to run. Add them to this file when the app is scaffolded.
+  Never claim a check passed without actually running it.
+
+## How work happens here
+
+Read every rule under `.claude/rules/` whose `paths:` frontmatter matches
+the file(s) you're about to change before writing code. Run the
+`code-review` skill before considering a change done. See
+`.claude/agents/README.md` for when (rarely) a specialized review agent
+is worth reaching for on top of that.
+
+### Rules
+
+- **App Router conventions** (`.claude/rules/app-router.md`) — Server/client boundaries, Server Actions, data fetching & caching, routing & metadata, and streaming for the Next.js App Router.
+- **App Router server-side security specifics** (`.claude/rules/security-rules.md`) — The parts of a Next.js App Router security model that aren't technology-independent — server-only module boundaries, Server Action and route handler input validation/authorization, and CSRF via the framework's built-in protections.
+- **Design tokens and CSS ownership boundaries** (`.claude/rules/design-tokens.md`) — Where global design tokens live, how to name them, and when to promote a local style value to a global token — independent of any CSS methodology.
+- **End-to-end testing with Playwright** (`.claude/rules/e2e-playwright.md`) — How to scope, select, and write Playwright end-to-end tests so the suite stays fast and stable — critical user journeys only, user-facing locators, no arbitrary waits.
+- **Error boundaries for rendering errors** (`.claude/rules/error-boundaries.md`) — What an Error Boundary does and doesn't catch, where to place them, and why event-handler errors need explicit try/catch instead.
+- **Error handling — rendering vs. Route Handlers vs. Server Actions** (`.claude/rules/error-handling.md`) — Rendering errors are caught by error.tsx/global-error.tsx boundaries, but Route Handlers and Server Actions need explicit try/catch, since nothing catches an uncaught throw in either for you.
+- **Error monitoring and observability** (`.claude/rules/error-monitoring.md`) — Technology-independent principles for capturing and reporting runtime errors — what to capture, what context to attach, and what never to send to a monitoring service.
+- **Fail clearly, never silently** (`.claude/rules/fail-clearly.md`) — Catch only where you can act, never swallow, distinguish expected from unexpected failures, and never leak internals to an external response.
+- **Feature-oriented module architecture** (`.claude/rules/architecture.md`) — app/modules/shared layering with a mandatory public-API boundary (index.ts) per module, dependency direction rules, and "progressive architecture" (start minimal, add structure only when complexity requires it).
+- **Git and project-text conventions** (`.claude/rules/conventions.md`) — English-only project text, small focused commits, and commit only when the user asks.
+- **Integration testing** (`.claude/rules/integration-testing.md`) — How to write integration tests that exercise real collaboration across module/service boundaries, sized correctly in the test pyramid.
+- **Naming conventions** (`.claude/rules/naming-conventions.md`) — camelCase / PascalCase / SCREAMING_SNAKE_CASE only, human-readable names, no abbreviations or single-letter identifiers.
+- **OWASP Top 10 — verify currency, then cross-check** (`.claude/rules/owasp-top-10.md`) — Use the OWASP Top 10 as an audit framework without trusting a stale embedded snapshot of it.
+- **React component, state, and effect fundamentals** (`.claude/rules/component-fundamentals.md`) — State locality and derivation, what useEffect is and isn't for, composition over prop-drilling, when (not) to memoize, and accessibility basics for interactive elements.
+- **Sentry for Next.js (client, server, and edge)** (`.claude/rules/observability-sentry.md`) — Why Next.js needs three separate Sentry config entry points, and where each runtime's errors actually get captured.
+- **SOLID, DRY, and common JS/TS design patterns** (`.claude/rules/solid-dry-design-patterns.md`) — Single responsibility, DRY applied to knowledge rather than text, and the few design patterns that actually earn their complexity.
+- **Strict typing** (`.claude/rules/strict-typing.md`) — Strict mode discipline, avoiding any/as/non-null assertions, discriminated unions and exhaustive switches, validating instead of casting.
+- **Test behavior, not implementation** (`.claude/rules/behavior-over-implementation.md`) — Test observable behavior, and never modify a test just to make an incorrect implementation pass.
+- **Validate at runtime with Zod** (`.claude/rules/runtime-validation.md`) — Types are erased at runtime; validate data crossing a trust boundary with a Zod schema and infer types from it instead of casting.
+- **Validate at trust boundaries** (`.claude/rules/trust-boundary-validation.md`) — Validate untrusted input where it enters, never treat client-side validation as security, check authentication and authorization separately, keep secrets out of source and client bundles.
+
+### Skills
+
+- **Code review** (`.claude/skills/code-review/`) — Review the current diff against `checklist.md`, `nextjs-checklist.md`, and every rule whose `paths:` matches a changed file. Use after implementing a change and before considering it done.
+- **Explore** (`.claude/skills/explore/`) — Deep, isolated repository search (forked) for finding an existing pattern, convention, or usage across many files. Use for broad/unclear searches, not small lookups.
+- **Project Knowledge Base management** (`.claude/skills/knowledge/`) — Assess, init, search, load, update, and compress the per-project Knowledge Base (index-first, always ask before load/save). Knowledge is not initialized yet, so none of its automatic behavior runs.
+
+### Agents
+
+- **Architecture reviewer** (`.claude/agents/architecture-reviewer.md`) — Read-only; the semantic architecture judgment calls a mechanical dependency check can't make.
+- **Next.js App Router reviewer** (`.claude/agents/nextjs-reviewer.md`) — Read-only; correct App Router usage — routing, Server/Client Component placement, data fetching, Server Actions, metadata, and streaming.
+- **Performance reviewer** (`.claude/agents/performance-reviewer.md`) — Read-only; Server/Client boundary cost, data fetching & caching, rendering cost, algorithmic efficiency.
+- **Security auditor** (`.claude/agents/security-auditor.md`) — Read-only; Server Actions, route handlers, server/client data exposure, secrets, dependencies.
+
+### Hooks (enforced automatically — not something to remember by hand)
+
+Registered in `.claude/settings.json`. Require `jq` and `python3` on the
+machine.
+
+- **Credential guard** (`.claude/hooks/credential-guard.py`) — Blocks Write/Edit/NotebookEdit calls whose content matches a hardcoded credential pattern, redacting the match in its own message.
+- **Protect main branch** (`.claude/hooks/protect-main-branch.sh`) — Blocks `git commit` and direct `git push` against main/master. Known false positive: `git push origin --delete <branch>` is also blocked while on main, so run branch deletes from a feature branch. Do not work around the hook otherwise.
+- **Protect sensitive files** (`.claude/hooks/protect-files.sh`) — Blocks Write/Edit against env files, the lockfile (`pnpm-lock.yaml`), and `.git/`, with `.example`/`.sample`/`.template` exceptions.
+
+### Tooling templates (`claude-config/`)
+
+Config files that back the rules mechanically but are not wired up yet,
+because the app does not exist. Move them into place when scaffolding
+(tracked in `ROADMAP.md`):
+
+- `dependency-cruiser.cjs` — enforces `.claude/rules/architecture.md`
+  (to become the `architecture:check` script).
+- `eslint.config.js` — naming and SOLID/DRY proxy rules; merge into the
+  project's ESLint flat config rather than replacing it.
+- `sentry.{client,server,edge}.config.ts` — Sentry wiring per
+  `.claude/rules/observability-sentry.md`; adopted, to be wired after the
+  skeleton exists.
+
+## Adapting this file
+
+`.claude/` and the workflow sections of this file were generated by
+[`ai-engineering-system`](https://github.com/kszaffner/ai-engineering-system)
+from a technology profile — treat them as a starting point for this
+specific project, not a fixed artifact to keep regenerating in place.
+Add project-specific rules under `.claude/rules/` as real needs come up.
+Add a new specialized agent only for a demonstrated, recurring,
+non-overlapping review need — never speculatively (see
+`.claude/agents/README.md`).
