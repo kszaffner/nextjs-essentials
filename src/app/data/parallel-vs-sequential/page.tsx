@@ -1,7 +1,8 @@
-import { TopicPlaceholder, getTopicMetadata } from "@/modules/topic-catalog";
+import { FetchingStrategiesTopic } from "@/modules/parallel-vs-sequential";
+import { getTopicMetadata } from "@/modules/topic-catalog";
 
 export const metadata = getTopicMetadata("/data/parallel-vs-sequential");
 
 export default function Page() {
-  return <TopicPlaceholder href="/data/parallel-vs-sequential" />;
+  return <FetchingStrategiesTopic />;
 }
