@@ -1,7 +1,8 @@
-import { TopicPlaceholder, getTopicMetadata } from "@/modules/topic-catalog";
+import { CompositionTopic } from "@/modules/composition";
+import { getTopicMetadata } from "@/modules/topic-catalog";
 
 export const metadata = getTopicMetadata("/components/composition");
 
 export default function Page() {
-  return <TopicPlaceholder href="/components/composition" />;
+  return <CompositionTopic />;
 }
