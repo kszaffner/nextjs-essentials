@@ -21,8 +21,8 @@ Status values: `planned` · `in progress` · `done` · `blocked` · `dropped`
 
 ## Current focus
 
-- **Now:** PR 6 — S1-03 + S1-04 + S1-05 (parallel routes, intercepting routes, navigation)
-- **Next:** PR 7 — S2-01..S2-03 + S3-01 (Server vs Client Components, static vs dynamic)
+- **Now:** PR 7 — S2-01..S2-03 + S3-01 (Server vs Client Components, static vs dynamic)
+- **Next:** PR 8 — S3-02, S3-03, S3-04, S4-01 (ISR, streaming, PPR, `fetch()` extensions)
 - **Open:** S0-07 (first Vercel deployment) waits on connecting the Vercel project to the repo
 
 ## Delivery plan (13 PRs)
@@ -38,8 +38,8 @@ item is tracked in the stage tables below.
 | 3  | S0-06 + S0-08                          | Test tooling, dependency-cruiser, ESLint rules | merged |
 | 4  | S0-07 + S0-09                          | First Vercel deployment, Sentry | merged (S0-07 open) |
 | 5  | S1-01 + S1-02                          | File conventions, dynamic segments | merged |
-| 6  | S1-03 + S1-04 + S1-05                  | Parallel routes, intercepting routes, navigation | in review |
-| 7  | S2-01 + S2-02 + S2-03 + S3-01          | Server vs Client Components, static vs dynamic rendering | planned |
+| 6  | S1-03 + S1-04 + S1-05                  | Parallel routes, intercepting routes, navigation | merged |
+| 7  | S2-01 + S2-02 + S2-03 + S3-01          | Server vs Client Components, static vs dynamic rendering | in review |
 | 8  | S3-02 + S3-03 + S3-04 + S4-01          | ISR, streaming, PPR, `fetch()` extensions | planned |
 | 9  | S4-02 + S4-03 + S4-04 + S4-05          | Cache layers, parallel fetching, revalidation, `"use cache"` migration | planned |
 | 10 | S5-01 + S5-02 + S5-03 + S5-04          | Server Actions and forms | planned |
@@ -75,15 +75,15 @@ item is tracked in the stage tables below.
 
 | ID    | Item                                                      | Route / location                   | Status  | Notes |
 | ----- | --------------------------------------------------------- | ---------------------------------- | ------- | ----- |
-| S2-01 | The `"use client"` boundary and prop serialization rules | `/components/use-client-boundary`  | planned |       |
-| S2-02 | Composition: Client Components as `children`             | `/components/composition`          | planned |       |
-| S2-03 | Server Component defaults and common pitfalls             | `/components/pitfalls`             | planned |       |
+| S2-01 | The `"use client"` boundary and prop serialization rules | `/components/use-client-boundary`  | done    | `src/modules/use-client-boundary`; arrival of each prop type checked in a browser; found: an `undefined` object property loses its key |
+| S2-02 | Composition: Client Components as `children`             | `/components/composition`          | done    | `src/modules/composition`; `server-only` marker present in HTML, absent from every client chunk |
+| S2-03 | Server Component defaults and common pitfalls             | `/components/pitfalls`             | done    | `src/modules/component-pitfalls`; error messages captured from real builds; client-leaf text absent from client chunks, all-client text present |
 
 ## Stage 3: Rendering strategies
 
 | ID    | Item                                                         | Route / location               | Status  | Notes |
 | ----- | ------------------------------------------------------------ | ------------------------------ | ------- | ----- |
-| S3-01 | Static vs dynamic rendering: when Next.js picks each         | `/rendering/static-vs-dynamic` | planned |       |
+| S3-01 | Static vs dynamic rendering: when Next.js picks each         | `/rendering/static-vs-dynamic` | done    | `src/modules/static-vs-dynamic`; ○/◐ build output and response headers (`x-nextjs-postponed`, `s-maxage`) verified |
 | S3-02 | ISR: `revalidate`, on-demand revalidation                    | `/rendering/isr`               | planned |       |
 | S3-03 | Streaming: `loading.tsx`, `<Suspense>` in the server tree    | `/rendering/streaming`         | planned |       |
 | S3-04 | PPR: `"use cache"`, `cacheLife`, `cacheTag`                  | `/rendering/ppr`               | planned |       |
@@ -158,6 +158,7 @@ Unscheduled candidates. Promote an item to a stage when it is planned.
 
 Newest first. One line per change: date, IDs, what changed.
 
+- 2026-10-03: S2-01, S2-02, S2-03, S3-01 done (PR 7); added `server-only`.
 - 2026-10-03: S1-03, S1-04, S1-05 done (PR 6); delivery plan regrouped from
   20 to 13 PRs (8 remaining after PR 5).
 - 2026-10-03: S1-01, S1-02 done (PR 5) — first real topics. The sidebar
