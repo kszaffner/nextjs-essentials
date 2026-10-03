@@ -1,0 +1,28 @@
+.list {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+  list-style: none;
+}
+
+.strategy {
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  font-size: var(--font-size-sm);
+}
+
+.strategyTitle {
+  font-weight: var(--font-weight-bold);
+}
+
+.readout {
+  margin-top: var(--space-1);
+  font-family: var(--font-family-mono);
+}
+
+.hint {
+  margin-top: var(--space-1);
+  color: var(--color-fg-muted);
+}

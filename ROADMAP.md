@@ -21,8 +21,8 @@ Status values: `planned` · `in progress` · `done` · `blocked` · `dropped`
 
 ## Current focus
 
-- **Now:** PR 8 — S3-02, S3-03, S3-04, S4-01 (ISR, streaming, PPR, `fetch()` extensions)
-- **Next:** PR 9 — S4-02..S4-05 (cache layers, parallel fetching, revalidation, `"use cache"` migration)
+- **Now:** PR 9 — S4-02..S4-05 (cache layers, parallel fetching, revalidation, `"use cache"` migration)
+- **Next:** PR 10 — S5-01..S5-04 (Server Actions and forms)
 - **Open:** S0-07 (first Vercel deployment) waits on connecting the Vercel project to the repo
 
 ## Delivery plan (13 PRs)
@@ -40,8 +40,8 @@ item is tracked in the stage tables below.
 | 5  | S1-01 + S1-02                          | File conventions, dynamic segments | merged |
 | 6  | S1-03 + S1-04 + S1-05                  | Parallel routes, intercepting routes, navigation | merged |
 | 7  | S2-01 + S2-02 + S2-03 + S3-01          | Server vs Client Components, static vs dynamic rendering | merged |
-| 8  | S3-02 + S3-03 + S3-04 + S4-01          | ISR, streaming, PPR, `fetch()` extensions | in review |
-| 9  | S4-02 + S4-03 + S4-04 + S4-05          | Cache layers, parallel fetching, revalidation, `"use cache"` migration | planned |
+| 8  | S3-02 + S3-03 + S3-04 + S4-01          | ISR, streaming, PPR, `fetch()` extensions | merged |
+| 9  | S4-02 + S4-03 + S4-04 + S4-05          | Cache layers, parallel fetching, revalidation, `"use cache"` migration | in review |
 | 10 | S5-01 + S5-02 + S5-03 + S5-04          | Server Actions and forms | planned |
 | 11 | S6-01 + S6-02 + S6-03 + S7-01 + S7-02 + S7-03 | Route Handlers, proxy, runtimes, error handling | planned |
 | 12 | S8-01 + S8-02 + S8-03 + S9-01 + S9-02 + S9-03 | Metadata and SEO, image, font, dynamic import | planned |
@@ -93,10 +93,10 @@ item is tracked in the stage tables below.
 | ID    | Item                                                               | Route / location               | Status  | Notes |
 | ----- | ------------------------------------------------------------------ | ------------------------------ | ------- | ----- |
 | S4-01 | `fetch()` extensions: `cache`, `next.revalidate`, `next.tags`      | `/data/fetch-extensions`       | done    | `src/modules/fetch-extensions`; every option verified against a counting API; tags alone do not cache; needs `SITE_ORIGIN` in production |
-| S4-02 | Cache layers: Data, Full Route, Router cache, Request Memoization  | `/data/cache-layers`           | planned |       |
-| S4-03 | Parallel vs sequential fetching, the waterfall problem             | `/data/parallel-vs-sequential` | planned |       |
-| S4-04 | `revalidatePath` / `revalidateTag`                                 | `/data/revalidation`           | planned |       |
-| S4-05 | Migrating `unstable_cache` to `"use cache"`                        | `/data/use-cache-migration`    | planned |       |
+| S4-02 | Cache layers: Data, Full Route, Router cache, Request Memoization  | `/data/cache-layers`           | done    | `src/modules/cache-layers`; found: a Link re-renders dynamic content while back/forward restores the kept page; `router.refresh()` leaves server caches alone |
+| S4-03 | Parallel vs sequential fetching, the waterfall problem             | `/data/parallel-vs-sequential` | done    | `src/modules/parallel-vs-sequential`; measured 1800 ms sequential/waterfall vs 600 ms parallel/siblings; `use()` with a server-started promise |
+| S4-04 | `revalidatePath` / `revalidateTag`                                 | `/data/revalidation`           | done    | `src/modules/revalidation`; `updateTag` and `revalidatePath` immediate, `revalidateTag(..., "max")` needs later visits, `refresh()` does not invalidate |
+| S4-05 | Migrating `unstable_cache` to `"use cache"`                        | `/data/use-cache-migration`    | done    | `src/modules/use-cache-migration`; cache key from arguments verified; `unstable_cache` still builds, `unstable_noStore` does not make a route dynamic, six route configs rejected |
 
 ## Stage 5: Server Actions and forms
 
@@ -158,6 +158,7 @@ Unscheduled candidates. Promote an item to a stage when it is planned.
 
 Newest first. One line per change: date, IDs, what changed.
 
+- 2026-10-03: S4-02, S4-03, S4-04, S4-05 done (PR 9) — Stage 4 complete.
 - 2026-10-03: S3-02, S3-03, S3-04, S4-01 done (PR 8); added `zod` and the
   first Route Handler (`/api/fetch-extensions/clock`).
 - 2026-10-03: S2-01, S2-02, S2-03, S3-01 done (PR 7); added `server-only`.
