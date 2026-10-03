@@ -1,0 +1,48 @@
+.frame {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+@media (min-width: 40rem) {
+  .frame {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.panel {
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.slotName {
+  color: var(--color-fg-muted);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+}
+
+.title {
+  margin-top: var(--space-1);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+}
+
+.body {
+  margin-top: var(--space-2);
+  font-size: var(--font-size-sm);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin-top: var(--space-3);
+  list-style: none;
+  font-size: var(--font-size-sm);
+}
+
+.links a {
+  color: var(--color-primary);
+}
