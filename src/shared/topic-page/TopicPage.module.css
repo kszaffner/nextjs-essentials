@@ -1,0 +1,36 @@
+.summary {
+  margin-top: var(--space-2);
+  color: var(--color-fg-muted);
+}
+
+.section {
+  margin-top: var(--space-8);
+}
+
+.content {
+  margin-top: var(--space-3);
+}
+
+.questions {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  list-style: none;
+}
+
+.question {
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.question summary {
+  cursor: pointer;
+  font-weight: var(--font-weight-medium);
+}
+
+.answer {
+  margin-top: var(--space-2);
+  color: var(--color-fg-muted);
+}
