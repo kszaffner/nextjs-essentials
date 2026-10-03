@@ -1,7 +1,8 @@
-import { TopicPlaceholder, getTopicMetadata } from "@/modules/topic-catalog";
+import { IsrTopic } from "@/modules/isr";
+import { getTopicMetadata } from "@/modules/topic-catalog";
 
 export const metadata = getTopicMetadata("/rendering/isr");
 
 export default function Page() {
-  return <TopicPlaceholder href="/rendering/isr" />;
+  return <IsrTopic />;
 }

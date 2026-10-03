@@ -21,8 +21,8 @@ Status values: `planned` · `in progress` · `done` · `blocked` · `dropped`
 
 ## Current focus
 
-- **Now:** PR 7 — S2-01..S2-03 + S3-01 (Server vs Client Components, static vs dynamic)
-- **Next:** PR 8 — S3-02, S3-03, S3-04, S4-01 (ISR, streaming, PPR, `fetch()` extensions)
+- **Now:** PR 8 — S3-02, S3-03, S3-04, S4-01 (ISR, streaming, PPR, `fetch()` extensions)
+- **Next:** PR 9 — S4-02..S4-05 (cache layers, parallel fetching, revalidation, `"use cache"` migration)
 - **Open:** S0-07 (first Vercel deployment) waits on connecting the Vercel project to the repo
 
 ## Delivery plan (13 PRs)
@@ -39,8 +39,8 @@ item is tracked in the stage tables below.
 | 4  | S0-07 + S0-09                          | First Vercel deployment, Sentry | merged (S0-07 open) |
 | 5  | S1-01 + S1-02                          | File conventions, dynamic segments | merged |
 | 6  | S1-03 + S1-04 + S1-05                  | Parallel routes, intercepting routes, navigation | merged |
-| 7  | S2-01 + S2-02 + S2-03 + S3-01          | Server vs Client Components, static vs dynamic rendering | in review |
-| 8  | S3-02 + S3-03 + S3-04 + S4-01          | ISR, streaming, PPR, `fetch()` extensions | planned |
+| 7  | S2-01 + S2-02 + S2-03 + S3-01          | Server vs Client Components, static vs dynamic rendering | merged |
+| 8  | S3-02 + S3-03 + S3-04 + S4-01          | ISR, streaming, PPR, `fetch()` extensions | in review |
 | 9  | S4-02 + S4-03 + S4-04 + S4-05          | Cache layers, parallel fetching, revalidation, `"use cache"` migration | planned |
 | 10 | S5-01 + S5-02 + S5-03 + S5-04          | Server Actions and forms | planned |
 | 11 | S6-01 + S6-02 + S6-03 + S7-01 + S7-02 + S7-03 | Route Handlers, proxy, runtimes, error handling | planned |
@@ -84,15 +84,15 @@ item is tracked in the stage tables below.
 | ID    | Item                                                         | Route / location               | Status  | Notes |
 | ----- | ------------------------------------------------------------ | ------------------------------ | ------- | ----- |
 | S3-01 | Static vs dynamic rendering: when Next.js picks each         | `/rendering/static-vs-dynamic` | done    | `src/modules/static-vs-dynamic`; ○/◐ build output and response headers (`x-nextjs-postponed`, `s-maxage`) verified |
-| S3-02 | ISR: `revalidate`, on-demand revalidation                    | `/rendering/isr`               | planned |       |
-| S3-03 | Streaming: `loading.tsx`, `<Suspense>` in the server tree    | `/rendering/streaming`         | planned |       |
-| S3-04 | PPR: `"use cache"`, `cacheLife`, `cacheTag`                  | `/rendering/ppr`               | planned |       |
+| S3-02 | ISR: `revalidate`, on-demand revalidation                    | `/rendering/isr`               | done    | `src/modules/isr`; `use cache` + `cacheLife` + `revalidateTag`; found: `export const revalidate` is rejected with `cacheComponents`; stale-then-fresh verified |
+| S3-03 | Streaming: `loading.tsx`, `<Suspense>` in the server tree    | `/rendering/streaming`         | done    | `src/modules/streaming`; measured chunk arrival (shell ~26 ms, blocks ~0.34/1.24/2.44 s); shared boundary renders children in parallel |
+| S3-04 | PPR: `"use cache"`, `cacheLife`, `cacheTag`                  | `/rendering/ppr`               | done    | `src/modules/ppr`; shell vs hole verified on a production build; `cacheLife` thresholds from the shipped docs |
 
 ## Stage 4: Data fetching and caching
 
 | ID    | Item                                                               | Route / location               | Status  | Notes |
 | ----- | ------------------------------------------------------------------ | ------------------------------ | ------- | ----- |
-| S4-01 | `fetch()` extensions: `cache`, `next.revalidate`, `next.tags`      | `/data/fetch-extensions`       | planned |       |
+| S4-01 | `fetch()` extensions: `cache`, `next.revalidate`, `next.tags`      | `/data/fetch-extensions`       | done    | `src/modules/fetch-extensions`; every option verified against a counting API; tags alone do not cache; needs `SITE_ORIGIN` in production |
 | S4-02 | Cache layers: Data, Full Route, Router cache, Request Memoization  | `/data/cache-layers`           | planned |       |
 | S4-03 | Parallel vs sequential fetching, the waterfall problem             | `/data/parallel-vs-sequential` | planned |       |
 | S4-04 | `revalidatePath` / `revalidateTag`                                 | `/data/revalidation`           | planned |       |
@@ -158,6 +158,8 @@ Unscheduled candidates. Promote an item to a stage when it is planned.
 
 Newest first. One line per change: date, IDs, what changed.
 
+- 2026-10-03: S3-02, S3-03, S3-04, S4-01 done (PR 8); added `zod` and the
+  first Route Handler (`/api/fetch-extensions/clock`).
 - 2026-10-03: S2-01, S2-02, S2-03, S3-01 done (PR 7); added `server-only`.
 - 2026-10-03: S1-03, S1-04, S1-05 done (PR 6); delivery plan regrouped from
   20 to 13 PRs (8 remaining after PR 5).
