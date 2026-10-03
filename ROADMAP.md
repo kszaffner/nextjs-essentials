@@ -21,8 +21,8 @@ Status values: `planned` · `in progress` · `done` · `blocked` · `dropped`
 
 ## Current focus
 
-- **Now:** PR 3 — S0-06 + S0-08 (test tooling, architecture check)
-- **Next:** PR 4 — S0-07 + S0-09 (first deployment, Sentry)
+- **Now:** PR 4 — S0-07 + S0-09 (first deployment, Sentry)
+- **Next:** PR 5 — S1-01 + S1-02 (file conventions, dynamic segments)
 
 ## Delivery plan (20 PRs)
 
@@ -61,9 +61,9 @@ item is tracked in the stage tables below.
 | S0-03 | Skeleton: empty route segments from the proposed structure                            | `src/app/`           | done    | 37 placeholder topic pages; `sitemap`, `robots`, `proxy`, `global-error`, `not-found`, `api/` land with their own topics |
 | S0-04 | Root layout, topic navigation, and topic index page                                   | `src/app/layout.tsx`, `src/app/page.tsx` | done    | Topic list lives in `src/modules/topic-catalog`; layout shell in `src/shared/layout` |
 | S0-05 | Shared topic page template (Basics / Edge cases / Interview questions)                | `src/shared/topic-page/` | done    | `TopicPage`; topic placeholders now render through it |
-| S0-06 | Test tooling for Server/Client Components and Server Actions                          | repo root            | planned |       |
+| S0-06 | Test tooling for Server/Client Components and Server Actions                          | repo root            | done    | Vitest + Testing Library (jsdom); `async` Server Components go to E2E |
 | S0-07 | First Vercel deployment                                                               | Vercel               | planned |       |
-| S0-08 | Wire `claude-config/` templates: dependency-cruiser (`architecture:check`), ESLint rules | repo root         | planned |       |
+| S0-08 | Wire `claude-config/` templates: dependency-cruiser (`architecture:check`), ESLint rules | repo root         | done    | `architecture:check` verified against throwaway violations; ESLint rules merged |
 | S0-09 | Wire Sentry: `claude-config/sentry.*.config.ts`, `instrumentation.ts`, `withSentryConfig` | repo root         | planned | Adopted 2026-09-28; wire after the skeleton exists |
 
 ## Stage 1: App Router fundamentals
@@ -163,6 +163,9 @@ Unscheduled candidates. Promote an item to a stage when it is planned.
 
 Newest first. One line per change: date, IDs, what changed.
 
+- 2026-10-03: S0-06, S0-08 done (PR 3) — Vitest, `architecture:check`, ESLint
+  naming/SOLID rules; `pnpm check` now runs all four checks. Fixed the
+  public-API rule in `dependency-cruiser.cjs` so `index.ts` files are checked too.
 - 2026-10-03: S0-05 done (PR 2) — shared `TopicPage` template with Basics,
   Edge cases, and Interview questions sections.
 - 2026-10-03: S0-03, S0-04 done (PR 1) — route skeleton with placeholder

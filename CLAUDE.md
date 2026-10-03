@@ -253,11 +253,15 @@ pnpm dev          # dev server (Turbopack)
 pnpm build        # production build
 pnpm lint         # eslint
 pnpm typecheck    # next typegen (route types, e.g. LayoutProps) + tsc --noEmit
-pnpm check        # lint + typecheck
+pnpm test         # vitest run (jsdom, Testing Library)
+pnpm test:watch   # vitest in watch mode
+pnpm architecture:check  # dependency-cruiser against .claude/rules/architecture.md
+pnpm check        # lint + typecheck + architecture:check + test
 ```
 
-`test` and `architecture:check` are added with S0-06 and S0-08. Never
-claim a check passed without actually running it.
+Vitest cannot render `async` Server Components; unit-test the synchronous
+ones and cover `async` ones with E2E. Never claim a check passed without
+actually running it.
 
 ## How work happens here
 
@@ -314,17 +318,12 @@ machine.
 
 ### Tooling templates (`claude-config/`)
 
-Config files that back the rules mechanically but are not wired up yet,
-because the app does not exist. Move them into place when scaffolding
-(tracked in `ROADMAP.md`):
+The ESLint and dependency-cruiser templates are wired in
+(`eslint.config.mjs`, `dependency-cruiser.cjs`). What remains here are the
+Sentry templates, not wired up yet (tracked in `ROADMAP.md`):
 
-- `dependency-cruiser.cjs` — enforces `.claude/rules/architecture.md`
-  (to become the `architecture:check` script).
-- `eslint.config.js` — naming and SOLID/DRY proxy rules; merge into the
-  project's ESLint flat config rather than replacing it.
 - `sentry.{client,server,edge}.config.ts` — Sentry wiring per
-  `.claude/rules/observability-sentry.md`; adopted, to be wired after the
-  skeleton exists.
+  `.claude/rules/observability-sentry.md`; adopted, to be wired in S0-09.
 
 ## Adapting this file
 
