@@ -21,37 +21,31 @@ Status values: `planned` · `in progress` · `done` · `blocked` · `dropped`
 
 ## Current focus
 
-- **Now:** PR 5 — S1-01 + S1-02 (file conventions, dynamic segments)
-- **Next:** PR 6 — S1-03 + S1-04 (parallel and intercepting routes)
+- **Now:** PR 6 — S1-03 + S1-04 + S1-05 (parallel routes, intercepting routes, navigation)
+- **Next:** PR 7 — S2-01..S2-03 + S3-01 (Server vs Client Components, static vs dynamic)
 - **Open:** S0-07 (first Vercel deployment) waits on connecting the Vercel project to the repo
 
-## Delivery plan (20 PRs)
+## Delivery plan (13 PRs)
 
-Roadmap items are delivered in 20 PRs, grouped by theme. Status of each
+Roadmap items are delivered in 13 PRs, grouped by theme (regrouped on
+2026-10-03 from the original 20 to reduce review overhead). Status of each
 item is tracked in the stage tables below.
 
-| PR | Items                      | Scope |
-| -- | -------------------------- | ----- |
-| 1  | S0-03 + S0-04              | Route skeleton, root layout, topic navigation, index page |
-| 2  | S0-05                      | Shared topic page template |
-| 3  | S0-06 + S0-08              | Test tooling, dependency-cruiser, ESLint rules |
-| 4  | S0-07 + S0-09              | First Vercel deployment, Sentry |
-| 5  | S1-01 + S1-02              | File conventions, dynamic segments |
-| 6  | S1-03 + S1-04              | Parallel and intercepting routes |
-| 7  | S1-05                      | Navigation and prefetching |
-| 8  | S2-01 + S2-02 + S2-03      | Server vs Client Components |
-| 9  | S3-01 + S3-02              | Static vs dynamic, ISR |
-| 10 | S3-03 + S3-04              | Streaming, PPR |
-| 11 | S4-01 + S4-02              | `fetch()` extensions, cache layers |
-| 12 | S4-03 + S4-04 + S4-05      | Parallel fetching, revalidation, `"use cache"` migration |
-| 13 | S5-01 + S5-02              | Server Actions, forms |
-| 14 | S5-03 + S5-04              | Form hooks, validation and redirect |
-| 15 | S6-01 + S6-02 + S6-03      | Route Handlers, proxy, runtimes |
-| 16 | S7-01 + S7-02 + S7-03      | Error handling |
-| 17 | S8-01 + S8-02 + S8-03      | Metadata and SEO |
-| 18 | S9-01 + S9-02 + S9-03      | Image, font, dynamic import |
-| 19 | S9-04 + S9-05              | Bundlers, Web Vitals |
-| 20 | S10-01 + S10-02            | Testing |
+| PR | Items                                  | Scope | Status |
+| -- | -------------------------------------- | ----- | ------ |
+| 1  | S0-03 + S0-04                          | Route skeleton, root layout, topic navigation, index page | merged |
+| 2  | S0-05                                  | Shared topic page template | merged |
+| 3  | S0-06 + S0-08                          | Test tooling, dependency-cruiser, ESLint rules | merged |
+| 4  | S0-07 + S0-09                          | First Vercel deployment, Sentry | merged (S0-07 open) |
+| 5  | S1-01 + S1-02                          | File conventions, dynamic segments | merged |
+| 6  | S1-03 + S1-04 + S1-05                  | Parallel routes, intercepting routes, navigation | in review |
+| 7  | S2-01 + S2-02 + S2-03 + S3-01          | Server vs Client Components, static vs dynamic rendering | planned |
+| 8  | S3-02 + S3-03 + S3-04 + S4-01          | ISR, streaming, PPR, `fetch()` extensions | planned |
+| 9  | S4-02 + S4-03 + S4-04 + S4-05          | Cache layers, parallel fetching, revalidation, `"use cache"` migration | planned |
+| 10 | S5-01 + S5-02 + S5-03 + S5-04          | Server Actions and forms | planned |
+| 11 | S6-01 + S6-02 + S6-03 + S7-01 + S7-02 + S7-03 | Route Handlers, proxy, runtimes, error handling | planned |
+| 12 | S8-01 + S8-02 + S8-03 + S9-01 + S9-02 + S9-03 | Metadata and SEO, image, font, dynamic import | planned |
+| 13 | S9-04 + S9-05 + S10-01 + S10-02        | Bundlers, Web Vitals, testing | planned |
 
 ## Stage 0: Foundation
 
@@ -73,9 +67,9 @@ item is tracked in the stage tables below.
 | ----- | --------------------------------------------------------------------------------------------- | ------------------------------------ | ------- | ----- |
 | S1-01 | File conventions: page, layout, template, loading, error, not-found, route groups, private folders | `/fundamentals/file-conventions`     | done    | `src/modules/file-conventions`; demo checked in a browser (layout vs template, loading, error, not-found, group, private) |
 | S1-02 | Dynamic segments: `[slug]`, `[...slug]`, `[[...slug]]`                                        | `/fundamentals/dynamic-segments`     | done    | `src/modules/dynamic-segments`; found: `dynamicParams` is rejected with `cacheComponents`, params arrive percent-encoded |
-| S1-03 | Parallel routes (`@slot`)                                                                     | `/fundamentals/parallel-routes`      | planned |       |
-| S1-04 | Intercepting routes (`(.)folder`)                                                             | `/fundamentals/intercepting-routes`  | planned |       |
-| S1-05 | Navigation: `<Link>`, `useRouter`, `usePathname`, `useSearchParams`, prefetching              | `/fundamentals/navigation`           | planned |       |
+| S1-03 | Parallel routes (`@slot`)                                                                     | `/fundamentals/parallel-routes`      | done    | `src/modules/parallel-routes`; soft vs hard navigation and `default.tsx` verified in a browser |
+| S1-04 | Intercepting routes (`(.)folder`)                                                             | `/fundamentals/intercepting-routes`  | done    | `src/modules/intercepting-routes`; gallery modal with `@modal/(.)photo/[id]`, verified: soft click, hard load, Escape, back/forward |
+| S1-05 | Navigation: `<Link>`, `useRouter`, `usePathname`, `useSearchParams`, prefetching              | `/fundamentals/navigation`           | done    | `src/modules/navigation`; verified: push/replace/refresh, production prefetch; `useSearchParams` needs Suspense under `cacheComponents` |
 
 ## Stage 2: Server Components vs Client Components
 
@@ -164,6 +158,8 @@ Unscheduled candidates. Promote an item to a stage when it is planned.
 
 Newest first. One line per change: date, IDs, what changed.
 
+- 2026-10-03: S1-03, S1-04, S1-05 done (PR 6); delivery plan regrouped from
+  20 to 13 PRs (8 remaining after PR 5).
 - 2026-10-03: S1-01, S1-02 done (PR 5) — first real topics. The sidebar
   links are now wrapped in `<Suspense>` (`usePathname()` is runtime data on
   routes with dynamic params under Cache Components).
