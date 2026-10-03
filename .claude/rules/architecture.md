@@ -35,7 +35,7 @@ Forbidden:
 - circular dependencies of any length (`A → B → A`, or longer cycles)
 
 These are enforced mechanically by an architecture-enforcement tool (see
-`claude-config/dependency-cruiser.cjs`) — do not rely on review alone to catch
+`dependency-cruiser.cjs`) — do not rely on review alone to catch
 violations, run the check.
 
 ## Direct dependency vs. page-level composition
