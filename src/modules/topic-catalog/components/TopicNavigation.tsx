@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { Suspense } from "react";
 import { topicGroups } from "../topics";
 import { NavigationLink } from "./NavigationLink";
 import styles from "./TopicNavigation.module.css";
@@ -11,7 +13,18 @@ export function TopicNavigation() {
           <ul className={styles.list}>
             {group.topics.map((topic) => (
               <li key={topic.href}>
-                <NavigationLink href={topic.href}>{topic.title}</NavigationLink>
+                {/* usePathname() is runtime data on routes with dynamic params, so
+                    it needs a boundary; the fallback is the same link without
+                    the active state. */}
+                <Suspense
+                  fallback={
+                    <Link href={topic.href} className={styles.link}>
+                      {topic.title}
+                    </Link>
+                  }
+                >
+                  <NavigationLink href={topic.href}>{topic.title}</NavigationLink>
+                </Suspense>
               </li>
             ))}
           </ul>

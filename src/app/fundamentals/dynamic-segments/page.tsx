@@ -1,7 +1,8 @@
-import { TopicPlaceholder, getTopicMetadata } from "@/modules/topic-catalog";
+import { DynamicSegmentsTopic } from "@/modules/dynamic-segments";
+import { getTopicMetadata } from "@/modules/topic-catalog";
 
 export const metadata = getTopicMetadata("/fundamentals/dynamic-segments");
 
 export default function Page() {
-  return <TopicPlaceholder href="/fundamentals/dynamic-segments" />;
+  return <DynamicSegmentsTopic />;
 }
