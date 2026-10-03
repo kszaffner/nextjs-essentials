@@ -21,7 +21,7 @@ Status values: `planned` · `in progress` · `done` · `blocked` · `dropped`
 
 ## Current focus
 
-- **Now:** PR 4 — S0-07 + S0-09 (first deployment, Sentry)
+- **Now:** PR 4 — S0-07 + S0-09 (Sentry wired; first deployment waits on connecting the Vercel project)
 - **Next:** PR 5 — S1-01 + S1-02 (file conventions, dynamic segments)
 
 ## Delivery plan (20 PRs)
@@ -62,9 +62,9 @@ item is tracked in the stage tables below.
 | S0-04 | Root layout, topic navigation, and topic index page                                   | `src/app/layout.tsx`, `src/app/page.tsx` | done    | Topic list lives in `src/modules/topic-catalog`; layout shell in `src/shared/layout` |
 | S0-05 | Shared topic page template (Basics / Edge cases / Interview questions)                | `src/shared/topic-page/` | done    | `TopicPage`; topic placeholders now render through it |
 | S0-06 | Test tooling for Server/Client Components and Server Actions                          | repo root            | done    | Vitest + Testing Library (jsdom); `async` Server Components go to E2E |
-| S0-07 | First Vercel deployment                                                               | Vercel               | planned |       |
+| S0-07 | First Vercel deployment                                                               | Vercel               | in progress | Needs the Vercel project connected to the GitHub repo |
 | S0-08 | Wire `claude-config/` templates: dependency-cruiser (`architecture:check`), ESLint rules | repo root         | done    | `architecture:check` verified against throwaway violations; ESLint rules merged |
-| S0-09 | Wire Sentry: `claude-config/sentry.*.config.ts`, `instrumentation.ts`, `withSentryConfig` | repo root         | planned | Adopted 2026-09-28; wire after the skeleton exists |
+| S0-09 | Wire Sentry: `claude-config/sentry.*.config.ts`, `instrumentation.ts`, `withSentryConfig` | repo root         | done    | `@sentry/nextjs` 11: `withSentryConfig` is imported from `@sentry/nextjs/config`; no DSN = SDK no-op |
 
 ## Stage 1: App Router fundamentals
 
@@ -163,6 +163,8 @@ Unscheduled candidates. Promote an item to a stage when it is planned.
 
 Newest first. One line per change: date, IDs, what changed.
 
+- 2026-10-03: S0-09 done, S0-07 in progress (PR 4) — Sentry wired for client,
+  server, and edge; release from `VERCEL_GIT_COMMIT_SHA`; `.env.example` added.
 - 2026-10-03: S0-06, S0-08 done (PR 3) — Vitest, `architecture:check`, ESLint
   naming/SOLID rules; `pnpm check` now runs all four checks. Fixed the
   public-API rule in `dependency-cruiser.cjs` so `index.ts` files are checked too.

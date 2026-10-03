@@ -230,8 +230,9 @@ src/
 - **Styling**: CSS Modules + design tokens as CSS custom properties in
   `src/shared/styles/` (see `.claude/rules/design-tokens.md`); no Tailwind
 - **Package manager**: pnpm
-- **Error monitoring**: Sentry (`@sentry/nextjs`) — adopted, wired up in a
-  later stage (see `ROADMAP.md`)
+- **Error monitoring**: Sentry (`@sentry/nextjs`) — wired up (S0-09): `src/instrumentation.ts`,
+  `src/instrumentation-client.ts`, `src/sentry.{server,edge}.config.ts`,
+  `withSentryConfig` in `next.config.ts`; env vars in `.env.example`
 - **Structure**: `src/` directory, one route segment per topic (see above)
 - **Deployment target**: Vercel
 
@@ -315,15 +316,6 @@ machine.
 - **Credential guard** (`.claude/hooks/credential-guard.py`) — Blocks Write/Edit/NotebookEdit calls whose content matches a hardcoded credential pattern, redacting the match in its own message.
 - **Protect main branch** (`.claude/hooks/protect-main-branch.sh`) — Blocks `git commit` and direct `git push` against main/master. Known false positive: `git push origin --delete <branch>` is also blocked while on main, so run branch deletes from a feature branch. Do not work around the hook otherwise.
 - **Protect sensitive files** (`.claude/hooks/protect-files.sh`) — Blocks Write/Edit against env files, the lockfile (`pnpm-lock.yaml`), and `.git/`, with `.example`/`.sample`/`.template` exceptions.
-
-### Tooling templates (`claude-config/`)
-
-The ESLint and dependency-cruiser templates are wired in
-(`eslint.config.mjs`, `dependency-cruiser.cjs`). What remains here are the
-Sentry templates, not wired up yet (tracked in `ROADMAP.md`):
-
-- `sentry.{client,server,edge}.config.ts` — Sentry wiring per
-  `.claude/rules/observability-sentry.md`; adopted, to be wired in S0-09.
 
 ## Adapting this file
 
