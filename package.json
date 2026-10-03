@@ -8,7 +8,10 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",
-    "check": "pnpm lint && pnpm typecheck"
+    "check": "pnpm lint && pnpm typecheck && pnpm architecture:check && pnpm test",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "architecture:check": "depcruise src --config dependency-cruiser.cjs"
   },
   "dependencies": {
     "next": "16.3.6",
@@ -16,13 +19,20 @@
     "react-dom": "19.2.8"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@testing-library/dom": "^10.4.2",
+    "@testing-library/react": "^16.3.3",
+    "@types/node": "^22.20.5",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^6.1.1",
     "babel-plugin-react-compiler": "1.0.0",
+    "dependency-cruiser": "^18.5.0",
     "eslint": "^9",
     "eslint-config-next": "16.3.6",
-    "typescript": "^5"
+    "eslint-plugin-sonarjs": "^4.2.2",
+    "jsdom": "^30.1.1",
+    "typescript": "^5",
+    "vitest": "^5.0.3"
   },
   "packageManager": "pnpm@9.15.9"
 }

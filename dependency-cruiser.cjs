@@ -36,7 +36,7 @@ module.exports = {
         "A module's internal files (components/, lib/, etc.) are implementation " +
         "detail. Other modules must depend on `modules/<name>` (its index.ts " +
         "public API), not reach into another module's internals.",
-      from: { path: "^src/modules/([^/]+)/", pathNot: "^src/modules/([^/]+)/index\\.ts$" },
+      from: { path: "^src/modules/([^/]+)/" },
       to: {
         path: "^src/modules/([^/]+)/(?!index\\.ts$).+",
         pathNot: "^src/modules/$1/",
