@@ -21,8 +21,8 @@ Status values: `planned` · `in progress` · `done` · `blocked` · `dropped`
 
 ## Current focus
 
-- **Now:** PR 2 — S0-05 (shared topic page template)
-- **Next:** PR 3 — S0-06 + S0-08 (test tooling, architecture check)
+- **Now:** PR 3 — S0-06 + S0-08 (test tooling, architecture check)
+- **Next:** PR 4 — S0-07 + S0-09 (first deployment, Sentry)
 
 ## Delivery plan (20 PRs)
 
@@ -60,7 +60,7 @@ item is tracked in the stage tables below.
 | S0-02 | Initialize Next.js (latest stable, App Router, TypeScript strict, ESLint, `src/`, no `pages/`) | repo root  | done    | Next.js 16.3.6, `cacheComponents` + React Compiler on, CSS Modules + tokens |
 | S0-03 | Skeleton: empty route segments from the proposed structure                            | `src/app/`           | done    | 37 placeholder topic pages; `sitemap`, `robots`, `proxy`, `global-error`, `not-found`, `api/` land with their own topics |
 | S0-04 | Root layout, topic navigation, and topic index page                                   | `src/app/layout.tsx`, `src/app/page.tsx` | done    | Topic list lives in `src/modules/topic-catalog`; layout shell in `src/shared/layout` |
-| S0-05 | Shared topic page template (Basics / Edge cases / Interview questions)                | TBD                  | planned |       |
+| S0-05 | Shared topic page template (Basics / Edge cases / Interview questions)                | `src/shared/topic-page/` | done    | `TopicPage`; topic placeholders now render through it |
 | S0-06 | Test tooling for Server/Client Components and Server Actions                          | repo root            | planned |       |
 | S0-07 | First Vercel deployment                                                               | Vercel               | planned |       |
 | S0-08 | Wire `claude-config/` templates: dependency-cruiser (`architecture:check`), ESLint rules | repo root         | planned |       |
@@ -163,6 +163,8 @@ Unscheduled candidates. Promote an item to a stage when it is planned.
 
 Newest first. One line per change: date, IDs, what changed.
 
+- 2026-10-03: S0-05 done (PR 2) — shared `TopicPage` template with Basics,
+  Edge cases, and Interview questions sections.
 - 2026-10-03: S0-03, S0-04 done (PR 1) — route skeleton with placeholder
   pages, root layout, topic navigation, index page; added the 20-PR
   delivery plan.
