@@ -21,8 +21,9 @@ Status values: `planned` · `in progress` · `done` · `blocked` · `dropped`
 
 ## Current focus
 
-- **Now:** PR 4 — S0-07 + S0-09 (Sentry wired; first deployment waits on connecting the Vercel project)
-- **Next:** PR 5 — S1-01 + S1-02 (file conventions, dynamic segments)
+- **Now:** PR 5 — S1-01 + S1-02 (file conventions, dynamic segments)
+- **Next:** PR 6 — S1-03 + S1-04 (parallel and intercepting routes)
+- **Open:** S0-07 (first Vercel deployment) waits on connecting the Vercel project to the repo
 
 ## Delivery plan (20 PRs)
 
@@ -70,8 +71,8 @@ item is tracked in the stage tables below.
 
 | ID    | Item                                                                                          | Route / location                     | Status  | Notes |
 | ----- | --------------------------------------------------------------------------------------------- | ------------------------------------ | ------- | ----- |
-| S1-01 | File conventions: page, layout, template, loading, error, not-found, route groups, private folders | `/fundamentals/file-conventions`     | planned |       |
-| S1-02 | Dynamic segments: `[slug]`, `[...slug]`, `[[...slug]]`                                        | `/fundamentals/dynamic-segments`     | planned |       |
+| S1-01 | File conventions: page, layout, template, loading, error, not-found, route groups, private folders | `/fundamentals/file-conventions`     | done    | `src/modules/file-conventions`; demo checked in a browser (layout vs template, loading, error, not-found, group, private) |
+| S1-02 | Dynamic segments: `[slug]`, `[...slug]`, `[[...slug]]`                                        | `/fundamentals/dynamic-segments`     | done    | `src/modules/dynamic-segments`; found: `dynamicParams` is rejected with `cacheComponents`, params arrive percent-encoded |
 | S1-03 | Parallel routes (`@slot`)                                                                     | `/fundamentals/parallel-routes`      | planned |       |
 | S1-04 | Intercepting routes (`(.)folder`)                                                             | `/fundamentals/intercepting-routes`  | planned |       |
 | S1-05 | Navigation: `<Link>`, `useRouter`, `usePathname`, `useSearchParams`, prefetching              | `/fundamentals/navigation`           | planned |       |
@@ -163,6 +164,9 @@ Unscheduled candidates. Promote an item to a stage when it is planned.
 
 Newest first. One line per change: date, IDs, what changed.
 
+- 2026-10-03: S1-01, S1-02 done (PR 5) — first real topics. The sidebar
+  links are now wrapped in `<Suspense>` (`usePathname()` is runtime data on
+  routes with dynamic params under Cache Components).
 - 2026-10-03: S0-09 done, S0-07 in progress (PR 4) — Sentry wired for client,
   server, and edge; release from `VERCEL_GIT_COMMIT_SHA`; `.env.example` added.
 - 2026-10-03: S0-06, S0-08 done (PR 3) — Vitest, `architecture:check`, ESLint
