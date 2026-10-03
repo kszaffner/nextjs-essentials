@@ -1,8 +1,5 @@
-// Placeholder until the topic index lands (ROADMAP S0-04).
+import { TopicIndex } from "@/modules/topic-catalog";
+
 export default function HomePage() {
-  return (
-    <main>
-      <h1>nextjs-essentials</h1>
-    </main>
-  );
+  return <TopicIndex />;
 }

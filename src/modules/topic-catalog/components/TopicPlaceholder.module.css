@@ -1,0 +1,11 @@
+.summary {
+  margin-top: var(--space-2);
+  color: var(--color-fg-muted);
+}
+
+.status {
+  margin-top: var(--space-6);
+  padding: var(--space-3) var(--space-4);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+}

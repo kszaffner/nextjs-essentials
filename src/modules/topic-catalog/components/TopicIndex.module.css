@@ -1,0 +1,42 @@
+.title {
+  font-size: var(--font-size-xl);
+}
+
+.lead {
+  margin-top: var(--space-2);
+  color: var(--color-fg-muted);
+}
+
+.group {
+  margin-top: var(--space-8);
+}
+
+.groupTitle {
+  font-size: var(--font-size-lg);
+}
+
+.list {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  margin-top: var(--space-3);
+  list-style: none;
+}
+
+.card {
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.cardLink {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+.summary {
+  margin-top: var(--space-1);
+  color: var(--color-fg-muted);
+  font-size: var(--font-size-sm);
+}

@@ -1,6 +1,8 @@
 /* The one global style entry point: design tokens + minimal base styles. */
 @import "./tokens/color.css";
 @import "./tokens/typography.css";
+@import "./tokens/space.css";
+@import "./tokens/radius.css";
 
 *,
 *::before,
@@ -12,6 +14,10 @@
 
 html {
   color-scheme: light dark;
+}
+
+a {
+  color: inherit;
 }
 
 body {

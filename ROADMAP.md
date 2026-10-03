@@ -21,8 +21,36 @@ Status values: `planned` · `in progress` · `done` · `blocked` · `dropped`
 
 ## Current focus
 
-- **Now:** S0-03 (route skeleton)
-- **Next:** S0-04 (root layout, topic navigation, index page)
+- **Now:** PR 2 — S0-05 (shared topic page template)
+- **Next:** PR 3 — S0-06 + S0-08 (test tooling, architecture check)
+
+## Delivery plan (20 PRs)
+
+Roadmap items are delivered in 20 PRs, grouped by theme. Status of each
+item is tracked in the stage tables below.
+
+| PR | Items                      | Scope |
+| -- | -------------------------- | ----- |
+| 1  | S0-03 + S0-04              | Route skeleton, root layout, topic navigation, index page |
+| 2  | S0-05                      | Shared topic page template |
+| 3  | S0-06 + S0-08              | Test tooling, dependency-cruiser, ESLint rules |
+| 4  | S0-07 + S0-09              | First Vercel deployment, Sentry |
+| 5  | S1-01 + S1-02              | File conventions, dynamic segments |
+| 6  | S1-03 + S1-04              | Parallel and intercepting routes |
+| 7  | S1-05                      | Navigation and prefetching |
+| 8  | S2-01 + S2-02 + S2-03      | Server vs Client Components |
+| 9  | S3-01 + S3-02              | Static vs dynamic, ISR |
+| 10 | S3-03 + S3-04              | Streaming, PPR |
+| 11 | S4-01 + S4-02              | `fetch()` extensions, cache layers |
+| 12 | S4-03 + S4-04 + S4-05      | Parallel fetching, revalidation, `"use cache"` migration |
+| 13 | S5-01 + S5-02              | Server Actions, forms |
+| 14 | S5-03 + S5-04              | Form hooks, validation and redirect |
+| 15 | S6-01 + S6-02 + S6-03      | Route Handlers, proxy, runtimes |
+| 16 | S7-01 + S7-02 + S7-03      | Error handling |
+| 17 | S8-01 + S8-02 + S8-03      | Metadata and SEO |
+| 18 | S9-01 + S9-02 + S9-03      | Image, font, dynamic import |
+| 19 | S9-04 + S9-05              | Bundlers, Web Vitals |
+| 20 | S10-01 + S10-02            | Testing |
 
 ## Stage 0: Foundation
 
@@ -30,8 +58,8 @@ Status values: `planned` · `in progress` · `done` · `blocked` · `dropped`
 | ----- | ------------------------------------------------------------------------------------- | -------------------- | ------- | ----- |
 | S0-01 | Add and review the `.claude/` workflow                                                | `.claude/`, `CLAUDE.md`, `AGENTS.md` | done    | Merged into `CLAUDE.md`, cross-references fixed |
 | S0-02 | Initialize Next.js (latest stable, App Router, TypeScript strict, ESLint, `src/`, no `pages/`) | repo root  | done    | Next.js 16.3.6, `cacheComponents` + React Compiler on, CSS Modules + tokens |
-| S0-03 | Skeleton: empty route segments from the proposed structure                            | `src/app/`           | planned |       |
-| S0-04 | Root layout, topic navigation, and topic index page                                   | `src/app/layout.tsx`, `src/app/page.tsx` | planned |       |
+| S0-03 | Skeleton: empty route segments from the proposed structure                            | `src/app/`           | done    | 37 placeholder topic pages; `sitemap`, `robots`, `proxy`, `global-error`, `not-found`, `api/` land with their own topics |
+| S0-04 | Root layout, topic navigation, and topic index page                                   | `src/app/layout.tsx`, `src/app/page.tsx` | done    | Topic list lives in `src/modules/topic-catalog`; layout shell in `src/shared/layout` |
 | S0-05 | Shared topic page template (Basics / Edge cases / Interview questions)                | TBD                  | planned |       |
 | S0-06 | Test tooling for Server/Client Components and Server Actions                          | repo root            | planned |       |
 | S0-07 | First Vercel deployment                                                               | Vercel               | planned |       |
@@ -135,6 +163,9 @@ Unscheduled candidates. Promote an item to a stage when it is planned.
 
 Newest first. One line per change: date, IDs, what changed.
 
+- 2026-10-03: S0-03, S0-04 done (PR 1) — route skeleton with placeholder
+  pages, root layout, topic navigation, index page; added the 20-PR
+  delivery plan.
 - 2026-09-28: S0-02 done — Next.js 16.3.6 initialized with pnpm;
   `cacheComponents` enabled from the start; CSS Modules + tokens chosen.
 - 2026-09-28: S0-01 done; S0-08, S0-09 added (Sentry adopted, pnpm chosen);

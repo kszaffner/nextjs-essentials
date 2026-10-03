@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
+import { TopicNavigation } from "@/modules/topic-catalog";
+import { SiteShell } from "@/shared/layout";
 import "@/shared/styles/index.css";
 
 const geistSans = Geist({
@@ -23,7 +26,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body>{children}</body>
+      <body>
+        <SiteShell
+          header={<Link href="/">nextjs-essentials</Link>}
+          sidebar={<TopicNavigation />}
+        >
+          {children}
+        </SiteShell>
+      </body>
     </html>
   );
 }
