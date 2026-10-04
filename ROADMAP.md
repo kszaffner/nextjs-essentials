@@ -21,8 +21,8 @@ Status values: `planned` · `in progress` · `done` · `blocked` · `dropped`
 
 ## Current focus
 
-- **Now:** PR 10 — S5-01..S5-04 (Server Actions and forms)
-- **Next:** PR 11 — S6-01..S6-03 + S7-01..S7-03 (Route Handlers, proxy, runtimes, error handling)
+- **Now:** PR 11 — S6-01..S6-03 + S7-01..S7-03 (Route Handlers, proxy, runtimes, error handling)
+- **Next:** PR 12 — S8-01..S8-03 + S9-01..S9-03 (metadata and SEO, image, font, dynamic import)
 - **Open:** S0-07 (first Vercel deployment) waits on connecting the Vercel project to the repo
 
 ## Delivery plan (13 PRs)
@@ -42,8 +42,8 @@ item is tracked in the stage tables below.
 | 7  | S2-01 + S2-02 + S2-03 + S3-01          | Server vs Client Components, static vs dynamic rendering | merged |
 | 8  | S3-02 + S3-03 + S3-04 + S4-01          | ISR, streaming, PPR, `fetch()` extensions | merged |
 | 9  | S4-02 + S4-03 + S4-04 + S4-05          | Cache layers, parallel fetching, revalidation, `"use cache"` migration | merged |
-| 10 | S5-01 + S5-02 + S5-03 + S5-04          | Server Actions and forms | in review |
-| 11 | S6-01 + S6-02 + S6-03 + S7-01 + S7-02 + S7-03 | Route Handlers, proxy, runtimes, error handling | planned |
+| 10 | S5-01 + S5-02 + S5-03 + S5-04          | Server Actions and forms | merged |
+| 11 | S6-01 + S6-02 + S6-03 + S7-01 + S7-02 + S7-03 | Route Handlers, proxy, runtimes, error handling | in review |
 | 12 | S8-01 + S8-02 + S8-03 + S9-01 + S9-02 + S9-03 | Metadata and SEO, image, font, dynamic import | planned |
 | 13 | S9-04 + S9-05 + S10-01 + S10-02        | Bundlers, Web Vitals, testing | planned |
 
@@ -111,17 +111,17 @@ item is tracked in the stage tables below.
 
 | ID    | Item                                                            | Route / location                   | Status  | Notes |
 | ----- | --------------------------------------------------------------- | ---------------------------------- | ------- | ----- |
-| S6-01 | Route Handlers: HTTP methods, `NextRequest`/`NextResponse`      | `/advanced-routing/route-handlers` | planned |       |
-| S6-02 | `proxy.ts`: rewrites, redirects, personalization                | `/advanced-routing/proxy`          | planned |       |
-| S6-03 | Edge vs Node.js runtime                                         | `/advanced-routing/runtimes`       | planned |       |
+| S6-01 | Route Handlers: HTTP methods, `NextRequest`/`NextResponse`      | `/advanced-routing/route-handlers` | done    | `src/modules/route-handlers`; verified: 405/HEAD/OPTIONS handled for you, no built-in CSRF check (foreign Origin accepted), 415 guard, 400 vs 422 |
+| S6-02 | `proxy.ts`: rewrites, redirects, personalization                | `/advanced-routing/proxy`          | done    | `src/proxy.ts` + `src/modules/proxy`; redirect 307, rewrite, direct 403, cookie A/B; runs before the cache; decision function unit-tested |
+| S6-03 | Edge vs Node.js runtime                                         | `/advanced-routing/runtimes`       | done    | `src/modules/runtimes`; `proxy.ts` = nodejs, legacy `middleware.ts` = edge (deprecated), `runtime = "edge"` is a build error |
 
 ## Stage 7: Error handling
 
 | ID    | Item                                               | Route / location                 | Status  | Notes |
 | ----- | -------------------------------------------------- | -------------------------------- | ------- | ----- |
-| S7-01 | `error.tsx` vs `global-error.tsx`                  | `/errors/error-boundaries`       | planned |       |
-| S7-02 | `not-found.tsx` and `notFound()`                   | `/errors/not-found`              | planned |       |
-| S7-03 | Errors in Server Actions and Route Handlers        | `/errors/actions-and-handlers`   | planned |       |
+| S7-01 | `error.tsx` vs `global-error.tsx`                  | `/errors/error-boundaries`       | done    | `src/app/global-error.tsx` + `src/modules/error-boundaries`; layout error caught by the parent boundary; message masked with a digest matching the server log |
+| S7-02 | `not-found.tsx` and `notFound()`                   | `/errors/not-found`              | done    | `src/app/not-found.tsx` + `src/modules/not-found`; 404 before streaming, 200 + noindex inside Suspense |
+| S7-03 | Errors in Server Actions and Route Handlers        | `/errors/actions-and-handlers`   | done    | `src/modules/actions-and-handlers`; expected 409/state, unexpected 500 with a reference id and no leak; `src/shared/monitoring` reporter that never throws |
 
 ## Stage 8: Metadata and SEO
 
@@ -158,6 +158,9 @@ Unscheduled candidates. Promote an item to a stage when it is planned.
 
 Newest first. One line per change: date, IDs, what changed.
 
+- 2026-10-04: S6-01..S6-03, S7-01..S7-03 done (PR 11) — Stages 6 and 7
+  complete; added `src/proxy.ts`, `global-error.tsx`, root `not-found.tsx`,
+  and `src/shared/monitoring`.
 - 2026-10-04: S5-01..S5-04 done (PR 10) — Stage 5 complete; added the global
   `--color-danger` token.
 - 2026-10-03: S4-02, S4-03, S4-04, S4-05 done (PR 9) — Stage 4 complete.

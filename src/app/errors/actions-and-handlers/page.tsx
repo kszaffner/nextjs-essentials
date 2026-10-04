@@ -1,7 +1,8 @@
-import { TopicPlaceholder, getTopicMetadata } from "@/modules/topic-catalog";
+import { ActionsAndHandlersTopic } from "@/modules/actions-and-handlers";
+import { getTopicMetadata } from "@/modules/topic-catalog";
 
 export const metadata = getTopicMetadata("/errors/actions-and-handlers");
 
 export default function Page() {
-  return <TopicPlaceholder href="/errors/actions-and-handlers" />;
+  return <ActionsAndHandlersTopic />;
 }
