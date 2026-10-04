@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
 import { TopicNavigation } from "@/modules/topic-catalog";
 import { SiteShell } from "@/shared/layout";
+import { getSiteUrl } from "@/shared/site";
 import "@/shared/styles/index.css";
 
 const geistSans = Geist({
@@ -16,6 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  // Relative URLs in metadata (canonical, Open Graph images) resolve against this.
+  metadataBase: getSiteUrl(),
   title: {
     template: "%s | nextjs-essentials",
     default: "nextjs-essentials",

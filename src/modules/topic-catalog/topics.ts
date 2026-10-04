@@ -270,3 +270,8 @@ export function getTopicMetadata(href: TopicHref) {
   const topic = getTopic(href);
   return { title: topic.title, description: topic.summary };
 }
+
+// Every topic page's path, in catalog order (used for the sitemap).
+export function listTopicHrefs(): readonly string[] {
+  return allTopics.map((topic) => topic.href);
+}
