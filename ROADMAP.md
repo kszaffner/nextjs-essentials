@@ -21,8 +21,8 @@ Status values: `planned` · `in progress` · `done` · `blocked` · `dropped`
 
 ## Current focus
 
-- **Now:** PR 11 — S6-01..S6-03 + S7-01..S7-03 (Route Handlers, proxy, runtimes, error handling)
-- **Next:** PR 12 — S8-01..S8-03 + S9-01..S9-03 (metadata and SEO, image, font, dynamic import)
+- **Now:** PR 12 — S8-01..S8-03 + S9-01..S9-03 (metadata and SEO, image, font, dynamic import)
+- **Next:** PR 13 — S9-04, S9-05, S10-01, S10-02 (bundlers, Web Vitals, testing): the last PR
 - **Open:** S0-07 (first Vercel deployment) waits on connecting the Vercel project to the repo
 
 ## Delivery plan (13 PRs)
@@ -43,8 +43,8 @@ item is tracked in the stage tables below.
 | 8  | S3-02 + S3-03 + S3-04 + S4-01          | ISR, streaming, PPR, `fetch()` extensions | merged |
 | 9  | S4-02 + S4-03 + S4-04 + S4-05          | Cache layers, parallel fetching, revalidation, `"use cache"` migration | merged |
 | 10 | S5-01 + S5-02 + S5-03 + S5-04          | Server Actions and forms | merged |
-| 11 | S6-01 + S6-02 + S6-03 + S7-01 + S7-02 + S7-03 | Route Handlers, proxy, runtimes, error handling | in review |
-| 12 | S8-01 + S8-02 + S8-03 + S9-01 + S9-02 + S9-03 | Metadata and SEO, image, font, dynamic import | planned |
+| 11 | S6-01 + S6-02 + S6-03 + S7-01 + S7-02 + S7-03 | Route Handlers, proxy, runtimes, error handling | merged |
+| 12 | S8-01 + S8-02 + S8-03 + S9-01 + S9-02 + S9-03 | Metadata and SEO, image, font, dynamic import | in review |
 | 13 | S9-04 + S9-05 + S10-01 + S10-02        | Bundlers, Web Vitals, testing | planned |
 
 ## Stage 0: Foundation
@@ -127,17 +127,17 @@ item is tracked in the stage tables below.
 
 | ID    | Item                                                   | Route / location               | Status  | Notes |
 | ----- | ------------------------------------------------------ | ------------------------------ | ------- | ----- |
-| S8-01 | `generateMetadata` (static and dynamic), `metadataBase` | `/metadata/generate-metadata`  | planned |       |
-| S8-02 | `sitemap.ts`, `robots.ts`                              | `/metadata/sitemap-robots`     | planned |       |
-| S8-03 | Generated Open Graph images                            | `/metadata/og-images`          | planned |       |
+| S8-01 | `generateMetadata` (static and dynamic), `metadataBase` | `/metadata/generate-metadata`  | done    | `src/modules/generate-metadata`; verified: `openGraph` is replaced, not merged (fixed via `parent`); `metadataBase` is baked in at build time |
+| S8-02 | `sitemap.ts`, `robots.ts`                              | `/metadata/sitemap-robots`     | done    | `src/app/sitemap.ts`, `src/app/robots.ts` + `src/modules/sitemap-robots`; verified: 38 URLs, prerendered; `lastModified: new Date()` makes the file dynamic and lies |
+| S8-03 | Generated Open Graph images                            | `/metadata/og-images`          | done    | `src/app/opengraph-image.tsx` + `src/modules/og-images`; verified: real 1200x630 PNG, nested file replaces the site-wide one |
 
 ## Stage 9: Optimization and performance
 
 | ID    | Item                                                 | Route / location               | Status  | Notes |
 | ----- | ---------------------------------------------------- | ------------------------------ | ------- | ----- |
-| S9-01 | `next/image`: lazy loading, `srcset`, `priority`, LCP | `/optimization/image`          | planned |       |
-| S9-02 | `next/font`: self-hosting, avoiding layout shift     | `/optimization/font`           | planned |       |
-| S9-03 | `next/dynamic`: code splitting, `ssr: false`         | `/optimization/dynamic-import` | planned |       |
+| S9-01 | `next/image`: lazy loading, `srcset`, `priority`, LCP | `/optimization/image`          | done    | `src/modules/image`; verified: `preload` link, lazy attributes, 121 KB JPEG -> 6 KB WebP, `/_next/image` refuses unlisted sizes and qualities |
+| S9-02 | `next/font`: self-hosting, avoiding layout shift     | `/optimization/font`           | done    | `src/modules/font`; verified: self-hosted WOFF2 (immutable), size-adjusted fallback, preload via a `Link` header, loader literal/module-scope build errors |
+| S9-03 | `next/dynamic`: code splitting, `ssr: false`         | `/optimization/dynamic-import` | done    | `src/modules/dynamic-import`; verified: `ssr: false` panel absent from the HTML and loaded as one extra chunk; `ssr: false` in a Server Component is a build error |
 | S9-04 | Turbopack vs Webpack                                 | `/optimization/bundlers`       | planned |       |
 | S9-05 | Bundle analysis and Core Web Vitals                  | `/optimization/web-vitals`     | planned |       |
 
@@ -158,6 +158,10 @@ Unscheduled candidates. Promote an item to a stage when it is planned.
 
 Newest first. One line per change: date, IDs, what changed.
 
+- 2026-10-04: S8-01..S8-03, S9-01..S9-03 done (PR 12) — Stage 8 complete;
+  Stage 9 has S9-04 and S9-05 left. Added `sitemap.ts`, `robots.ts`, a root
+  `opengraph-image.tsx`, `src/shared/site`, and generated demo images in
+  `public/demo`.
 - 2026-10-04: S6-01..S6-03, S7-01..S7-03 done (PR 11) — Stages 6 and 7
   complete; added `src/proxy.ts`, `global-error.tsx`, root `not-found.tsx`,
   and `src/shared/monitoring`.

@@ -1,0 +1,80 @@
+.section {
+  margin-top: var(--space-4);
+}
+
+.title {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+}
+
+.hint {
+  margin-top: var(--space-2);
+  color: var(--color-fg-muted);
+  font-size: var(--font-size-sm);
+}
+
+.responsive {
+  display: block;
+  width: 100%;
+  max-width: 40rem;
+  height: auto;
+  margin-top: var(--space-2);
+  border-radius: var(--radius-md);
+}
+
+.spacer {
+  /* Browsers start lazy images well before they are visible (on the order of
+     a thousand pixels or more), so the gap has to be far larger than that. */
+  height: 4000px;
+  margin-top: var(--space-4);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  display: grid;
+  place-items: center;
+  color: var(--color-fg-muted);
+  font-size: var(--font-size-sm);
+}
+
+.gallery {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: var(--space-2);
+}
+
+.fillBox {
+  position: relative;
+  width: 100%;
+  max-width: 24rem;
+  aspect-ratio: 3 / 2;
+  margin-top: var(--space-2);
+  overflow: hidden;
+  border-radius: var(--radius-md);
+}
+
+.cover {
+  object-fit: cover;
+}
+
+.button {
+  margin-top: var(--space-3);
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-fg);
+  background: var(--color-surface);
+  font: inherit;
+  cursor: pointer;
+}
+
+.report {
+  margin-top: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
