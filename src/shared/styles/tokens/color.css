@@ -5,6 +5,7 @@
   --color-surface: #f6f6f6;
   --color-border: #e2e2e2;
   --color-primary: #0b57d0;
+  --color-danger: #b3261e;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -15,5 +16,6 @@
     --color-surface: #161616;
     --color-border: #2e2e2e;
     --color-primary: #8ab4f8;
+    --color-danger: #f2b8b5;
   }
 }
