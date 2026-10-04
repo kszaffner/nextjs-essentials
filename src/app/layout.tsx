@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { TopicNavigation } from "@/modules/topic-catalog";
 import { SiteShell } from "@/shared/layout";
 import { getSiteUrl } from "@/shared/site";
+import { WebVitalsCollector } from "@/modules/web-vitals";
 import "@/shared/styles/index.css";
 
 const geistSans = Geist({
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
+        <WebVitalsCollector />
         <SiteShell
           header={<Link href="/">nextjs-essentials</Link>}
           sidebar={<TopicNavigation />}

@@ -21,9 +21,12 @@ Status values: `planned` · `in progress` · `done` · `blocked` · `dropped`
 
 ## Current focus
 
-- **Now:** PR 12 — S8-01..S8-03 + S9-01..S9-03 (metadata and SEO, image, font, dynamic import)
-- **Next:** PR 13 — S9-04, S9-05, S10-01, S10-02 (bundlers, Web Vitals, testing): the last PR
-- **Open:** S0-07 (first Vercel deployment) waits on connecting the Vercel project to the repo
+- **Done:** every topic of stages 1 to 10 is implemented (PRs 1 to 13).
+- **Open:** S0-07, the first Vercel deployment. It needs the Vercel project
+  connected to the GitHub repo; set `SITE_ORIGIN` (or rely on Vercel's
+  production domain) in the **build** environment, plus the `SENTRY_*`
+  variables from `.env.example`.
+- **Next:** pick from the Backlog below, or deepen an existing topic.
 
 ## Delivery plan (13 PRs)
 
@@ -44,8 +47,8 @@ item is tracked in the stage tables below.
 | 9  | S4-02 + S4-03 + S4-04 + S4-05          | Cache layers, parallel fetching, revalidation, `"use cache"` migration | merged |
 | 10 | S5-01 + S5-02 + S5-03 + S5-04          | Server Actions and forms | merged |
 | 11 | S6-01 + S6-02 + S6-03 + S7-01 + S7-02 + S7-03 | Route Handlers, proxy, runtimes, error handling | merged |
-| 12 | S8-01 + S8-02 + S8-03 + S9-01 + S9-02 + S9-03 | Metadata and SEO, image, font, dynamic import | in review |
-| 13 | S9-04 + S9-05 + S10-01 + S10-02        | Bundlers, Web Vitals, testing | planned |
+| 12 | S8-01 + S8-02 + S8-03 + S9-01 + S9-02 + S9-03 | Metadata and SEO, image, font, dynamic import | merged |
+| 13 | S9-04 + S9-05 + S10-01 + S10-02        | Bundlers, Web Vitals, testing | in review |
 
 ## Stage 0: Foundation
 
@@ -138,15 +141,15 @@ item is tracked in the stage tables below.
 | S9-01 | `next/image`: lazy loading, `srcset`, `priority`, LCP | `/optimization/image`          | done    | `src/modules/image`; verified: `preload` link, lazy attributes, 121 KB JPEG -> 6 KB WebP, `/_next/image` refuses unlisted sizes and qualities |
 | S9-02 | `next/font`: self-hosting, avoiding layout shift     | `/optimization/font`           | done    | `src/modules/font`; verified: self-hosted WOFF2 (immutable), size-adjusted fallback, preload via a `Link` header, loader literal/module-scope build errors |
 | S9-03 | `next/dynamic`: code splitting, `ssr: false`         | `/optimization/dynamic-import` | done    | `src/modules/dynamic-import`; verified: `ssr: false` panel absent from the HTML and loaded as one extra chunk; `ssr: false` in a Server Component is a build error |
-| S9-04 | Turbopack vs Webpack                                 | `/optimization/bundlers`       | planned |       |
-| S9-05 | Bundle analysis and Core Web Vitals                  | `/optimization/web-vitals`     | planned |       |
+| S9-04 | Turbopack vs Webpack                                 | `/optimization/bundlers`       | done    | `src/modules/bundlers`; measured on one project: Turbopack build 16-17 s / 44 client files / 382 KB gzip vs Webpack 94 s / 155 files / 509 KB gzip; both build with Sentry and the React Compiler |
+| S9-05 | Bundle analysis and Core Web Vitals                  | `/optimization/web-vitals`     | done    | `src/modules/web-vitals` (+ collector in the root layout) and `pnpm analyze`; TTFB verified; FCP/LCP/INP could not be observed in the automated browser |
 
 ## Stage 10: Testing in a Next.js context
 
 | ID     | Item                                                  | Route / location                | Status  | Notes |
 | ------ | ----------------------------------------------------- | ------------------------------- | ------- | ----- |
-| S10-01 | Testing Server Components vs Client Components        | `/testing/server-vs-client`     | planned |       |
-| S10-02 | Mocking `fetch`/cache, testing Server Actions         | `/testing/mocking-and-actions`  | planned |       |
+| S10-01 | Testing Server Components vs Client Components        | `/testing/server-vs-client`     | done    | `src/modules/testing-components`; verified: an async component rendered as JSX renders nothing, silently; calling it as a function works |
+| S10-02 | Mocking `fetch`/cache, testing Server Actions         | `/testing/mocking-and-actions`  | done    | `src/modules/testing-actions`; ten real tests mapped by technique; behavior of `redirect`, `revalidatePath`, `cookies`, `connection`, `cacheLife` in a plain test process verified |
 
 ## Backlog / ideas
 
@@ -158,6 +161,10 @@ Unscheduled candidates. Promote an item to a stage when it is planned.
 
 Newest first. One line per change: date, IDs, what changed.
 
+- 2026-10-04: S9-04, S9-05, S10-01, S10-02 done (PR 13) — the delivery plan is
+  complete. Added 7 test files for existing server code (actions, route
+  handlers, `use cache`, fetch), the `analyze` script, and removed the
+  now-unused `TopicPlaceholder`. Open: S0-07.
 - 2026-10-04: S8-01..S8-03, S9-01..S9-03 done (PR 12) — Stage 8 complete;
   Stage 9 has S9-04 and S9-05 left. Added `sitemap.ts`, `robots.ts`, a root
   `opengraph-image.tsx`, `src/shared/site`, and generated demo images in

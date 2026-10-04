@@ -11,7 +11,8 @@
     "check": "pnpm lint && pnpm typecheck && pnpm architecture:check && pnpm test",
     "test": "vitest run",
     "test:watch": "vitest",
-    "architecture:check": "depcruise src --config dependency-cruiser.cjs"
+    "architecture:check": "depcruise src --config dependency-cruiser.cjs",
+    "analyze": "next experimental-analyze"
   },
   "dependencies": {
     "@sentry/nextjs": "^11.4.0",

@@ -1,7 +1,8 @@
-import { TopicPlaceholder, getTopicMetadata } from "@/modules/topic-catalog";
+import { WebVitalsTopic } from "@/modules/web-vitals";
+import { getTopicMetadata } from "@/modules/topic-catalog";
 
 export const metadata = getTopicMetadata("/optimization/web-vitals");
 
 export default function Page() {
-  return <TopicPlaceholder href="/optimization/web-vitals" />;
+  return <WebVitalsTopic />;
 }
