@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/testing/mocking-and-actions/demo";
 
@@ -61,7 +61,7 @@ export const basics = (
       So the recipe is: stub <code>server-only</code>, replace the framework
       functions you do not want to run with <code>vi.fn()</code> spies, call the
       function, and assert on its return value, its thrown error, and the spies.
-      The <Link href={demoHref}>demo</Link> maps ten real tests in this repository
+      The <LocalizedLink href={demoHref}>demo</LocalizedLink> maps ten real tests in this repository
       to the technique each uses.
     </p>
   </>

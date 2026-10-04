@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/rendering/isr/demo";
 
@@ -40,7 +40,7 @@ export const basics = (
     <p>
       The build output shows the lifetime next to the route:{" "}
       <code>○ /rendering/isr/demo 10s 10m</code> (revalidate, expire). Open the{" "}
-      <Link href={demoHref}>demo</Link>, note the timestamp, wait over 10
+      <LocalizedLink href={demoHref}>demo</LocalizedLink>, note the timestamp, wait over 10
       seconds, and reload twice. Or press the button: the page still shows the
       old value right after, and the next reload shows the regenerated one.
     </p>

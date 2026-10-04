@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/server-actions/basics/demo";
 
@@ -29,7 +29,7 @@ export const basics = (
       new data in a single round trip.
     </p>
     <p>
-      The <Link href={demoHref}>demo</Link> has an inline action behind a plain
+      The <LocalizedLink href={demoHref}>demo</LocalizedLink> has an inline action behind a plain
       form, and an imported action called from a click handler. Both bump a
       server counter that takes 600 ms to update, then refresh the page.
     </p>

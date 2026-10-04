@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/server-actions/validation-and-redirect/demo";
 
@@ -33,7 +33,7 @@ redirect(\`/welcome?name=\${encodeURIComponent(parsed.data.name)}\`);`}</code>
       </li>
     </ul>
     <p>
-      Try the <Link href={demoHref}>demo</Link>; the second button skips the
+      Try the <LocalizedLink href={demoHref}>demo</LocalizedLink>; the second button skips the
       browser&apos;s own checks so you can see the server&apos;s. Observed:
       an invalid submission returned three field errors; a valid one went to the
       welcome page. Without JavaScript, a valid POST got{" "}

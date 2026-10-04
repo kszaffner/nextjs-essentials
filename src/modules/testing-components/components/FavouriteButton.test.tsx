@@ -29,6 +29,6 @@ describe("FavouriteButton (a Client Component)", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "Go to the topic page" }));
 
-    expect(push).toHaveBeenCalledWith("/somewhere/else");
+    expect(push).toHaveBeenCalledWith("/pl/somewhere/else");
   });
 });

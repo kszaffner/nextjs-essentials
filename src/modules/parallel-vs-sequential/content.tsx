@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/data/parallel-vs-sequential/demo";
 
@@ -13,7 +13,7 @@ export const basics = (
       noticing.
     </p>
     <p>
-      The <Link href={demoHref}>demo</Link> simulates requests that take 600 ms
+      The <LocalizedLink href={demoHref}>demo</LocalizedLink> simulates requests that take 600 ms
       each and measures the real elapsed time on the server:
     </p>
     <ul>

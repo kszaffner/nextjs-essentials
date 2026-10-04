@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/advanced-routing/proxy/demo";
 
@@ -19,7 +19,7 @@ export const basics = (
 export const config = { matcher: ["/demo/:path*"] };`}</code>
     </pre>
     <p>
-      Four things the <Link href={demoHref}>demo</Link> does, observed with{" "}
+      Four things the <LocalizedLink href={demoHref}>demo</LocalizedLink> does, observed with{" "}
       <code>curl -i</code> on a production build:
     </p>
     <ul>

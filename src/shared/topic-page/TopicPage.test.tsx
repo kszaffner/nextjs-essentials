@@ -7,6 +7,7 @@ afterEach(cleanup);
 function renderTopicPage(interviewQuestions: Parameters<typeof TopicPage>[0]["interviewQuestions"]) {
   render(
     <TopicPage
+      locale="en"
       title="Sample topic"
       summary="A short summary."
       basics={<p>Basics content</p>}
@@ -44,5 +45,25 @@ describe("TopicPage", () => {
     renderTopicPage([]);
 
     expect(screen.getByText("No questions yet.")).toBeDefined();
+  });
+});
+
+describe("TopicPage in Polish", () => {
+  it("uses the translated section headings", () => {
+    render(
+      <TopicPage
+        title="Temat"
+        summary="Opis."
+        basics={<p>Treść</p>}
+        edgeCases={<p>Brzeg</p>}
+        interviewQuestions={[]}
+        locale="pl"
+      />,
+    );
+
+    expect(screen.getByRole("region", { name: "Podstawy" })).toBeDefined();
+    expect(screen.getByRole("region", { name: "Przypadki brzegowe" })).toBeDefined();
+    expect(screen.getByRole("region", { name: "Pytania rekrutacyjne" })).toBeDefined();
+    expect(screen.getByText("Brak pytań.")).toBeDefined();
   });
 });

@@ -1,8 +1,8 @@
 import { Suspense } from "react";
-import Link from "next/link";
 import { PROXY_DEMO_BASE } from "../decideProxyAction";
 import { DecisionReport } from "./DecisionReport";
 import styles from "./Proxy.module.css";
+import { LocalizedLink } from "@/shared/i18n";
 
 type DemoDestinationProps = {
   title: string;
@@ -18,7 +18,7 @@ export function DemoDestination({ title, description }: DemoDestinationProps) {
         <DecisionReport />
       </Suspense>
       <p className={styles.hint}>
-        <Link href={PROXY_DEMO_BASE}>Back to the proxy demo</Link>
+        <LocalizedLink href={PROXY_DEMO_BASE}>Back to the proxy demo</LocalizedLink>
       </p>
     </section>
   );

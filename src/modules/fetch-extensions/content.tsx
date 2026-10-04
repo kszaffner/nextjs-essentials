@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/data/fetch-extensions/demo";
 
@@ -31,7 +31,7 @@ export const basics = (
       share the result.
     </p>
     <p>
-      The <Link href={demoHref}>demo</Link> calls this app&apos;s own API,
+      The <LocalizedLink href={demoHref}>demo</LocalizedLink> calls this app&apos;s own API,
       which counts how many times it really ran. Reload and watch which rows
       keep growing (uncached) and which stay put (cached). Observed here:{" "}
       <code>default</code>, <code>no-store</code>, and tags alone hit the API

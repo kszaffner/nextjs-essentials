@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/fundamentals/file-conventions/demo";
 
@@ -42,7 +42,7 @@ export const basics = (
       </li>
     </ul>
     <p>
-      Try it in the <Link href={demoHref}>live demo</Link>: type into the
+      Try it in the <LocalizedLink href={demoHref}>live demo</LocalizedLink>: type into the
       layout input and the template input, then use the demo links. The
       layout input keeps its text; the template input is emptied.
     </p>
@@ -90,9 +90,9 @@ export const edgeCases = (
         <code>_private</code> folders are not routable
       </strong>{" "}
       (the{" "}
-      <Link href={`${demoHref}/_private`} prefetch={false}>
+      <LocalizedLink href={`${demoHref}/_private`} prefetch={false}>
         demo link
-      </Link>{" "}
+      </LocalizedLink>{" "}
       is a 404). To
       get a literal underscore in a URL, write <code>%5F</code>.
     </li>

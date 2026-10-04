@@ -1,9 +1,11 @@
+import type { Locale } from "@/shared/i18n";
 import { TopicPage } from "@/shared/topic-page";
 import { basics, edgeCases, interviewQuestions } from "../content";
 
-export function GenerateMetadataTopic() {
+export function GenerateMetadataTopic({ locale }: { locale: Locale }) {
   return (
     <TopicPage
+      locale={locale}
       title="generateMetadata"
       summary="Static and dynamic metadata, and metadataBase."
       basics={basics}

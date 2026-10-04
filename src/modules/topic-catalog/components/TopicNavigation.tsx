@@ -1,14 +1,14 @@
-import Link from "next/link";
 import { Suspense } from "react";
-import { topicGroups } from "../topics";
+import { LocalizedLink, messages, type Locale } from "@/shared/i18n";
+import { getTopicGroups } from "../topics";
 import { NavigationLink } from "./NavigationLink";
 import styles from "./TopicNavigation.module.css";
 
-export function TopicNavigation() {
+export function TopicNavigation({ locale }: { locale: Locale }) {
   return (
-    <nav aria-label="Topics">
-      {topicGroups.map((group) => (
-        <section key={group.title} className={styles.group}>
+    <nav aria-label={messages[locale].topicsNavigation}>
+      {getTopicGroups(locale).map((group) => (
+        <section key={group.id} className={styles.group}>
           <h2 className={styles.groupTitle}>{group.title}</h2>
           <ul className={styles.list}>
             {group.topics.map((topic) => (
@@ -18,9 +18,9 @@ export function TopicNavigation() {
                     the active state. */}
                 <Suspense
                   fallback={
-                    <Link href={topic.href} className={styles.link}>
+                    <LocalizedLink href={topic.href} className={styles.link}>
                       {topic.title}
-                    </Link>
+                    </LocalizedLink>
                   }
                 >
                   <NavigationLink href={topic.href}>{topic.title}</NavigationLink>

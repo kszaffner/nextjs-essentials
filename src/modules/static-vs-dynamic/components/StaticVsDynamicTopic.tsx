@@ -1,9 +1,11 @@
+import type { Locale } from "@/shared/i18n";
 import { TopicPage } from "@/shared/topic-page";
 import { basics, edgeCases, interviewQuestions } from "../content";
 
-export function StaticVsDynamicTopic() {
+export function StaticVsDynamicTopic({ locale }: { locale: Locale }) {
   return (
     <TopicPage
+      locale={locale}
       title="Static vs dynamic rendering"
       summary="When Next.js prerenders a route and when it renders per request."
       basics={basics}

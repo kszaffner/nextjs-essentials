@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/metadata/og-images/demo";
 
@@ -24,7 +24,7 @@ export default async function Image({ params }) {
     </pre>
     <p>
       This site has a site-wide <code>src/app/opengraph-image.tsx</code>, and the{" "}
-      <Link href={demoHref}>demo</Link> adds a per-slug one. Observed on a
+      <LocalizedLink href={demoHref}>demo</LocalizedLink> adds a per-slug one. Observed on a
       production build: the file is a real PNG, 1200×630 (read from its header),
       about 40 KB; the home page&apos;s head has <code>og:image</code> pointing
       at the site-wide image, and a demo page&apos;s head points at its own, with{" "}

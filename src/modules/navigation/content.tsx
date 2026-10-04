@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoPath = "/fundamentals/navigation/demo";
 
@@ -35,7 +35,7 @@ export const basics = (
       <code>router.prefetch()</code> to warm a route on demand.
     </p>
     <p>
-      Try the <Link href={demoPath}>playground</Link>: it shows the current
+      Try the <LocalizedLink href={demoPath}>playground</LocalizedLink>: it shows the current
       pathname and search params, and the buttons exercise the router methods.
       <code> router.refresh()</code> re-renders the server clock below it
       without resetting the client state.

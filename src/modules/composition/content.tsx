@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/components/composition/demo";
 
@@ -28,7 +28,7 @@ export const basics = (
       content through <code>children</code>.
     </p>
     <p>
-      Try the <Link href={demoHref}>demo</Link>. Hide and show the panel: the
+      Try the <LocalizedLink href={demoHref}>demo</LocalizedLink>. Hide and show the panel: the
       server timestamp inside it does not change, because toggling is client
       state and the content was rendered once on the server.
     </p>

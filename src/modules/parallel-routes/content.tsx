@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoBase = "/fundamentals/parallel-routes/demo";
 
@@ -29,7 +29,7 @@ export const basics = (
     <p>
       Each slot has its own navigation state, loading UI, and error
       boundary. Only <code>@team</code> has a <code>settings</code> page: open{" "}
-      <Link href={`${demoBase}/settings`}>/demo/settings</Link> with a soft
+      <LocalizedLink href={`${demoBase}/settings`}>/demo/settings</LocalizedLink> with a soft
       navigation and just the team panel changes, the other two keep what
       they showed. Then reload the page and compare.
     </p>

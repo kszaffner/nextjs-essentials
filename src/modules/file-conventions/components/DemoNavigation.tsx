@@ -1,5 +1,5 @@
-import Link from "next/link";
 import styles from "./Demo.module.css";
+import { LocalizedLink } from "@/shared/i18n";
 
 type DemoLink = {
   href: string;
@@ -24,7 +24,7 @@ export function DemoNavigation() {
       <ul className={styles.links}>
         {demoLinks.map((link) => (
           <li key={link.href}>
-            <Link href={link.href} prefetch={link.shouldPrefetch}>{link.label}</Link>
+            <LocalizedLink href={link.href} prefetch={link.shouldPrefetch}>{link.label}</LocalizedLink>
           </li>
         ))}
       </ul>

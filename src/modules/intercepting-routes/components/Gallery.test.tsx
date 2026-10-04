@@ -12,7 +12,7 @@ describe("Gallery", () => {
     for (const photo of photos) {
       const link = screen.getByRole("link", { name: photo.title });
       expect(link.getAttribute("href")).toBe(
-        `/fundamentals/intercepting-routes/demo/photo/${photo.id}`,
+        `/pl/fundamentals/intercepting-routes/demo/photo/${photo.id}`,
       );
     }
   });

@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/optimization/bundlers/demo";
 
@@ -69,7 +69,7 @@ export const basics = (
     </table>
     <p>
       Both succeeded with Sentry and the React Compiler enabled. The{" "}
-      <Link href={demoHref}>demo</Link> shows which bundler produced the build you
+      <LocalizedLink href={demoHref}>demo</LocalizedLink> shows which bundler produced the build you
       are looking at; the commands to switch are on the same page.
     </p>
   </>

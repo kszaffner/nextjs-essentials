@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/data/revalidation/demo";
 
@@ -59,7 +59,7 @@ export const basics = (
       </tbody>
     </table>
     <p>
-      Try them in the <Link href={demoHref}>demo</Link>. Pick by the behavior
+      Try them in the <LocalizedLink href={demoHref}>demo</LocalizedLink>. Pick by the behavior
       you want: <code>updateTag</code> when the user must see their own change
       now, <code>revalidateTag</code> with <code>&quot;max&quot;</code> when
       serving slightly stale data while refreshing is fine, and{" "}

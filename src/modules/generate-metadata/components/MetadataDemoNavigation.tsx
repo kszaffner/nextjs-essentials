@@ -1,5 +1,5 @@
-import Link from "next/link";
 import styles from "./GenerateMetadata.module.css";
+import { LocalizedLink } from "@/shared/i18n";
 
 const base = "/metadata/generate-metadata/demo";
 
@@ -15,7 +15,7 @@ export function MetadataDemoNavigation() {
       <ul className={styles.links}>
         {links.map((link) => (
           <li key={link.href}>
-            <Link href={link.href}>{link.label}</Link>
+            <LocalizedLink href={link.href}>{link.label}</LocalizedLink>
           </li>
         ))}
       </ul>

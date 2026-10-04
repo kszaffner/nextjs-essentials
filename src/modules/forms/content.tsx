@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/server-actions/forms/demo";
 
@@ -43,7 +43,7 @@ export const basics = (
       renders it as <code>method=&quot;POST&quot;</code> with{" "}
       <code>encType=&quot;multipart/form-data&quot;</code> plus hidden{" "}
       <code>$ACTION_*</code> fields that identify the action. The{" "}
-      <Link href={demoHref}>demo</Link> is such a form; when a plain POST
+      <LocalizedLink href={demoHref}>demo</LocalizedLink> is such a form; when a plain POST
       (what a browser without JavaScript sends) was replayed with{" "}
       <code>curl</code>, the response was HTTP 200 with the updated list
       already in the HTML.

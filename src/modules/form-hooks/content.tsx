@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/server-actions/form-hooks/demo";
 
@@ -27,7 +27,7 @@ export const basics = (
       </li>
     </ul>
     <p>
-      In the <Link href={demoHref}>demo</Link> the action takes one second.
+      In the <LocalizedLink href={demoHref}>demo</LocalizedLink> the action takes one second.
       Measured: 250 ms after submitting, the new message was already listed as
       &quot;sending…&quot;, the button read &quot;Posting…&quot; and was
       disabled, and <code>useActionState</code> reported pending. When it
