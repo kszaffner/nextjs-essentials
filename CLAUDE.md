@@ -242,10 +242,14 @@ src/
   the living plan and progress log: check it before starting work, and
   update it (status + change log) in the same change that adds, finishes,
   reorders, or drops an item.
-- The Next.js app is initialized (S0-02). Next step (see `ROADMAP.md`):
-  the route skeleton from the proposed structure above, structure only.
-  Then stop and wait for further instructions before implementing
-  individual topic modules.
+- All 37 topic pages from the proposed structure are implemented, each
+  with Basics, Edge cases, interview questions, and a live demo (stages 1
+  to 10 of `ROADMAP.md`). The one open item is the first Vercel deployment
+  (S0-07), which needs the project connected to the GitHub repo.
+- New work now means improving or extending existing topics, or adding one
+  from the Backlog in `ROADMAP.md`. Keep to the rules in "How work
+  happens here", and verify behavior claims against a production build
+  (`pnpm build` then `pnpm start`) instead of writing them from memory.
 
 ## Key commands
 
@@ -258,6 +262,7 @@ pnpm test         # vitest run (jsdom, Testing Library)
 pnpm test:watch   # vitest in watch mode
 pnpm architecture:check  # dependency-cruiser against .claude/rules/architecture.md
 pnpm check        # lint + typecheck + architecture:check + test
+pnpm analyze      # bundle analyzer (next experimental-analyze, Turbopack only)
 ```
 
 Vitest cannot render `async` Server Components; unit-test the synchronous
