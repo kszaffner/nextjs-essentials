@@ -151,25 +151,45 @@ item is tracked in the stage tables below.
 | S10-01 | Testing Server Components vs Client Components        | `/testing/server-vs-client`     | done    | `src/modules/testing-components`; verified: an async component rendered as JSX renders nothing, silently; calling it as a function works |
 | S10-02 | Mocking `fetch`/cache, testing Server Actions         | `/testing/mocking-and-actions`  | done    | `src/modules/testing-actions`; ten real tests mapped by technique; behavior of `redirect`, `revalidatePath`, `cookies`, `connection`, `cacheLife` in a plain test process verified |
 
+## Stage L: Languages and "Under the hood"
+
+Polish (default) and English for every topic, and an "Under the hood" panel
+on every demo: live evidence (network requests, headers, cache state) plus
+the real project files behind the demo. Each topic is touched once, so
+translation and panel ship together, one PR per group.
+
+Per topic: `content/{en,pl}.tsx` (Basics, Edge cases, Interview questions),
+`text.ts` (demo labels and the panel's data), a `get<Topic>Internals()` in the
+module index, and an `<InternalsPanel>` composed in the demo route. See
+"Languages and Under the hood" in `CLAUDE.md`.
+
+| ID  | Scope                                               | Topics | Status |
+| --- | --------------------------------------------------- | ------ | ------ |
+| L0  | Routing foundation: `[lang]`, proxy redirect, catalog, sitemap | - | done (merged) |
+| L1  | Panel foundation + App Router fundamentals + `next/dynamic` (pilot) | file-conventions, dynamic-segments, parallel-routes, intercepting-routes, navigation, dynamic-import | in review |
+| L2  | Rendering + Server/Client Components                | static-vs-dynamic, isr, streaming, ppr, use-client-boundary, composition, pitfalls | planned |
+| L3  | Data fetching and caching                           | fetch-extensions, cache-layers, parallel-vs-sequential, revalidation, use-cache-migration | planned |
+| L4  | Server Actions and forms                            | basics, forms, form-hooks, validation-and-redirect | planned |
+| L5  | Advanced routing + error handling                   | route-handlers, proxy, runtimes, error-boundaries, not-found, actions-and-handlers | planned |
+| L6  | Metadata and SEO + testing                          | generate-metadata, sitemap-robots, og-images, server-vs-client, mocking-and-actions | planned |
+| L7  | Optimization                                        | image, font, bundlers, web-vitals | planned |
+| L8  | Wrap-up: test that every topic has both languages and a panel, Playwright smoke for the language switch, docs | - | planned |
+
 ## Backlog / ideas
 
 Unscheduled candidates. Promote an item to a stage when it is planned.
 
-- **I18N-01** Polish (default) and English. Foundation done (this change): routes
-  under `src/app/[lang]`, `/pl` and `/en` prefixes, `src/shared/i18n`, proxy
-  redirect + `NEXT_LOCALE` cookie, translated chrome, topic catalog and
-  sitemap `hreflang`. Remaining: translate each topic's content and demo UI
-  (`content.tsx`, `*Topic.tsx` titles, demo labels), in groups of topics.
-- **LIVE-01** "Under the hood" panel per demo: live evidence (network
-  requests such as lazy chunks, response headers, cache state) and links to
-  the files in the project structure (`@slot`, `(.)folder`, ...) with code
-  excerpts. Delivered after I18N-01 content, by topic group.
+- _(empty)_
 
 ## Change log
 
 Newest first. One line per change: date, IDs, what changed.
 
-- 2026-10-04: I18N-01 foundation — all routes moved under `src/app/[lang]`
+- 2026-10-04: L1 (PR 14) — `src/shared/under-the-hood` (panel, live request log,
+  directory tree, source excerpts read at build time); `TopicContent` per
+  language; six topics translated with panels. Added Stage L (L0 to L8).
+
+- 2026-10-04: L0 (was I18N-01 foundation) — all routes moved under `src/app/[lang]`
   (`pl` default, `en`); unprefixed paths redirect via `proxy.ts`; topic
   catalog, navigation, topic page headings and sitemap are bilingual. Topic
   bodies are still English until translated. Added LIVE-01 to the Backlog.

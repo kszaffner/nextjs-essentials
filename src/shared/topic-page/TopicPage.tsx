@@ -7,14 +7,16 @@ export type InterviewQuestion = {
   answer: ReactNode;
 };
 
-type TopicPageProps = {
-  locale: Locale;
+// What a topic says, in one language.
+export type TopicContent = {
   title: string;
   summary: string;
   basics: ReactNode;
   edgeCases: ReactNode;
   interviewQuestions: readonly InterviewQuestion[];
 };
+
+type TopicPageProps = TopicContent & { locale: Locale };
 
 // Every topic page has the same three sections: Basics, Edge cases, and
 // Interview questions. The headings come from the locale; the rest is the

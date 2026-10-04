@@ -1,12 +1,22 @@
-import { SlotsFrame } from "@/modules/parallel-routes";
+import { SlotsFrame, getParallelRoutesInternals } from "@/modules/parallel-routes";
+import { readLocale } from "@/shared/i18n";
+import { InternalsPanel } from "@/shared/under-the-hood";
 
-export default function DemoLayout({
+export default async function DemoLayout({
   children,
   team,
   analytics,
+  params,
 }: LayoutProps<"/[lang]/fundamentals/parallel-routes/demo">) {
+  const locale = await readLocale(params);
+
   return (
-    <SlotsFrame team={team} analytics={analytics}>
+    <SlotsFrame
+      locale={locale}
+      team={team}
+      analytics={analytics}
+      footer={<InternalsPanel locale={locale} {...getParallelRoutesInternals(locale)} />}
+    >
       {children}
     </SlotsFrame>
   );

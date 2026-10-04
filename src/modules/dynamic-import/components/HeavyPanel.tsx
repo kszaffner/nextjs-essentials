@@ -1,5 +1,6 @@
 "use client";
 
+import { useDynamicImportText } from "../text";
 import styles from "./Dynamic.module.css";
 
 // DYNAMIC_IMPORT_HEAVY_MARKER: lives only in the chunk that holds this file.
@@ -18,14 +19,13 @@ function findPrimes(count: number): number[] {
 // Stands in for something genuinely heavy (a chart or editor library) that
 // most visitors never open.
 export function HeavyPanel() {
+  const text = useDynamicImportText().heavy;
   const primes = findPrimes(PRIMES_TO_FIND);
 
   return (
     <section className={styles.section}>
-      <h3 className={styles.title}>The heavy panel</h3>
-      <p className={styles.hint}>
-        Computed on the client: the {PRIMES_TO_FIND}th prime is {primes.at(-1)}.
-      </p>
+      <h3 className={styles.title}>{text.title}</h3>
+      <p className={styles.hint}>{text.result(PRIMES_TO_FIND, primes.at(-1))}</p>
     </section>
   );
 }

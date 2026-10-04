@@ -4,7 +4,7 @@ import { PersistenceProbe } from "@/modules/file-conventions";
 export default function DemoTemplate({ children }: { children: ReactNode }) {
   return (
     <div>
-      <PersistenceProbe label="template.tsx input (resets on navigation)" />
+      <PersistenceProbe kind="template" />
       {children}
     </div>
   );

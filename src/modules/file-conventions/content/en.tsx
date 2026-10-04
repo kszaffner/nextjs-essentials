@@ -1,4 +1,4 @@
-import type { InterviewQuestion } from "@/shared/topic-page";
+import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/fundamentals/file-conventions/demo";
@@ -194,3 +194,11 @@ export const interviewQuestions: readonly InterviewQuestion[] = [
     ),
   },
 ];
+
+export const content: TopicContent = {
+  title: "File conventions",
+  summary: "page, layout, template, loading, error, not-found, route groups, and private folders.",
+  basics,
+  edgeCases,
+  interviewQuestions,
+};

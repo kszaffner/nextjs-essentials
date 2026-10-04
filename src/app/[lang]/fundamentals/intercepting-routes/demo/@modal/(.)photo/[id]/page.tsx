@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { readLocale } from "@/shared/i18n";
 import {
   InterceptedPhoto,
   findPhoto,
@@ -13,11 +14,12 @@ export default async function Page({
   params,
 }: PageProps<"/[lang]/fundamentals/intercepting-routes/demo/photo/[id]">) {
   const { id } = await params;
+  const locale = await readLocale(params);
   const photo = findPhoto(id);
 
   if (!photo) {
     notFound();
   }
 
-  return <InterceptedPhoto photo={photo} />;
+  return <InterceptedPhoto photo={photo} locale={locale} />;
 }

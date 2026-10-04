@@ -1,9 +1,15 @@
+"use client";
+
+import { useFileConventionsText } from "../text";
 import { DemoPanel } from "./DemoPanel";
 
+// loading.tsx receives no props, so the language comes from the context.
 export function DemoLoading() {
+  const text = useFileConventionsText().loading;
+
   return (
-    <DemoPanel title="Loading…">
-      <p role="status">This is loading.tsx, shown while the page streams in.</p>
+    <DemoPanel title={text.title}>
+      <p role="status">{text.body}</p>
     </DemoPanel>
   );
 }

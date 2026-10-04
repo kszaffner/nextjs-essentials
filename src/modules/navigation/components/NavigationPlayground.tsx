@@ -4,6 +4,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import styles from "./Navigation.module.css";
 import { LocalizedLink, useLocalizedPath } from "@/shared/i18n";
+import { useNavigationText } from "../text";
 
 const otherPagePath = "/fundamentals/navigation/demo/other";
 
@@ -15,22 +16,27 @@ type RouterAction = {
 
 type AppRouter = ReturnType<typeof useRouter>;
 
-function createLinks(pathname: string) {
+function createLinks(pathname: string, labels: ReturnType<typeof useNavigationText>["playground"]["links"]) {
   return [
-    { href: `${pathname}?tab=link`, label: "Link ?tab=link", shouldReplace: false, shouldPrefetch: undefined },
-    { href: `${pathname}?tab=replaced`, label: "Link ?tab=replaced (replace)", shouldReplace: true, shouldPrefetch: undefined },
-    { href: otherPagePath, label: "Link to another page", shouldReplace: false, shouldPrefetch: undefined },
-    { href: otherPagePath, label: "Same page, prefetch={false}", shouldReplace: false, shouldPrefetch: false },
+    { href: `${pathname}?tab=link`, label: labels.tab, shouldReplace: false, shouldPrefetch: undefined },
+    { href: `${pathname}?tab=replaced`, label: labels.replaced, shouldReplace: true, shouldPrefetch: undefined },
+    { href: otherPagePath, label: labels.other, shouldReplace: false, shouldPrefetch: undefined },
+    { href: otherPagePath, label: labels.noPrefetch, shouldReplace: false, shouldPrefetch: false },
   ];
 }
 
-function createRouterActions(router: AppRouter, pathname: string, otherPage: string): RouterAction[] {
+function createRouterActions(
+  router: AppRouter,
+  pathname: string,
+  otherPage: string,
+  otherPageLabel: string,
+): RouterAction[] {
   return [
     { label: "router.push", description: "router.push(?tab=push)", run: () => router.push(`${pathname}?tab=push`) },
     { label: "router.replace", description: "router.replace(?tab=replace)", run: () => router.replace(`${pathname}?tab=replace`) },
     { label: "router.back", description: "router.back()", run: () => router.back() },
     { label: "router.refresh", description: "router.refresh()", run: () => router.refresh() },
-    { label: "router.push (other page)", description: "router.push(other page)", run: () => router.push(otherPage) },
+    { label: otherPageLabel, description: "router.push(other page)", run: () => router.push(otherPage) },
   ];
 }
 
@@ -39,18 +45,19 @@ export function NavigationPlayground() {
   const localize = useLocalizedPath();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [lastAction, setLastAction] = useState("none yet");
+  const text = useNavigationText().playground;
+  const [lastAction, setLastAction] = useState(text.noAction);
 
-  const tab = searchParams.get("tab") ?? "(none)";
-  const links = createLinks(pathname);
-  const routerActions = createRouterActions(router, pathname, localize(otherPagePath));
+  const tab = searchParams.get("tab") ?? text.noTab;
+  const links = createLinks(pathname, text.links);
+  const routerActions = createRouterActions(router, pathname, localize(otherPagePath), text.otherPage);
 
   return (
     <section className={styles.panel}>
-      <h3 className={styles.title}>Client navigation</h3>
-      <p className={styles.readout}>usePathname(): {pathname}</p>
-      <p className={styles.readout}>useSearchParams().get(&quot;tab&quot;): {tab}</p>
-      <p className={styles.readout}>Last action (client state): {lastAction}</p>
+      <h3 className={styles.title}>{text.title}</h3>
+      <p className={styles.readout}>{text.pathname}: {pathname}</p>
+      <p className={styles.readout}>{text.searchParam}: {tab}</p>
+      <p className={styles.readout}>{text.lastAction}: {lastAction}</p>
 
       <ul className={styles.actions}>
         {links.map((link) => (

@@ -1,30 +1,32 @@
-import styles from "./Demo.module.css";
+"use client";
+
 import { LocalizedLink } from "@/shared/i18n";
+import { useFileConventionsText } from "../text";
+import styles from "./Demo.module.css";
 
-type DemoLink = {
-  href: string;
-  label: string;
-  // The _private link is a deliberate 404; prefetching it would only log errors.
-  shouldPrefetch?: boolean;
-};
-
-const demoLinks: readonly DemoLink[] = [
-  { href: "/fundamentals/file-conventions/demo", label: "Demo home" },
-  { href: "/fundamentals/file-conventions/demo/second", label: "Second page" },
-  { href: "/fundamentals/file-conventions/demo/slow", label: "Slow page (loading.tsx)" },
-  { href: "/fundamentals/file-conventions/demo/crash", label: "Crash page (error.tsx)" },
-  { href: "/fundamentals/file-conventions/demo/missing", label: "Missing page (not-found.tsx)" },
-  { href: "/fundamentals/file-conventions/demo/about", label: "About (route group)" },
-  { href: "/fundamentals/file-conventions/demo/_private", label: "_private folder (404)", shouldPrefetch: false },
-];
+const demoBase = "/fundamentals/file-conventions/demo";
 
 export function DemoNavigation() {
+  const text = useFileConventionsText();
+  const demoLinks = [
+    { href: demoBase, label: text.links.home },
+    { href: `${demoBase}/second`, label: text.links.second },
+    { href: `${demoBase}/slow`, label: text.links.slow },
+    { href: `${demoBase}/crash`, label: text.links.crash },
+    { href: `${demoBase}/missing`, label: text.links.missing },
+    { href: `${demoBase}/about`, label: text.links.about },
+    // The _private link is a deliberate 404; prefetching it would only log errors.
+    { href: `${demoBase}/_private`, label: text.links.privateFolder, shouldPrefetch: false },
+  ];
+
   return (
-    <nav aria-label="File conventions demo">
+    <nav aria-label={text.navigationLabel}>
       <ul className={styles.links}>
         {demoLinks.map((link) => (
           <li key={link.href}>
-            <LocalizedLink href={link.href} prefetch={link.shouldPrefetch}>{link.label}</LocalizedLink>
+            <LocalizedLink href={link.href} prefetch={link.shouldPrefetch}>
+              {link.label}
+            </LocalizedLink>
           </li>
         ))}
       </ul>

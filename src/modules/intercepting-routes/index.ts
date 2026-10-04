@@ -3,3 +3,4 @@ export { InterceptedPhoto } from "./components/InterceptedPhoto";
 export { InterceptingRoutesTopic } from "./components/InterceptingRoutesTopic";
 export { PhotoPage } from "./components/PhotoPage";
 export { findPhoto, photos, type Photo } from "./photos";
+export { getInterceptingInternals } from "./text";

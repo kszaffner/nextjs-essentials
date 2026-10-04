@@ -1,4 +1,4 @@
-import type { InterviewQuestion } from "@/shared/topic-page";
+import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
 
 const demoBase = "/fundamentals/parallel-routes/demo";
@@ -135,3 +135,11 @@ export const interviewQuestions: readonly InterviewQuestion[] = [
     ),
   },
 ];
+
+export const content: TopicContent = {
+  title: "Parallel routes",
+  summary: "Rendering several pages in one layout with @slot folders.",
+  basics,
+  edgeCases,
+  interviewQuestions,
+};

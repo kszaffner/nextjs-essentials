@@ -1,12 +1,13 @@
+"use client";
+
+import { type SlotKey, useParallelRoutesText } from "../text";
 import { SlotPanel } from "./SlotPanel";
 
-type SlotMessageProps = {
-  slotName: string;
-  title: string;
-  message: string;
-};
+// A Client Component because loading.tsx and default.tsx receive no props:
+// the language comes from the layout's context.
+export function SlotMessage({ slot }: { slot: SlotKey }) {
+  const { slotName, title, message } = useParallelRoutesText().slots[slot];
 
-export function SlotMessage({ slotName, title, message }: SlotMessageProps) {
   return (
     <SlotPanel slotName={slotName} title={title}>
       <p>{message}</p>

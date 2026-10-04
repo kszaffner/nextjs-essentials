@@ -252,6 +252,29 @@ src/
   happens here", and verify behavior claims against a production build
   (`pnpm build` then `pnpm start`) instead of writing them from memory.
 
+## Languages and "Under the hood"
+
+The app is bilingual: `pl` (default) and `en`, as a `/pl` or `/en` URL prefix
+(`src/app/[lang]`, redirect in `src/proxy.ts`, helpers in `src/shared/i18n`).
+Rules for a translated topic:
+
+- Topic text lives in `src/modules/<topic>/content/{en,pl}.tsx`, each
+  exporting `content: TopicContent`; `content/index.ts` maps locale to
+  content. Keep code identifiers, API names, and file names untranslated.
+- Demo labels live in `src/modules/<topic>/text.ts` (one record per locale).
+  Server components take a `locale` prop (a page reads it with `readLocale(params)`);
+  components that receive no params (`loading.tsx`, `error.tsx`,
+  `not-found.tsx`, `template.tsx`) are Client Components and call `useLocale()`.
+- Never read the locale with `next/root-params`: it cannot be bundled through
+  module barrels that Client Components and the proxy also import.
+- Every demo has a collapsed "Under the hood" panel: the module exposes
+  `get<Topic>Internals(locale)` (plain data: folder to list, live request
+  filter, files to excerpt) and the demo route renders
+  `<InternalsPanel locale={locale} {...get<Topic>Internals(locale)} />` from
+  `@/shared/under-the-hood`. The panel reads real files at build time, so the
+  code it shows cannot drift. Keep server-only code (file reads) out of module
+  `index.ts` graphs: an `error.tsx` imports them too.
+
 ## Key commands
 
 ```text

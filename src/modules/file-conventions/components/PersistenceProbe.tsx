@@ -1,20 +1,23 @@
+"use client";
+
+import { useFileConventionsText } from "../text";
 import styles from "./Demo.module.css";
 
 type PersistenceProbeProps = {
-  label: string;
+  kind: "layout" | "template";
 };
 
 // An uncontrolled input: whatever the user types lives in the DOM, so it
 // survives navigation only if the component around it is not remounted.
-export function PersistenceProbe({ label }: PersistenceProbeProps) {
+// A Client Component because template.tsx receives no params to read the
+// language from; it takes it from the layout's context instead.
+export function PersistenceProbe({ kind }: PersistenceProbeProps) {
+  const text = useFileConventionsText();
+
   return (
     <label className={styles.field}>
-      {label}
-      <input
-        className={styles.input}
-        type="text"
-        placeholder="Type here, then use the links below"
-      />
+      {kind === "layout" ? text.layoutProbe : text.templateProbe}
+      <input className={styles.input} type="text" placeholder={text.probePlaceholder} />
     </label>
   );
 }
