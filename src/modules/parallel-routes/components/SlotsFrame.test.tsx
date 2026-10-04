@@ -7,7 +7,7 @@ afterEach(cleanup);
 describe("SlotsFrame", () => {
   it("renders every slot it is given", () => {
     render(
-      <SlotsFrame team={<p>team slot</p>} analytics={<p>analytics slot</p>}>
+      <SlotsFrame locale="en" team={<p>team slot</p>} analytics={<p>analytics slot</p>}>
         <p>children slot</p>
       </SlotsFrame>,
     );
@@ -19,7 +19,7 @@ describe("SlotsFrame", () => {
 
   it("offers both a soft navigation link and a full page load link", () => {
     render(
-      <SlotsFrame team={null} analytics={null}>
+      <SlotsFrame locale="en" team={null} analytics={null}>
         {null}
       </SlotsFrame>,
     );

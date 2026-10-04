@@ -1,14 +1,16 @@
+import type { Locale } from "@/shared/i18n";
+
 export type Photo = {
   id: string;
-  title: string;
+  titles: Record<Locale, string>;
   color: string;
 };
 
 export const photos: readonly Photo[] = [
-  { id: "1", title: "Sunrise", color: "#f4a261" },
-  { id: "2", title: "Forest", color: "#2a9d8f" },
-  { id: "3", title: "Ocean", color: "#457b9d" },
-  { id: "4", title: "Dusk", color: "#6d597a" },
+  { id: "1", titles: { en: "Sunrise", pl: "Wschód słońca" }, color: "#f4a261" },
+  { id: "2", titles: { en: "Forest", pl: "Las" }, color: "#2a9d8f" },
+  { id: "3", titles: { en: "Ocean", pl: "Ocean" }, color: "#457b9d" },
+  { id: "4", titles: { en: "Dusk", pl: "Zmierzch" }, color: "#6d597a" },
 ];
 
 export function findPhoto(id: string): Photo | undefined {

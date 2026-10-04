@@ -1,14 +1,14 @@
-import type { Photo } from "../photos";
 import styles from "./Gallery.module.css";
 
 type PhotoViewProps = {
-  photo: Photo;
+  color: string;
+  title: string;
 };
 
-export function PhotoView({ photo }: PhotoViewProps) {
+export function PhotoView({ color, title }: PhotoViewProps) {
   return (
     <div>
-      <div className={styles.large} style={{ background: photo.color }} role="img" aria-label={photo.title} />
+      <div className={styles.large} style={{ background: color }} role="img" aria-label={title} />
     </div>
   );
 }

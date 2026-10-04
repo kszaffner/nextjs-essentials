@@ -1,1 +1,1 @@
-export { TopicPage, type InterviewQuestion } from "./TopicPage";
+export { TopicPage, type InterviewQuestion, type TopicContent } from "./TopicPage";

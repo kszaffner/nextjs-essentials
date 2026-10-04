@@ -1,4 +1,4 @@
-import type { InterviewQuestion } from "@/shared/topic-page";
+import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
 
 const demoPath = "/fundamentals/navigation/demo";
@@ -167,3 +167,11 @@ export const interviewQuestions: readonly InterviewQuestion[] = [
     ),
   },
 ];
+
+export const content: TopicContent = {
+  title: "Navigation",
+  summary: "Link, useRouter, usePathname, useSearchParams, and prefetching.",
+  basics,
+  edgeCases,
+  interviewQuestions,
+};

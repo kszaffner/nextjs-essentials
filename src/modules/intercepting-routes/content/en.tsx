@@ -1,4 +1,4 @@
-import type { InterviewQuestion } from "@/shared/topic-page";
+import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
 
 const demoBase = "/fundamentals/intercepting-routes/demo";
@@ -127,3 +127,11 @@ export const interviewQuestions: readonly InterviewQuestion[] = [
     ),
   },
 ];
+
+export const content: TopicContent = {
+  title: "Intercepting routes",
+  summary: "Showing another route in the current context with (.)folder.",
+  basics,
+  edgeCases,
+  interviewQuestions,
+};

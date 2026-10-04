@@ -7,3 +7,4 @@ export { DemoPage } from "./components/DemoPage";
 export { FileConventionsTopic } from "./components/FileConventionsTopic";
 export { PersistenceProbe } from "./components/PersistenceProbe";
 export { SlowDemo } from "./components/SlowDemo";
+export { getFileConventionsInternals } from "./text";

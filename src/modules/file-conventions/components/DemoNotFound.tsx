@@ -1,9 +1,14 @@
+"use client";
+
+import { useFileConventionsText } from "../text";
 import { DemoPanel } from "./DemoPanel";
 
 export function DemoNotFound() {
+  const text = useFileConventionsText().notFound;
+
   return (
-    <DemoPanel title="This is not-found.tsx">
-      <p>The page called notFound(), so the closest not-found.tsx rendered.</p>
+    <DemoPanel title={text.title}>
+      <p>{text.body}</p>
     </DemoPanel>
   );
 }

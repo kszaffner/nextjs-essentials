@@ -2,35 +2,36 @@
 
 import dynamic from "next/dynamic";
 import { useState } from "react";
-import { ChunkReport } from "./ChunkReport";
+import { useDynamicImportText } from "../text";
 import styles from "./Dynamic.module.css";
 
 // ssr: false keeps the component out of the server render entirely, and
 // is only allowed here, in a Client Component.
 const LazyHeavyPanel = dynamic(() => import("./HeavyPanel").then((module) => module.HeavyPanel), {
   ssr: false,
-  loading: () => <p role="status">Loading the heavy panel…</p>,
+  loading: () => <LoadingNote />,
 });
 
 const EagerPanel = dynamic(() => import("./EagerDynamicPanel").then((module) => module.EagerDynamicPanel));
 
+function LoadingNote() {
+  return <p role="status">{useDynamicImportText().lazy.loading}</p>;
+}
+
 export function DynamicDemo() {
-  const [openedAt, setOpenedAt] = useState<number | null>(null);
+  const text = useDynamicImportText().lazy;
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div>
       <EagerPanel />
       <section className={styles.section}>
-        <h3 className={styles.title}>A dynamic import with ssr: false</h3>
-        <button type="button" className={styles.button} onClick={() => setOpenedAt(performance.now())} disabled={openedAt !== null}>
-          Open the heavy panel
+        <h3 className={styles.title}>{text.title}</h3>
+        <button type="button" className={styles.button} onClick={() => setIsOpen(true)} disabled={isOpen}>
+          {text.button}
         </button>
-        <p className={styles.hint}>
-          Nothing of the panel is in the first load: not its HTML and not its
-          script. Opening it fetches the chunk.
-        </p>
-        {openedAt !== null ? <LazyHeavyPanel /> : null}
-        <ChunkReport since={openedAt} />
+        <p className={styles.hint}>{text.hint}</p>
+        {isOpen ? <LazyHeavyPanel /> : null}
       </section>
     </div>
   );

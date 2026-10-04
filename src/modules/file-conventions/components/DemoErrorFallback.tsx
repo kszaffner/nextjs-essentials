@@ -1,5 +1,6 @@
 "use client";
 
+import { useFileConventionsText } from "../text";
 import { DemoPanel } from "./DemoPanel";
 import styles from "./Demo.module.css";
 
@@ -11,16 +12,15 @@ type DemoErrorFallbackProps = {
 // Not reported to error monitoring on purpose: the error is triggered by
 // hand in this demo and would only add noise.
 export function DemoErrorFallback({ error, retry }: DemoErrorFallbackProps) {
+  const text = useFileConventionsText().error;
+
   return (
-    <DemoPanel title="This is error.tsx">
+    <DemoPanel title={text.title}>
       <p role="alert">{error.message}</p>
       <button type="button" className={styles.button} onClick={() => retry()}>
-        Try again
+        {text.retry}
       </button>
-      <p className={styles.muted}>
-        The links above still work: the layout and template sit outside this
-        error boundary.
-      </p>
+      <p className={styles.muted}>{text.hint}</p>
     </DemoPanel>
   );
 }

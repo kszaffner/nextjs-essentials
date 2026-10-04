@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import type { ReactNode } from "react";
+import { useInterceptingText } from "../text";
 import styles from "./Gallery.module.css";
 
 type PhotoModalProps = {
@@ -19,6 +20,7 @@ function openAsModal(dialog: HTMLDialogElement | null) {
 
 export function PhotoModal({ title, children }: PhotoModalProps) {
   const router = useRouter();
+  const text = useInterceptingText();
 
   return (
     <dialog
@@ -36,7 +38,7 @@ export function PhotoModal({ title, children }: PhotoModalProps) {
         className={styles.button}
         onClick={(event) => event.currentTarget.closest("dialog")?.close()}
       >
-        Close
+        {text.closeButton}
       </button>
     </dialog>
   );

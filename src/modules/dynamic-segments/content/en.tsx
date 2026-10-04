@@ -1,5 +1,5 @@
-import type { InterviewQuestion } from "@/shared/topic-page";
-import { DemoLinks } from "./components/DemoLinks";
+import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
+import { DemoLinks } from "../components/DemoLinks";
 import { LocalizedLink } from "@/shared/i18n";
 
 const demoBase = "/fundamentals/dynamic-segments/demo";
@@ -226,3 +226,11 @@ export const interviewQuestions: readonly InterviewQuestion[] = [
     ),
   },
 ];
+
+export const content: TopicContent = {
+  title: "Dynamic segments",
+  summary: "[slug], catch-all [...slug], and optional catch-all [[...slug]].",
+  basics,
+  edgeCases,
+  interviewQuestions,
+};
