@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/components/use-client-boundary/demo";
 
@@ -30,7 +30,7 @@ export const basics = (
       </li>
     </ul>
     <p>
-      The <Link href={demoHref}>demo</Link> sends one of each allowed kind
+      The <LocalizedLink href={demoHref}>demo</LocalizedLink> sends one of each allowed kind
       from a Server Component. The Client Component prints what it received:
       a <code>Date</code> is still a <code>Date</code>, a <code>Map</code> is
       still a <code>Map</code>.

@@ -1,14 +1,14 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
 import { DemoLinks } from "./components/DemoLinks";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoBase = "/fundamentals/dynamic-segments/demo";
 
 function DemoLink({ path, children }: { path: string; children: string }) {
   return (
-    <Link href={`${demoBase}/${path}`} prefetch={false}>
+    <LocalizedLink href={`${demoBase}/${path}`} prefetch={false}>
       {children}
-    </Link>
+    </LocalizedLink>
   );
 }
 

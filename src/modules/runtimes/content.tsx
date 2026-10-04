@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/advanced-routing/runtimes/demo";
 
@@ -13,7 +13,7 @@ export const basics = (
       through <code>process.env.NEXT_RUNTIME</code>.
     </p>
     <p>
-      The <Link href={demoHref}>demo</Link> asks three pieces of this app where
+      The <LocalizedLink href={demoHref}>demo</LocalizedLink> asks three pieces of this app where
       they run. On a production build every answer was{" "}
       <code>nodejs</code> (Node v22), and the <code>EdgeRuntime</code> global
       that only the Edge sandbox defines was absent:

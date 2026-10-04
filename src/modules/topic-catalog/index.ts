@@ -1,3 +1,4 @@
+export { generateTopicMetadata } from "./generateTopicMetadata";
 export { TopicIndex } from "./components/TopicIndex";
 export { TopicNavigation } from "./components/TopicNavigation";
-export { getTopicMetadata, listTopicHrefs, type TopicHref } from "./topics";
+export { listTopicHrefs, type TopicHref } from "./topics";

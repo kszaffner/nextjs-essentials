@@ -1,6 +1,6 @@
-import Link from "next/link";
 import type { ReactNode } from "react";
 import styles from "./Slots.module.css";
+import { LocalizedAnchor, LocalizedLink } from "@/shared/i18n";
 
 type SlotsFrameProps = {
   children: ReactNode;
@@ -17,13 +17,13 @@ export function SlotsFrame({ children, team, analytics }: SlotsFrameProps) {
       <nav aria-label="Parallel routes demo">
         <ul className={styles.links}>
           <li>
-            <Link href={demoBase}>/demo</Link>
+            <LocalizedLink href={demoBase}>/demo</LocalizedLink>
           </li>
           <li>
-            <Link href={`${demoBase}/settings`}>/demo/settings (soft navigation)</Link>
+            <LocalizedLink href={`${demoBase}/settings`}>/demo/settings (soft navigation)</LocalizedLink>
           </li>
           <li>
-            <a href={`${demoBase}/settings`}>/demo/settings (full page load)</a>
+            <LocalizedAnchor href={`${demoBase}/settings`}>/demo/settings (full page load)</LocalizedAnchor>
           </li>
         </ul>
       </nav>

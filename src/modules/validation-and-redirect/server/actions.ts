@@ -2,6 +2,8 @@
 
 import { redirect } from "next/navigation";
 import { z } from "zod";
+import { localizePath } from "@/shared/i18n";
+import { getCookieLocale } from "@/shared/i18n/cookie";
 import type { SignupState } from "../signupState";
 import { SignupSchema } from "./signupSchema";
 
@@ -38,7 +40,13 @@ export async function signUp(
   }
 
   // redirect() works by throwing, so it stays outside any try/catch.
+  // An action cannot read the [lang] root parameter, so the destination takes
+  // the language from the cookie the proxy keeps.
+  const locale = await getCookieLocale();
   redirect(
-    `/server-actions/validation-and-redirect/demo/welcome?name=${encodeURIComponent(parsed.data.name)}`,
+    localizePath(
+      locale,
+      `/server-actions/validation-and-redirect/demo/welcome?name=${encodeURIComponent(parsed.data.name)}`,
+    ),
   );
 }

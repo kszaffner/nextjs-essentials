@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/errors/error-boundaries/demo";
 
@@ -40,7 +40,7 @@ export default function Error({ error, retry }: {
       </li>
     </ul>
     <p>
-      The <Link href={demoHref}>demo</Link> has three scenarios on a production
+      The <LocalizedLink href={demoHref}>demo</LocalizedLink> has three scenarios on a production
       build: a page that throws, a layout that throws, and an event handler that
       throws. Each failing route and the parent segment have their own{" "}
       <code>error.tsx</code>, and the fallback names the file that caught the

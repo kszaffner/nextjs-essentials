@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/optimization/font/demo";
 
@@ -20,7 +20,7 @@ const lora = Lora({ subsets: ["latin"], variable: "--font-lora", display: "swap"
     </pre>
     <p>
       The root layout already loads Geist this way. The{" "}
-      <Link href={demoHref}>demo</Link> adds Lora on that one page, and a button
+      <LocalizedLink href={demoHref}>demo</LocalizedLink> adds Lora on that one page, and a button
       lists the font faces the browser knows. Observed on a production build:
     </p>
     <ul>

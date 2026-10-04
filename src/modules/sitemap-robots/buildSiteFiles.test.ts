@@ -6,18 +6,31 @@ const siteUrl = new URL(ORIGIN);
 const ISR_PATH = "/rendering/isr";
 
 describe("buildSitemap", () => {
-  it("lists the home page first, then every topic, as absolute URLs", () => {
+  it("lists the home page first, then every topic, in every language, as absolute URLs", () => {
     const entries = buildSitemap(siteUrl, [ISR_PATH, "/data/revalidation"]);
 
     expect(entries.map((entry) => entry.url)).toEqual([
-      `${ORIGIN}/`,
-      `${ORIGIN}${ISR_PATH}`,
-      `${ORIGIN}/data/revalidation`,
+      `${ORIGIN}/pl`,
+      `${ORIGIN}/en`,
+      `${ORIGIN}/pl${ISR_PATH}`,
+      `${ORIGIN}/en${ISR_PATH}`,
+      `${ORIGIN}/pl/data/revalidation`,
+      `${ORIGIN}/en/data/revalidation`,
     ]);
   });
 
+  it("links each page to its translations, with Polish as the default", () => {
+    const [polishHome] = buildSitemap(siteUrl, []);
+
+    expect(polishHome?.alternates?.languages).toEqual({
+      pl: `${ORIGIN}/pl`,
+      en: `${ORIGIN}/en`,
+      "x-default": `${ORIGIN}/pl`,
+    });
+  });
+
   it("gives the home page the highest priority", () => {
-    const [home, topic] = buildSitemap(siteUrl, [ISR_PATH]);
+    const [home, , topic] = buildSitemap(siteUrl, [ISR_PATH]);
 
     expect(home?.priority).toBe(1);
     expect(topic?.priority).toBe(0.7);
@@ -32,7 +45,7 @@ describe("buildSitemap", () => {
   it("resolves paths from the origin root, so a base path in the site URL is not kept", () => {
     const [home] = buildSitemap(new URL(`${ORIGIN}/start/`), []);
 
-    expect(home?.url).toBe(`${ORIGIN}/`);
+    expect(home?.url).toBe(`${ORIGIN}/pl`);
   });
 });
 

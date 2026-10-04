@@ -1,9 +1,11 @@
+import type { Locale } from "@/shared/i18n";
 import { TopicPage } from "@/shared/topic-page";
 import { basics, edgeCases, interviewQuestions } from "../content";
 
-export function DynamicSegmentsTopic() {
+export function DynamicSegmentsTopic({ locale }: { locale: Locale }) {
   return (
     <TopicPage
+      locale={locale}
       title="Dynamic segments"
       summary="[slug], catch-all [...slug], and optional catch-all [[...slug]]."
       basics={basics}

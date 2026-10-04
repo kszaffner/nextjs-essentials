@@ -23,7 +23,7 @@ export async function addWithRevalidateTag() {
 // Invalidates by path instead of by tag.
 export async function addWithRevalidatePath() {
   addEntry();
-  revalidatePath(ENTRIES_PATH);
+  revalidatePath(ENTRIES_PATH, "page");
 }
 
 // Refreshes the client router only: it does not invalidate any cache.

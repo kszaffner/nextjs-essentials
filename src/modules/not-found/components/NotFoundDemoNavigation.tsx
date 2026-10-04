@@ -1,5 +1,5 @@
-import Link from "next/link";
 import styles from "./NotFound.module.css";
+import { LocalizedAnchor, LocalizedLink } from "@/shared/i18n";
 
 const base = "/errors/not-found/demo";
 
@@ -18,12 +18,12 @@ export function NotFoundDemoNavigation() {
         {links.map((link) => (
           <li key={link.href}>
             {/* Plain anchors: full requests, so the HTTP status is observable. */}
-            <a href={link.href}>{link.label}</a>
+            <LocalizedAnchor href={link.href}>{link.label}</LocalizedAnchor>
           </li>
         ))}
       </ul>
       <p className={styles.hint}>
-        Prefer <Link href={base}>this page</Link> for the reasoning, and curl -i
+        Prefer <LocalizedLink href={base}>this page</LocalizedLink> for the reasoning, and curl -i
         to see the status codes.
       </p>
     </nav>

@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/advanced-routing/route-handlers/demo";
 
@@ -27,7 +27,7 @@ export async function GET(_request: NextRequest, context: RouteContext<"/api/not
       <code>NextRequest</code> and <code>NextResponse</code> extend the web{" "}
       <code>Request</code> and <code>Response</code> with helpers such as{" "}
       <code>nextUrl.searchParams</code>, <code>cookies</code>, and{" "}
-      <code>NextResponse.json()</code>. Use the <Link href={demoHref}>demo</Link>{" "}
+      <code>NextResponse.json()</code>. Use the <LocalizedLink href={demoHref}>demo</LocalizedLink>{" "}
       console to see the status codes this notes API returns:
     </p>
     <ul>

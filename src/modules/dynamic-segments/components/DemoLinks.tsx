@@ -1,5 +1,5 @@
-import Link from "next/link";
 import styles from "./ParamsReport.module.css";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoBase = "/fundamentals/dynamic-segments/demo";
 
@@ -21,9 +21,9 @@ export function DemoLinks() {
       <ul className={styles.links}>
         {demoLinks.map((link) => (
           <li key={link.href}>
-            <Link href={link.href} prefetch={false}>
+            <LocalizedLink href={link.href} prefetch={false}>
               {link.label}
-            </Link>
+            </LocalizedLink>
           </li>
         ))}
       </ul>

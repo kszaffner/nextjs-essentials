@@ -1,5 +1,5 @@
-import Link from "next/link";
 import styles from "./Boundaries.module.css";
+import { LocalizedLink } from "@/shared/i18n";
 
 const base = "/errors/error-boundaries/demo";
 
@@ -17,9 +17,9 @@ export function ErrorDemoNavigation() {
         {links.map((link) => (
           <li key={link.href}>
             {/* Prefetching would run the throwing routes before any click. */}
-            <Link href={link.href} prefetch={false}>
+            <LocalizedLink href={link.href} prefetch={false}>
               {link.label}
-            </Link>
+            </LocalizedLink>
           </li>
         ))}
       </ul>

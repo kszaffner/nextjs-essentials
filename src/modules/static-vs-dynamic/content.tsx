@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoBase = "/rendering/static-vs-dynamic/demo";
 
@@ -37,8 +37,8 @@ export const basics = (
       static HTML with dynamic server-streamed content.
     </p>
     <p>
-      Compare the <Link href={`${demoBase}/static`}>static route</Link> with the{" "}
-      <Link href={`${demoBase}/mixed`}>route with a dynamic part</Link>. On a
+      Compare the <LocalizedLink href={`${demoBase}/static`}>static route</LocalizedLink> with the{" "}
+      <LocalizedLink href={`${demoBase}/mixed`}>route with a dynamic part</LocalizedLink>. On a
       production build their responses differ: the static one is a cache hit
       served with <code>Cache-Control: s-maxage=31536000</code>; the mixed one
       carries <code>x-nextjs-postponed: 1</code>, is streamed in chunks, and

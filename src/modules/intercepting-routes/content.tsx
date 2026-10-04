@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoBase = "/fundamentals/intercepting-routes/demo";
 
@@ -30,7 +30,7 @@ export const basics = (
       <code>demo/@modal/(.)photo/[id]/page.tsx</code> intercepts{" "}
       <code>demo/photo/[id]</code>, and the layout renders the{" "}
       <code>modal</code> slot next to <code>children</code>. Try the{" "}
-      <Link href={demoBase}>gallery</Link>.
+      <LocalizedLink href={demoBase}>gallery</LocalizedLink>.
     </p>
   </>
 );

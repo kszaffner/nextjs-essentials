@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { LocalizedLink } from "@/shared/i18n";
 import type { InterviewQuestion } from "@/shared/topic-page";
 
 const demoHref = "/optimization/web-vitals/demo";
@@ -32,7 +32,7 @@ export function WebVitals() {
     </pre>
     <p>
       This site mounts such a collector in the root layout and keeps the latest
-      value of each metric in a small store. The <Link href={demoHref}>demo</Link>{" "}
+      value of each metric in a small store. The <LocalizedLink href={demoHref}>demo</LocalizedLink>{" "}
       shows them with a rating. On a production build the TTFB was reported and
       rated (22 ms, good).
     </p>

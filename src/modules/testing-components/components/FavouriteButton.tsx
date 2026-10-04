@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useLocalizedPath } from "@/shared/i18n";
 import styles from "./Testing.module.css";
 
 type FavouriteButtonProps = {
@@ -14,6 +15,7 @@ type FavouriteButtonProps = {
 // useRouter. A test needs a DOM, user events, and a stand-in for the router.
 export function FavouriteButton({ destination }: FavouriteButtonProps) {
   const router = useRouter();
+  const localize = useLocalizedPath();
   const [isFavourite, setIsFavourite] = useState(false);
 
   return (
@@ -27,7 +29,7 @@ export function FavouriteButton({ destination }: FavouriteButtonProps) {
       >
         {isFavourite ? "Remove from favourites" : "Add to favourites"}
       </button>
-      <button type="button" className={styles.button} onClick={() => router.push(destination)}>
+      <button type="button" className={styles.button} onClick={() => router.push(localize(destination))}>
         Go to the topic page
       </button>
     </section>

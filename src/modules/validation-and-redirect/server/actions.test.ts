@@ -4,6 +4,10 @@ import { initialSignupState } from "../signupState";
 // "server-only" throws outside the server module graph; the logic under test
 // is plain, so the guard is stubbed.
 vi.mock("server-only", () => ({}));
+// No request in a unit test: the visitor has no language cookie, so Polish applies.
+vi.mock("next/headers", () => ({
+  cookies: async () => ({ get: () => undefined }),
+}));
 
 const { signUp } = await import("./actions");
 
@@ -46,7 +50,7 @@ describe("signUp", () => {
     await expect(
       signUp(initialSignupState, formWith({ name: "Ada Lovelace", email: VALID_EMAIL, age: "36" })),
     ).rejects.toMatchObject({
-      digest: expect.stringContaining("/server-actions/validation-and-redirect/demo/welcome?name=Ada%20Lovelace"),
+      digest: expect.stringContaining("/pl/server-actions/validation-and-redirect/demo/welcome?name=Ada%20Lovelace"),
     });
   });
 

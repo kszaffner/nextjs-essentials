@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/components/pitfalls/demo";
 
@@ -22,7 +22,7 @@ export const basics = (
     </ul>
     <p>
       Most mistakes come from forgetting which side a file is on. The{" "}
-      <Link href={demoHref}>demo</Link> contrasts the two ways to build the
+      <LocalizedLink href={demoHref}>demo</LocalizedLink> contrasts the two ways to build the
       same card: a <strong>client leaf</strong> (only the button is client
       code) and <strong>everything client</strong> (the directive on the whole
       card). Both look identical; the difference is in the JavaScript bundle,
@@ -87,7 +87,7 @@ export const edgeCases = (
     <li>
       <strong>Passing the wrong thing across the boundary.</strong> Functions
       and class instances cannot be props (see{" "}
-      <Link href="/components/use-client-boundary">the use client boundary</Link>
+      <LocalizedLink href="/components/use-client-boundary">the use client boundary</LocalizedLink>
       ).
     </li>
   </ul>

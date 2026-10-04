@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/optimization/image/demo";
 
@@ -38,7 +38,7 @@ export const basics = (
       </li>
     </ul>
     <p>
-      The <Link href={demoHref}>demo</Link> has a hero with <code>preload</code>,
+      The <LocalizedLink href={demoHref}>demo</LocalizedLink> has a hero with <code>preload</code>,
       a gallery far below the fold, and a <code>fill</code> image. Observed on a
       production build:
     </p>

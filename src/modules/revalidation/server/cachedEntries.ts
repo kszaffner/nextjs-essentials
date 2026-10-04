@@ -3,7 +3,8 @@ import { cacheLife, cacheTag } from "next/cache";
 import { readEntries } from "./entryStore";
 
 export const ENTRIES_TAG = "revalidation-demo-entries";
-export const ENTRIES_PATH = "/data/revalidation/demo";
+// A route pattern, so one call refreshes the page in every language.
+export const ENTRIES_PATH = "/[lang]/data/revalidation/demo";
 
 // Cached for hours: it only changes when something invalidates the tag.
 export async function getCachedEntries() {

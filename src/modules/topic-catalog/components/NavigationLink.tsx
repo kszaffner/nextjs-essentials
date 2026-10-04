@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
+import { LocalizedLink, useLocale, localizePath } from "@/shared/i18n";
 import styles from "./TopicNavigation.module.css";
 
 type NavigationLinkProps = {
@@ -12,15 +12,15 @@ type NavigationLinkProps = {
 
 export function NavigationLink({ href, children }: NavigationLinkProps) {
   const pathname = usePathname();
-  const isCurrentPage = pathname === href;
+  const isCurrentPage = pathname === localizePath(useLocale(), href);
 
   return (
-    <Link
+    <LocalizedLink
       href={href}
       className={styles.link}
       aria-current={isCurrentPage ? "page" : undefined}
     >
       {children}
-    </Link>
+    </LocalizedLink>
   );
 }

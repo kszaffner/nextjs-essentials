@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/testing/server-vs-client/demo";
 
@@ -29,7 +29,7 @@ export const basics = (
       </li>
     </ul>
     <p>
-      The <Link href={demoHref}>demo</Link> renders the three side by side; their
+      The <LocalizedLink href={demoHref}>demo</LocalizedLink> renders the three side by side; their
       tests sit next to them in <code>src/modules/testing-components/components</code>.
     </p>
     <pre>

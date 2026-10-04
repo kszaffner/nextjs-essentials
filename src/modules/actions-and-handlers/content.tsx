@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/errors/actions-and-handlers/demo";
 
@@ -24,7 +24,7 @@ export const basics = (
       </li>
     </ul>
     <p>
-      The <Link href={demoHref}>demo</Link> calls a Route Handler in four modes
+      The <LocalizedLink href={demoHref}>demo</LocalizedLink> calls a Route Handler in four modes
       and a Server Action in three. Observed on a production build:
     </p>
     <table>

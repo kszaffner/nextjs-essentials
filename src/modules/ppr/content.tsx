@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/rendering/ppr/demo";
 
@@ -43,7 +43,7 @@ export const basics = (
       </tbody>
     </table>
     <p>
-      The <Link href={demoHref}>demo</Link> shows all four kinds on one page.
+      The <LocalizedLink href={demoHref}>demo</LocalizedLink> shows all four kinds on one page.
       Requesting it, the first streamed chunk already contains the static part,
       the hourly cached timestamp (from the build, and the same on every
       request), and the two Suspense fallbacks; the request-time part changes

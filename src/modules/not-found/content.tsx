@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/errors/not-found/demo";
 
@@ -22,7 +22,7 @@ export const basics = (
 }`}</code>
     </pre>
     <p>
-      The <Link href={demoHref}>demo</Link> checks the HTTP status of five
+      The <LocalizedLink href={demoHref}>demo</LocalizedLink> checks the HTTP status of five
       requests on a production build:
     </p>
     <table>

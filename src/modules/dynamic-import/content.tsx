@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/optimization/dynamic-import/demo";
 
@@ -35,7 +35,7 @@ const Heavy = dynamic(() => import("./HeavyPanel").then((m) => m.HeavyPanel), {
       </li>
     </ul>
     <p>
-      Try the <Link href={demoHref}>demo</Link>. Observed on a production build:
+      Try the <LocalizedLink href={demoHref}>demo</LocalizedLink>. Observed on a production build:
       the heavy panel (<code>ssr: false</code>) was not in the server HTML and
       had no preload; its code is its own chunk; opening it fetched exactly one
       new script (22 scripts at load, 23 after). The second panel is a dynamic

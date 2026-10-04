@@ -155,11 +155,24 @@ item is tracked in the stage tables below.
 
 Unscheduled candidates. Promote an item to a stage when it is planned.
 
-- _(empty)_
+- **I18N-01** Polish (default) and English. Foundation done (this change): routes
+  under `src/app/[lang]`, `/pl` and `/en` prefixes, `src/shared/i18n`, proxy
+  redirect + `NEXT_LOCALE` cookie, translated chrome, topic catalog and
+  sitemap `hreflang`. Remaining: translate each topic's content and demo UI
+  (`content.tsx`, `*Topic.tsx` titles, demo labels), in groups of topics.
+- **LIVE-01** "Under the hood" panel per demo: live evidence (network
+  requests such as lazy chunks, response headers, cache state) and links to
+  the files in the project structure (`@slot`, `(.)folder`, ...) with code
+  excerpts. Delivered after I18N-01 content, by topic group.
 
 ## Change log
 
 Newest first. One line per change: date, IDs, what changed.
+
+- 2026-10-04: I18N-01 foundation — all routes moved under `src/app/[lang]`
+  (`pl` default, `en`); unprefixed paths redirect via `proxy.ts`; topic
+  catalog, navigation, topic page headings and sitemap are bilingual. Topic
+  bodies are still English until translated. Added LIVE-01 to the Backlog.
 
 - 2026-10-04: S9-04, S9-05, S10-01, S10-02 done (PR 13) — the delivery plan is
   complete. Added 7 test files for existing server code (actions, route

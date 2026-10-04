@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/data/cache-layers/demo";
 
@@ -54,7 +54,7 @@ export const basics = (
       </tbody>
     </table>
     <p>
-      The <Link href={demoHref}>demo</Link> makes three of them visible.
+      The <LocalizedLink href={demoHref}>demo</LocalizedLink> makes three of them visible.
       Component A and Component B ask for the same data in one render and both
       see the same run: memoization. The <code>&quot;use cache&quot;</code> run
       number does not move when you reload: the server cache. And the page

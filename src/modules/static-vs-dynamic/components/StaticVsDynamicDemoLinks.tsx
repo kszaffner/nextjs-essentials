@@ -1,5 +1,5 @@
-import Link from "next/link";
 import styles from "./Rendering.module.css";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoBase = "/rendering/static-vs-dynamic/demo";
 
@@ -8,10 +8,10 @@ export function StaticVsDynamicDemoLinks() {
     <nav aria-label="Static vs dynamic demo">
       <ul className={styles.facts}>
         <li>
-          <Link href={`${demoBase}/static`}>A fully static route</Link>
+          <LocalizedLink href={`${demoBase}/static`}>A fully static route</LocalizedLink>
         </li>
         <li>
-          <Link href={`${demoBase}/mixed`}>A static shell with a dynamic part</Link>
+          <LocalizedLink href={`${demoBase}/mixed`}>A static shell with a dynamic part</LocalizedLink>
         </li>
       </ul>
     </nav>

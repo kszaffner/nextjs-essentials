@@ -145,7 +145,8 @@ accessibility) still apply to every line of code in the demos.
 Feature-oriented, three layers (enforced rationale in
 `.claude/rules/architecture.md`):
 
-- `src/app/` — one routing segment per topic. Stays thin: route files
+- `src/app/` — one routing segment per topic, all under `src/app/[lang]/`
+  (`pl` default, `en`; `api/`, `sitemap`, `robots`, `global-error` stay at the root). Stays thin: route files
   compose a module's public API. Next.js file conventions that are
   themselves the subject of a demo (`@slot`, `(.)folder`, `error.tsx`,
   `loading.tsx`, …) naturally live here.

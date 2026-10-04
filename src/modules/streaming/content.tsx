@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/rendering/streaming/demo";
 
@@ -15,7 +15,7 @@ export const basics = (
       <li>
         <code>loading.tsx</code> wraps the page and nested layouts of its
         segment in a boundary with that fallback (see{" "}
-        <Link href="/fundamentals/file-conventions">file conventions</Link>).
+        <LocalizedLink href="/fundamentals/file-conventions">file conventions</LocalizedLink>).
       </li>
       <li>
         <code>&lt;Suspense&gt;</code> inside your own tree gives finer control:
@@ -23,7 +23,7 @@ export const basics = (
       </li>
     </ul>
     <p>
-      The <Link href={demoHref}>demo</Link> has two sections. With one boundary
+      The <LocalizedLink href={demoHref}>demo</LocalizedLink> has two sections. With one boundary
       per block, the three blocks appear independently. Measured on a
       production build, the shell arrived after about 26 ms and the blocks
       after about 0.34 s, 1.24 s, and 2.44 s. With one shared boundary, the

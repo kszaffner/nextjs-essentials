@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/metadata/sitemap-robots/demo";
 
@@ -28,7 +28,7 @@ export default function robots(): MetadataRoute.Robots {
       This site generates both from the topic catalog: the sitemap lists the home
       page and every topic (38 URLs), never the demo pages or the API, and
       robots.txt keeps crawlers out of <code>/api/</code> and points at the
-      sitemap. Open the <Link href={demoHref}>demo</Link> to fetch the real
+      sitemap. Open the <LocalizedLink href={demoHref}>demo</LocalizedLink> to fetch the real
       files. Observed: <code>sitemap.xml</code> is served as{" "}
       <code>application/xml</code>, <code>robots.txt</code> as{" "}
       <code>text/plain</code>, and both are prerendered at build time (marked{" "}

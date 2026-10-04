@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import styles from "./Navigation.module.css";
+import { LocalizedLink, useLocalizedPath } from "@/shared/i18n";
 
 const otherPagePath = "/fundamentals/navigation/demo/other";
 
@@ -24,25 +24,26 @@ function createLinks(pathname: string) {
   ];
 }
 
-function createRouterActions(router: AppRouter, pathname: string): RouterAction[] {
+function createRouterActions(router: AppRouter, pathname: string, otherPage: string): RouterAction[] {
   return [
     { label: "router.push", description: "router.push(?tab=push)", run: () => router.push(`${pathname}?tab=push`) },
     { label: "router.replace", description: "router.replace(?tab=replace)", run: () => router.replace(`${pathname}?tab=replace`) },
     { label: "router.back", description: "router.back()", run: () => router.back() },
     { label: "router.refresh", description: "router.refresh()", run: () => router.refresh() },
-    { label: "router.push (other page)", description: "router.push(other page)", run: () => router.push(otherPagePath) },
+    { label: "router.push (other page)", description: "router.push(other page)", run: () => router.push(otherPage) },
   ];
 }
 
 export function NavigationPlayground() {
   const router = useRouter();
+  const localize = useLocalizedPath();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [lastAction, setLastAction] = useState("none yet");
 
   const tab = searchParams.get("tab") ?? "(none)";
   const links = createLinks(pathname);
-  const routerActions = createRouterActions(router, pathname);
+  const routerActions = createRouterActions(router, pathname, localize(otherPagePath));
 
   return (
     <section className={styles.panel}>
@@ -54,9 +55,9 @@ export function NavigationPlayground() {
       <ul className={styles.actions}>
         {links.map((link) => (
           <li key={link.label}>
-            <Link href={link.href} replace={link.shouldReplace} prefetch={link.shouldPrefetch}>
+            <LocalizedLink href={link.href} replace={link.shouldReplace} prefetch={link.shouldPrefetch}>
               {link.label}
-            </Link>
+            </LocalizedLink>
           </li>
         ))}
       </ul>

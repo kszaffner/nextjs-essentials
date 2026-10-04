@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/metadata/generate-metadata/demo";
 
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }) {
     <p>
       <code>metadataBase</code> lets every URL-valued field use a relative path:
       the <code>canonical</code> above becomes an absolute URL. Open the{" "}
-      <Link href={demoHref}>demo</Link>: two routes build metadata for the same
+      <LocalizedLink href={demoHref}>demo</LocalizedLink>: two routes build metadata for the same
       article, and a button prints the tags the browser actually received.
       Observed in the prerendered HTML:
     </p>

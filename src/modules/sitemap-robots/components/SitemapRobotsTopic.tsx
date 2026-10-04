@@ -1,9 +1,11 @@
+import type { Locale } from "@/shared/i18n";
 import { TopicPage } from "@/shared/topic-page";
 import { basics, edgeCases, interviewQuestions } from "../content";
 
-export function SitemapRobotsTopic() {
+export function SitemapRobotsTopic({ locale }: { locale: Locale }) {
   return (
     <TopicPage
+      locale={locale}
       title="Sitemap and robots"
       summary="sitemap.ts and robots.ts."
       basics={basics}

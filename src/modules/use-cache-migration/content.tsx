@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/data/use-cache-migration/demo";
 
@@ -29,7 +29,7 @@ export async function getUser(id: string) {
 }`}</code>
     </pre>
     <p>
-      The <Link href={demoHref}>demo</Link> calls the migrated form with the ids{" "}
+      The <LocalizedLink href={demoHref}>demo</LocalizedLink> calls the migrated form with the ids{" "}
       <code>1</code>, <code>2</code>, <code>1</code>. Three calls, two distinct
       ids: the body runs at most twice, and reloading adds nothing, because each
       id is its own cache entry.

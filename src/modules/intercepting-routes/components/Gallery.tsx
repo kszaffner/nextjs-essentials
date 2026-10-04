@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { photos } from "../photos";
 import styles from "./Gallery.module.css";
+import { LocalizedLink } from "@/shared/i18n";
 
 export function Gallery() {
   return (
@@ -9,13 +9,13 @@ export function Gallery() {
       <ul className={styles.grid}>
         {photos.map((photo) => (
           <li key={photo.id}>
-            <Link
+            <LocalizedLink
               href={`/fundamentals/intercepting-routes/demo/photo/${photo.id}`}
               className={styles.thumbnail}
             >
               <div className={styles.swatch} style={{ background: photo.color }} />
               {photo.title}
-            </Link>
+            </LocalizedLink>
           </li>
         ))}
       </ul>

@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { PROXY_DEMO_BASE } from "../decideProxyAction";
 import styles from "./Proxy.module.css";
+import { LocalizedAnchor, LocalizedLink } from "@/shared/i18n";
 
 const demoLinks = [
   { path: "old", title: "Redirect", effect: "The proxy answers 307 and the browser lands on /new." },
@@ -25,9 +25,9 @@ export function ProxyDemo() {
             <tr key={link.path}>
               <td>
                 {/* Full navigations: the point is what the proxy does to the request. */}
-                <a href={`${PROXY_DEMO_BASE}/${link.path}`}>
+                <LocalizedAnchor href={`${PROXY_DEMO_BASE}/${link.path}`}>
                   {link.title}: /{link.path}
-                </a>
+                </LocalizedAnchor>
               </td>
               <td>{link.effect}</td>
             </tr>
@@ -35,8 +35,8 @@ export function ProxyDemo() {
         </tbody>
       </table>
       <p className={styles.hint}>
-        <Link href={`${PROXY_DEMO_BASE}/target`}>/target</Link> and{" "}
-        <Link href={`${PROXY_DEMO_BASE}/new`}>/new</Link> are ordinary pages that
+        <LocalizedLink href={`${PROXY_DEMO_BASE}/target`}>/target</LocalizedLink> and{" "}
+        <LocalizedLink href={`${PROXY_DEMO_BASE}/new`}>/new</LocalizedLink> are ordinary pages that
         report what the proxy told them.
       </p>
     </section>
