@@ -1,4 +1,4 @@
-import type { InterviewQuestion } from "@/shared/topic-page";
+import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/server-actions/basics/demo";
@@ -155,3 +155,11 @@ export const interviewQuestions: readonly InterviewQuestion[] = [
     ),
   },
 ];
+
+export const content: TopicContent = {
+  title: "Server Actions basics",
+  summary: '"use server" and calling actions from Client and Server Components.',
+  basics,
+  edgeCases,
+  interviewQuestions,
+};

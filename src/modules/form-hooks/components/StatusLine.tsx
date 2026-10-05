@@ -1,22 +1,27 @@
+import type { Locale } from "@/shared/i18n";
 import type { PostMessageState } from "../postMessageState";
+import { getFormHooksText } from "../text";
 import styles from "./FormHooks.module.css";
 
 type StatusLineProps = {
+  locale: Locale;
   state: PostMessageState;
   isPending: boolean;
 };
 
-function describe(state: PostMessageState, isPending: boolean): string {
+function describe(locale: Locale, state: PostMessageState, isPending: boolean): string {
+  const text = getFormHooksText(locale);
+
   if (isPending) {
-    return "useActionState: pending";
+    return text.status.pending;
   }
   switch (state.status) {
     case "idle":
-      return "useActionState: idle";
+      return text.status.idle;
     case "posted":
-      return `useActionState: posted "${state.text}"`;
+      return text.status.posted(state.text);
     case "rejected":
-      return `useActionState: rejected (${state.reason})`;
+      return text.status.rejected(text.rejections[state.reason]);
     default: {
       const unreachable: never = state;
       return unreachable;
@@ -24,10 +29,10 @@ function describe(state: PostMessageState, isPending: boolean): string {
   }
 }
 
-export function StatusLine({ state, isPending }: StatusLineProps) {
+export function StatusLine({ locale, state, isPending }: StatusLineProps) {
   return (
     <p className={styles.status} role="status">
-      {describe(state, isPending)}
+      {describe(locale, state, isPending)}
     </p>
   );
 }

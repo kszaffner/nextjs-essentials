@@ -65,7 +65,7 @@ describe("postMessage", () => {
 
     const state = await run("   ");
 
-    expect(state).toMatchObject({ status: "rejected", reason: "Write between 1 and 60 characters." });
+    expect(state).toMatchObject({ status: "rejected", reason: "invalidLength" });
     expect(readMessages().length).toBe(before);
     expect(refresh).not.toHaveBeenCalled();
   });
@@ -75,7 +75,7 @@ describe("postMessage", () => {
 
     const state = await run("FaIl");
 
-    expect(state).toEqual({ status: "rejected", reason: "The server rejected this message.", text: "FaIl" });
+    expect(state).toEqual({ status: "rejected", reason: "rejectedByServer", text: "FaIl" });
     expect(readMessages().length).toBe(before);
   });
 });

@@ -8,7 +8,7 @@ describe("SubmitButton", () => {
   it("is enabled and idle when no submission is in flight", () => {
     render(
       <form>
-        <SubmitButton />
+        <SubmitButton locale="en" />
       </form>,
     );
 

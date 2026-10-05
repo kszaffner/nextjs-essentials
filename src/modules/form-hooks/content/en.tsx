@@ -1,4 +1,4 @@
-import type { InterviewQuestion } from "@/shared/topic-page";
+import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/server-actions/form-hooks/demo";
@@ -148,3 +148,11 @@ export const interviewQuestions: readonly InterviewQuestion[] = [
     ),
   },
 ];
+
+export const content: TopicContent = {
+  title: "Form hooks",
+  summary: "useActionState, useFormStatus, and useOptimistic.",
+  basics,
+  edgeCases,
+  interviewQuestions,
+};

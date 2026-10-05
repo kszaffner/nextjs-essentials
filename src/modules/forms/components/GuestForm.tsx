@@ -1,15 +1,19 @@
+import type { Locale } from "@/shared/i18n";
 import { addGuestAction, clearGuestsAction } from "../server/actions";
+import { getFormsText } from "../text";
 import styles from "./Forms.module.css";
 
 // A Server Component form: the action is a Server Action, so the browser can
 // submit it as an ordinary POST even before (or without) JavaScript.
-export function GuestForm() {
+export function GuestForm({ locale }: { locale: Locale }) {
+  const text = getFormsText(locale).form;
+
   return (
     <section className={styles.panel}>
-      <h3 className={styles.title}>Guest list</h3>
+      <h3 className={styles.title}>{text.title}</h3>
       <form action={addGuestAction.bind(null, "guest")}>
         <label className={styles.field}>
-          Name
+          {text.name}
           <input
             className={styles.input}
             type="text"
@@ -21,7 +25,7 @@ export function GuestForm() {
         </label>
         <div className={styles.buttons}>
           <button type="submit" className={styles.button}>
-            Add guest
+            {text.add}
           </button>
           {/* A different action for the same form, with a bound argument. */}
           <button
@@ -29,7 +33,7 @@ export function GuestForm() {
             className={styles.button}
             formAction={addGuestAction.bind(null, "vip")}
           >
-            Add as VIP
+            {text.addVip}
           </button>
           <button
             type="submit"
@@ -37,15 +41,11 @@ export function GuestForm() {
             formAction={clearGuestsAction}
             formNoValidate
           >
-            Clear list
+            {text.clear}
           </button>
         </div>
       </form>
-      <p className={styles.hint}>
-        Plain HTML attributes (required, maxLength) give instant feedback; the
-        server action parses the input again because the request can come from
-        anywhere.
-      </p>
+      <p className={styles.hint}>{text.hint}</p>
     </section>
   );
 }

@@ -1,4 +1,4 @@
-import type { InterviewQuestion } from "@/shared/topic-page";
+import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/server-actions/validation-and-redirect/demo";
@@ -160,3 +160,11 @@ export const interviewQuestions: readonly InterviewQuestion[] = [
     ),
   },
 ];
+
+export const content: TopicContent = {
+  title: "Validation and redirect",
+  summary: "Validating input, reporting errors, and redirecting after an action.",
+  basics,
+  edgeCases,
+  interviewQuestions,
+};

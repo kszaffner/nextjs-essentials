@@ -19,13 +19,13 @@ export async function postMessage(
 
   const parsed = MessageSchema.safeParse(formData.get("text"));
   if (!parsed.success) {
-    return { status: "rejected", reason: "Write between 1 and 60 characters.", text: "" };
+    return { status: "rejected", reason: "invalidLength", text: "" };
   }
 
   // A business rule the browser cannot know about, so the optimistic entry
   // has to be rolled back.
   if (parsed.data.toLowerCase() === "fail") {
-    return { status: "rejected", reason: "The server rejected this message.", text: parsed.data };
+    return { status: "rejected", reason: "rejectedByServer", text: parsed.data };
   }
 
   addMessage(parsed.data);
