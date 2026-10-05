@@ -1,4 +1,4 @@
-import type { InterviewQuestion } from "@/shared/topic-page";
+import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/rendering/isr/demo";
@@ -172,3 +172,11 @@ export const interviewQuestions: readonly InterviewQuestion[] = [
     ),
   },
 ];
+
+export const content: TopicContent = {
+  title: "Incremental Static Regeneration",
+  summary: "Time-based and on-demand revalidation of prerendered output.",
+  basics,
+  edgeCases,
+  interviewQuestions,
+};

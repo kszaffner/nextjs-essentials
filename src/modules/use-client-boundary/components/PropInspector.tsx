@@ -1,5 +1,6 @@
 "use client";
 
+import { useUseClientBoundaryText } from "../text";
 import styles from "./PropInspector.module.css";
 
 type PropInspectorProps = {
@@ -34,18 +35,20 @@ function describeValue(value: unknown): string {
 // A Client Component: it only sees what the RSC payload carried across the
 // boundary, so each row shows what actually arrived in the browser.
 export function PropInspector({ sentKeys, values }: PropInspectorProps) {
+  const text = useUseClientBoundaryText().inspector;
+
   return (
     <div>
       <table className={styles.table}>
         <caption className={styles.caption}>
-          Sent from a Server Component, received in a Client Component
+          {text.caption}
         </caption>
         <thead>
           <tr>
-            <th scope="col">Prop</th>
-            <th scope="col">typeof</th>
-            <th scope="col">constructor</th>
-            <th scope="col">Value</th>
+            <th scope="col">{text.columns.prop}</th>
+            <th scope="col">{text.columns.typeof}</th>
+            <th scope="col">{text.columns.constructor}</th>
+            <th scope="col">{text.columns.value}</th>
           </tr>
         </thead>
         <tbody>
@@ -58,7 +61,7 @@ export function PropInspector({ sentKeys, values }: PropInspectorProps) {
                 <td className={styles.code}>{describeConstructor(value)}</td>
                 <td className={styles.code}>
                   {describeValue(value)}
-                  {name in values ? "" : " (the key itself is gone)"}
+                  {name in values ? "" : text.keyGone}
                 </td>
               </tr>
             );

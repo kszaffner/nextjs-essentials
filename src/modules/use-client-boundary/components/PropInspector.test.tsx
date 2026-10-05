@@ -1,5 +1,6 @@
 import { cleanup, render, screen, within } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
+import { LocaleProvider } from "@/shared/i18n";
 import { PropInspector } from "./PropInspector";
 
 afterEach(cleanup);
@@ -7,10 +8,12 @@ afterEach(cleanup);
 describe("PropInspector", () => {
   it("shows the type and value of each received prop", () => {
     render(
-      <PropInspector
-        sentKeys={["date", "count"]}
-        values={{ date: new Date("2026-01-01T00:00:00Z"), count: 42 }}
-      />,
+      <LocaleProvider locale="en">
+        <PropInspector
+          sentKeys={["date", "count"]}
+          values={{ date: new Date("2026-01-01T00:00:00Z"), count: 42 }}
+        />
+      </LocaleProvider>,
     );
 
     const dateRow = screen.getByRole("row", { name: /^date/ });
@@ -21,7 +24,11 @@ describe("PropInspector", () => {
   });
 
   it("flags a key that was sent but did not arrive", () => {
-    render(<PropInspector sentKeys={["nothing"]} values={{}} />);
+    render(
+      <LocaleProvider locale="en">
+        <PropInspector sentKeys={["nothing"]} values={{}} />
+      </LocaleProvider>,
+    );
 
     expect(screen.getByText(/the key itself is gone/)).toBeDefined();
   });
