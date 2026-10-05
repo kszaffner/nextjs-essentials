@@ -1,4 +1,4 @@
-import type { InterviewQuestion } from "@/shared/topic-page";
+import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/components/pitfalls/demo";
@@ -152,3 +152,11 @@ export const interviewQuestions: readonly InterviewQuestion[] = [
     ),
   },
 ];
+
+export const content: TopicContent = {
+  title: "Pitfalls",
+  summary: "Server Component defaults and the mistakes they invite.",
+  basics,
+  edgeCases,
+  interviewQuestions,
+};

@@ -87,3 +87,8 @@
   max-height: 18rem;
   overflow: auto;
 }
+
+.caption {
+  padding-block: var(--space-1);
+  text-align: left;
+}

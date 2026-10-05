@@ -1,5 +1,6 @@
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
+import { LocaleProvider } from "@/shared/i18n";
 import { Collapsible } from "./Collapsible";
 
 afterEach(cleanup);
@@ -8,9 +9,11 @@ const CHILD_TEXT = "server content";
 
 function renderCollapsible() {
   render(
-    <Collapsible title="Panel">
-      <p>{CHILD_TEXT}</p>
-    </Collapsible>,
+    <LocaleProvider locale="en">
+      <Collapsible title="Panel">
+        <p>{CHILD_TEXT}</p>
+      </Collapsible>
+    </LocaleProvider>,
   );
 }
 

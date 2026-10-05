@@ -1,4 +1,4 @@
-import type { InterviewQuestion } from "@/shared/topic-page";
+import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
 
 const demoBase = "/rendering/static-vs-dynamic/demo";
@@ -173,3 +173,11 @@ export const interviewQuestions: readonly InterviewQuestion[] = [
     ),
   },
 ];
+
+export const content: TopicContent = {
+  title: "Static vs dynamic rendering",
+  summary: "When Next.js prerenders a route and when it renders per request.",
+  basics,
+  edgeCases,
+  interviewQuestions,
+};

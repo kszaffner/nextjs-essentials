@@ -1,4 +1,6 @@
 import { Suspense } from "react";
+import type { Locale } from "@/shared/i18n";
+import { getPprText } from "../text";
 import { PprPart } from "./PprPart";
 import {
   HourlyCachedPart,
@@ -10,16 +12,18 @@ import styles from "./Ppr.module.css";
 
 // One page, four kinds of content. Only parts 3 and 4 need a Suspense
 // boundary; parts 1 and 2 are in the static shell.
-export function PprDemo() {
+export function PprDemo({ locale }: { locale: Locale }) {
+  const { loading } = getPprText(locale);
+
   return (
     <ul className={styles.list}>
-      <StaticPart />
-      <HourlyCachedPart />
-      <Suspense fallback={<PprPart title="3. (loading)" hint="Suspense fallback in the shell." />}>
-        <SecondsCachedPart />
+      <StaticPart locale={locale} />
+      <HourlyCachedPart locale={locale} />
+      <Suspense fallback={<PprPart title={loading.three} hint={loading.hint} />}>
+        <SecondsCachedPart locale={locale} />
       </Suspense>
-      <Suspense fallback={<PprPart title="4. (loading)" hint="Suspense fallback in the shell." />}>
-        <RequestTimePart />
+      <Suspense fallback={<PprPart title={loading.four} hint={loading.hint} />}>
+        <RequestTimePart locale={locale} />
       </Suspense>
     </ul>
   );

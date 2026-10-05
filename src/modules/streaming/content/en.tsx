@@ -1,4 +1,4 @@
-import type { InterviewQuestion } from "@/shared/topic-page";
+import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/rendering/streaming/demo";
@@ -126,3 +126,11 @@ export const interviewQuestions: readonly InterviewQuestion[] = [
     ),
   },
 ];
+
+export const content: TopicContent = {
+  title: "Streaming",
+  summary: "loading.tsx and Suspense boundaries in the Server Component tree.",
+  basics,
+  edgeCases,
+  interviewQuestions,
+};

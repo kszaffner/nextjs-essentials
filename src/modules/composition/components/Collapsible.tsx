@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
+import { useCompositionText } from "../text";
 import styles from "./Composition.module.css";
 
 type CollapsibleProps = {
@@ -12,6 +13,7 @@ type CollapsibleProps = {
 // `children`. The children were rendered on the server before this component
 // ever ran, so toggling never re-runs them.
 export function Collapsible({ title, children }: CollapsibleProps) {
+  const text = useCompositionText();
   const [isOpen, setIsOpen] = useState(true);
 
   return (
@@ -23,7 +25,7 @@ export function Collapsible({ title, children }: CollapsibleProps) {
         aria-expanded={isOpen}
         onClick={() => setIsOpen((wasOpen) => !wasOpen)}
       >
-        {isOpen ? "Hide" : "Show"} server content
+        {isOpen ? text.hide : text.show} {text.serverContent}
       </button>
       <div hidden={!isOpen}>{children}</div>
     </section>

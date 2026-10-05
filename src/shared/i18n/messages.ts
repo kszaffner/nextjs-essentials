@@ -23,8 +23,17 @@ export type Messages = {
     networkTitle: string;
     moreLines: (count: number) => string;
     requestsMatching: (urlPart: string, count: number) => string;
-    columns: { file: string; start: string; size: string };
+    columns: { file: string; start: string; size: string; chunk: string; time: string };
+    streamButton: string;
+    loadPayload: string;
+    searchChunks: string;
+    searchResult: (searched: number, foundIn: readonly string[]) => string;
+    nothingMatched: string;
+    shellChunk: string;
     clear: string;
+    fetchHeaders: string;
+    fetchFailed: string;
+    absent: string;
     cached: string;
   };
 };
@@ -53,8 +62,20 @@ export const messages: Record<Locale, Messages> = {
       networkTitle: "Żądania sieciowe (na żywo)",
       moreLines: (count) => `… jeszcze ${count} linii w pliku.`,
       requestsMatching: (urlPart, count) => `Żądania zawierające „${urlPart}”: ${count}`,
-      columns: { file: "Plik", start: "Start", size: "Rozmiar" },
+      columns: { file: "Plik", start: "Start", size: "Rozmiar", chunk: "Fragment", time: "Czas" },
+      streamButton: "Pobierz stronę strumieniem i zmierz fragmenty",
+      loadPayload: "Pobierz ładunek RSC",
+      searchChunks: "Przeszukaj załadowane chunki JavaScript",
+      searchResult: (searched, foundIn) =>
+        foundIn.length === 0
+          ? `Przeszukano ${searched} chunków: tekstu nie ma w żadnym. Nie trafił do przeglądarki.`
+          : `Przeszukano ${searched} chunków: tekst jest w ${foundIn.join(", ")}.`,
+      nothingMatched: "(żadna linia ładunku nie pasuje)",
+      shellChunk: "#1 (powłoka)",
       clear: "Wyczyść listę",
+      fetchHeaders: "Pobierz strony i pokaż nagłówki",
+      fetchFailed: "Nie udało się pobrać strony. Spróbuj ponownie.",
+      absent: "(brak)",
       cached: "z cache",
     },
   },
@@ -81,8 +102,20 @@ export const messages: Record<Locale, Messages> = {
       networkTitle: "Network requests (live)",
       moreLines: (count) => `… ${count} more lines in the file.`,
       requestsMatching: (urlPart, count) => `Requests containing "${urlPart}": ${count}`,
-      columns: { file: "File", start: "Start", size: "Size" },
+      columns: { file: "File", start: "Start", size: "Size", chunk: "Chunk", time: "Time" },
+      streamButton: "Stream the page and time the chunks",
+      loadPayload: "Fetch the RSC payload",
+      searchChunks: "Search the loaded JavaScript chunks",
+      searchResult: (searched, foundIn) =>
+        foundIn.length === 0
+          ? `Searched ${searched} chunks: the text is in none of them. It was not shipped to the browser.`
+          : `Searched ${searched} chunks: the text is in ${foundIn.join(", ")}.`,
+      nothingMatched: "(no payload line matches)",
+      shellChunk: "#1 (shell)",
       clear: "Clear the list",
+      fetchHeaders: "Fetch the pages and show headers",
+      fetchFailed: "The page could not be fetched. Try again.",
+      absent: "(absent)",
       cached: "cached",
     },
   },

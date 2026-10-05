@@ -166,8 +166,8 @@ module index, and an `<InternalsPanel>` composed in the demo route. See
 | ID  | Scope                                               | Topics | Status |
 | --- | --------------------------------------------------- | ------ | ------ |
 | L0  | Routing foundation: `[lang]`, proxy redirect, catalog, sitemap | - | done (merged) |
-| L1  | Panel foundation + App Router fundamentals + `next/dynamic` (pilot) | file-conventions, dynamic-segments, parallel-routes, intercepting-routes, navigation, dynamic-import | in review |
-| L2  | Rendering + Server/Client Components                | static-vs-dynamic, isr, streaming, ppr, use-client-boundary, composition, pitfalls | planned |
+| L1  | Panel foundation + App Router fundamentals + `next/dynamic` (pilot) | file-conventions, dynamic-segments, parallel-routes, intercepting-routes, navigation, dynamic-import | done (merged) |
+| L2  | Rendering + Server/Client Components                | static-vs-dynamic, isr, streaming, ppr, use-client-boundary, composition, pitfalls | in review |
 | L3  | Data fetching and caching                           | fetch-extensions, cache-layers, parallel-vs-sequential, revalidation, use-cache-migration | planned |
 | L4  | Server Actions and forms                            | basics, forms, form-hooks, validation-and-redirect | planned |
 | L5  | Advanced routing + error handling                   | route-handlers, proxy, runtimes, error-boundaries, not-found, actions-and-handlers | planned |
@@ -184,6 +184,12 @@ Unscheduled candidates. Promote an item to a stage when it is planned.
 ## Change log
 
 Newest first. One line per change: date, IDs, what changed.
+
+- 2026-10-05: L2 (PR 15) — seven topics translated with panels. New panel
+  evidence in `src/shared/under-the-hood`: `ResponseHeaders`, `ResponseStream`
+  (chunk timing of a streamed page), `RscPayload`, `ChunkSearch` (greps the
+  loaded client chunks). Measured: streaming shell 56 ms, blocks 329/1228/2431
+  ms; server-only marker found in no client chunk.
 
 - 2026-10-04: L1 (PR 14) — `src/shared/under-the-hood` (panel, live request log,
   directory tree, source excerpts read at build time); `TopicContent` per

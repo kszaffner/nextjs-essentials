@@ -1,4 +1,4 @@
-import type { InterviewQuestion } from "@/shared/topic-page";
+import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/components/use-client-boundary/demo";
@@ -149,3 +149,11 @@ export const interviewQuestions: readonly InterviewQuestion[] = [
     ),
   },
 ];
+
+export const content: TopicContent = {
+  title: "The use client boundary",
+  summary: "What can and cannot cross the boundary as props.",
+  basics,
+  edgeCases,
+  interviewQuestions,
+};

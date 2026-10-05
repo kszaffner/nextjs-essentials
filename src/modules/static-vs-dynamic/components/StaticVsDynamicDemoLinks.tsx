@@ -1,17 +1,20 @@
+import { LocalizedLink, type Locale } from "@/shared/i18n";
+import { getStaticVsDynamicText } from "../text";
 import styles from "./Rendering.module.css";
-import { LocalizedLink } from "@/shared/i18n";
 
 const demoBase = "/rendering/static-vs-dynamic/demo";
 
-export function StaticVsDynamicDemoLinks() {
+export function StaticVsDynamicDemoLinks({ locale }: { locale: Locale }) {
+  const text = getStaticVsDynamicText(locale);
+
   return (
-    <nav aria-label="Static vs dynamic demo">
+    <nav aria-label={text.navigationLabel}>
       <ul className={styles.facts}>
         <li>
-          <LocalizedLink href={`${demoBase}/static`}>A fully static route</LocalizedLink>
+          <LocalizedLink href={`${demoBase}/static`}>{text.links.static}</LocalizedLink>
         </li>
         <li>
-          <LocalizedLink href={`${demoBase}/mixed`}>A static shell with a dynamic part</LocalizedLink>
+          <LocalizedLink href={`${demoBase}/mixed`}>{text.links.mixed}</LocalizedLink>
         </li>
       </ul>
     </nav>

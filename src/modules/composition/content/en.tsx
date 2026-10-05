@@ -1,4 +1,4 @@
-import type { InterviewQuestion } from "@/shared/topic-page";
+import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/components/composition/demo";
@@ -136,3 +136,11 @@ export const interviewQuestions: readonly InterviewQuestion[] = [
     ),
   },
 ];
+
+export const content: TopicContent = {
+  title: "Composition",
+  summary: "Passing Client Components as children to Server Components.",
+  basics,
+  edgeCases,
+  interviewQuestions,
+};
