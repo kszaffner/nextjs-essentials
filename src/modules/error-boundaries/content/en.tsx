@@ -1,4 +1,4 @@
-import type { InterviewQuestion } from "@/shared/topic-page";
+import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
 import { CodeBlock } from "@/shared/code-block";
 
@@ -166,3 +166,11 @@ export const interviewQuestions: readonly InterviewQuestion[] = [
     ),
   },
 ];
+
+export const content: TopicContent = {
+  title: "Error boundaries",
+  summary: "error.tsx vs global-error.tsx.",
+  basics,
+  edgeCases,
+  interviewQuestions,
+};

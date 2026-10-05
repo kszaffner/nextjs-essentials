@@ -1,43 +1,40 @@
+import { LocalizedAnchor, LocalizedLink, type Locale } from "@/shared/i18n";
 import { PROXY_DEMO_BASE } from "../decideProxyAction";
+import { getProxyText } from "../text";
 import styles from "./Proxy.module.css";
-import { LocalizedAnchor, LocalizedLink } from "@/shared/i18n";
 
-const demoLinks = [
-  { path: "old", title: "Redirect", effect: "The proxy answers 307 and the browser lands on /new." },
-  { path: "alias", title: "Rewrite", effect: "The URL stays /alias; the content comes from /target." },
-  { path: "personalized", title: "Personalize", effect: "A rewrite to variant A or B, chosen by a cookie the proxy sets on the first visit." },
-  { path: "blocked", title: "Respond directly", effect: "The proxy returns 403 itself; no route runs." },
-] as const;
+const demoPaths = ["old", "alias", "personalized", "blocked"] as const;
 
-export function ProxyDemo() {
+export function ProxyDemo({ locale }: { locale: Locale }) {
+  const text = getProxyText(locale).demo;
+
   return (
     <section className={styles.panel}>
-      <h3 className={styles.title}>What the proxy does to each URL</h3>
+      <h3 className={styles.title}>{text.title}</h3>
       <table className={styles.table}>
         <thead>
           <tr>
-            <th scope="col">Open</th>
-            <th scope="col">Behavior</th>
+            <th scope="col">{text.open}</th>
+            <th scope="col">{text.behavior}</th>
           </tr>
         </thead>
         <tbody>
-          {demoLinks.map((link) => (
-            <tr key={link.path}>
+          {demoPaths.map((path) => (
+            <tr key={path}>
               <td>
                 {/* Full navigations: the point is what the proxy does to the request. */}
-                <LocalizedAnchor href={`${PROXY_DEMO_BASE}/${link.path}`}>
-                  {link.title}: /{link.path}
+                <LocalizedAnchor href={`${PROXY_DEMO_BASE}/${path}`}>
+                  {text.links[path].title}: /{path}
                 </LocalizedAnchor>
               </td>
-              <td>{link.effect}</td>
+              <td>{text.links[path].effect}</td>
             </tr>
           ))}
         </tbody>
       </table>
       <p className={styles.hint}>
-        <LocalizedLink href={`${PROXY_DEMO_BASE}/target`}>/target</LocalizedLink> and{" "}
-        <LocalizedLink href={`${PROXY_DEMO_BASE}/new`}>/new</LocalizedLink> are ordinary pages that
-        report what the proxy told them.
+        <LocalizedLink href={`${PROXY_DEMO_BASE}/target`}>/target</LocalizedLink> {text.footerBetween}{" "}
+        <LocalizedLink href={`${PROXY_DEMO_BASE}/new`}>/new</LocalizedLink> {text.footerAfter}
       </p>
     </section>
   );

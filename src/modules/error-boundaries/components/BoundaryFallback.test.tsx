@@ -1,18 +1,23 @@
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { LocaleProvider } from "@/shared/i18n";
 import { BoundaryFallback } from "./BoundaryFallback";
 
 afterEach(cleanup);
 
 function renderFallback(error: Error & { digest?: string }, retry = () => {}) {
-  render(<BoundaryFallback boundary="demo/error.tsx" error={error} retry={retry} />);
+  render(
+    <LocaleProvider locale="en">
+      <BoundaryFallback boundary="parent" error={error} retry={retry} />
+    </LocaleProvider>,
+  );
 }
 
 describe("BoundaryFallback", () => {
   it("names the boundary that caught the error", () => {
     renderFallback(new Error("x"));
 
-    expect(screen.getByText("Caught by demo/error.tsx")).toBeDefined();
+    expect(screen.getByText("Caught by demo/error.tsx (the parent boundary)")).toBeDefined();
   });
 
   it("shows only the message the browser received, plus the digest", () => {

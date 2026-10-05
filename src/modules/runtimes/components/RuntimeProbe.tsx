@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { useLocalizedPath } from "@/shared/i18n";
+import { useLocalizedPath, type Locale } from "@/shared/i18n";
+import { getRuntimesText, type RuntimesText } from "../text";
 import { RuntimeInfoSchema } from "../runtimeInfoSchema";
 import { RuntimeRow } from "./RuntimeRow";
 import { RuntimeTable } from "./RuntimeTable";
@@ -13,7 +14,7 @@ type ProbeResult = {
   proxyRuntime: string;
 };
 
-async function probe(localize: (path: string) => string): Promise<ProbeResult> {
+async function probe(localize: (path: string) => string, text: RuntimesText): Promise<ProbeResult> {
   const [handlerResponse, proxiedResponse] = await Promise.all([
     fetch("/api/runtimes/info"),
     // The proxy matcher includes this page, so its response carries the header.
@@ -23,43 +24,44 @@ async function probe(localize: (path: string) => string): Promise<ProbeResult> {
 
   return {
     handlerRuntime: handlerBody.runtime,
-    handlerDetail: `node ${handlerBody.nodeVersion}, EdgeRuntime global: ${handlerBody.hasEdgeGlobal}`,
-    proxyRuntime: proxiedResponse.headers.get("x-demo-runtime") ?? "(header missing)",
+    handlerDetail: text.detail(handlerBody.nodeVersion, handlerBody.hasEdgeGlobal),
+    proxyRuntime: proxiedResponse.headers.get("x-demo-runtime") ?? text.probe.headerMissing,
   };
 }
 
-export function RuntimeProbe() {
+export function RuntimeProbe({ locale }: { locale: Locale }) {
   const localize = useLocalizedPath();
+  const text = getRuntimesText(locale);
   const [result, setResult] = useState<ProbeResult | null>(null);
   const [failure, setFailure] = useState<string | null>(null);
 
   async function runProbe() {
     setFailure(null);
     try {
-      setResult(await probe(localize));
+      setResult(await probe(localize, text));
     } catch (error) {
       // A failed probe is something the user can act on (retry), so turn it
       // into visible state instead of an unhandled rejection.
       setResult(null);
-      setFailure(error instanceof Error ? error.message : "The probe failed.");
+      setFailure(error instanceof Error ? error.message : text.probe.failed);
     }
   }
 
   return (
     <section className={styles.panel}>
-      <h3 className={styles.title}>Ask the server where each piece runs</h3>
+      <h3 className={styles.title}>{text.probe.title}</h3>
       <button type="button" className={styles.button} onClick={runProbe}>
-        Probe the route handler and the proxy
+        {text.probe.button}
       </button>
       {failure ? (
         <p role="alert" className={styles.hint}>
-          Could not probe the server: {failure}
+          {text.probe.failurePrefix} {failure}
         </p>
       ) : null}
       {result ? (
-        <RuntimeTable>
-          <RuntimeRow where="Route Handler (/api/runtimes/info)" runtime={result.handlerRuntime} detail={result.handlerDetail} />
-          <RuntimeRow where="proxy.ts (x-demo-runtime header)" runtime={result.proxyRuntime} detail="set on the response by proxy.ts" />
+        <RuntimeTable locale={locale}>
+          <RuntimeRow where={text.probe.handlerRow} runtime={result.handlerRuntime} detail={result.handlerDetail} />
+          <RuntimeRow where={text.probe.proxyRow} runtime={result.proxyRuntime} detail={text.probe.proxyDetail} />
         </RuntimeTable>
       ) : null}
     </section>

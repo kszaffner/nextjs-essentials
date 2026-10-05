@@ -1,17 +1,17 @@
 "use client";
 
 import { LocalizedLink, messages, useLocale } from "@/shared/i18n";
+import { useNotFoundText, type NotFoundVariant } from "../text";
 import styles from "./NotFound.module.css";
 
 type NotFoundPanelProps = {
-  // Defaults to the localized "Page not found".
-  title?: string;
-  // Which not-found.tsx rendered this, so the demo shows who answered.
-  source: string;
+  // Which demo not-found.tsx rendered this, so the panel shows who answered.
+  variant: NotFoundVariant;
 };
 
-export function NotFoundPanel({ title, source }: NotFoundPanelProps) {
+export function NotFoundPanel({ variant }: NotFoundPanelProps) {
   const text = messages[useLocale()];
+  const { title, source } = useNotFoundText().variants[variant];
 
   return (
     <section className={styles.panel}>

@@ -1,19 +1,21 @@
+import { LocalizedAnchor, LocalizedLink, type Locale } from "@/shared/i18n";
+import { getNotFoundText } from "../text";
 import styles from "./NotFound.module.css";
-import { LocalizedAnchor, LocalizedLink } from "@/shared/i18n";
 
 const base = "/errors/not-found/demo";
 
-const links = [
-  { href: `${base}/alpha`, label: "alpha: exists" },
-  { href: `${base}/nothing-here`, label: "nothing-here: notFound() before streaming" },
-  { href: `${base}/streamed/alpha`, label: "streamed/alpha: exists" },
-  { href: `${base}/streamed/nothing-here`, label: "streamed/nothing-here: notFound() while streaming" },
-  { href: `${base}/no/such/route`, label: "no/such/route: matches no route at all" },
-] as const;
+export function NotFoundDemoNavigation({ locale }: { locale: Locale }) {
+  const text = getNotFoundText(locale).navigation;
+  const links = [
+    { href: `${base}/alpha`, label: text.alpha },
+    { href: `${base}/nothing-here`, label: text.missing },
+    { href: `${base}/streamed/alpha`, label: text.streamedAlpha },
+    { href: `${base}/streamed/nothing-here`, label: text.streamedMissing },
+    { href: `${base}/no/such/route`, label: text.noRoute },
+  ];
 
-export function NotFoundDemoNavigation() {
   return (
-    <nav aria-label="Not found demo">
+    <nav aria-label={text.label}>
       <ul className={styles.links}>
         {links.map((link) => (
           <li key={link.href}>
@@ -23,8 +25,7 @@ export function NotFoundDemoNavigation() {
         ))}
       </ul>
       <p className={styles.hint}>
-        Prefer <LocalizedLink href={base}>this page</LocalizedLink> for the reasoning, and curl -i
-        to see the status codes.
+        {text.hintBefore} <LocalizedLink href={base}>{text.hintLink}</LocalizedLink> {text.hintAfter}
       </p>
     </nav>
   );

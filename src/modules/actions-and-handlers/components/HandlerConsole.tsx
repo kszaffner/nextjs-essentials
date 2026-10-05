@@ -1,32 +1,35 @@
 "use client";
 
 import { useState } from "react";
+import type { Locale } from "@/shared/i18n";
 import { RISK_MODES, type RiskMode } from "../riskModes";
+import { getHandlingText, type HandlingText } from "../text";
 import styles from "./Handling.module.css";
 
-async function callHandler(mode: RiskMode): Promise<string> {
+async function callHandler(mode: RiskMode, text: HandlingText["handler"]): Promise<string> {
   const response = await fetch(`/api/error-handling/risky?mode=${mode}`);
   const bodyText = await response.text();
 
   return [
     `GET /api/error-handling/risky?mode=${mode}`,
     `-> ${response.status} ${response.statusText}`,
-    `content-type: ${response.headers.get("content-type") ?? "(none)"}`,
-    `body: ${bodyText === "" ? "(empty)" : bodyText}`,
+    `content-type: ${response.headers.get("content-type") ?? text.none}`,
+    `body: ${bodyText === "" ? text.empty : bodyText}`,
   ].join("\n");
 }
 
-export function HandlerConsole() {
-  const [result, setResult] = useState("Press a button to call the Route Handler.");
+export function HandlerConsole({ locale }: { locale: Locale }) {
+  const text = getHandlingText(locale).handler;
+  const [result, setResult] = useState(text.prompt);
 
   async function run(mode: RiskMode) {
-    setResult(`Calling with mode=${mode}…`);
-    setResult(await callHandler(mode));
+    setResult(text.calling(mode));
+    setResult(await callHandler(mode, text));
   }
 
   return (
     <section className={styles.panel}>
-      <h3 className={styles.title}>Route Handler</h3>
+      <h3 className={styles.title}>{text.title}</h3>
       <div className={styles.buttons}>
         {RISK_MODES.map((mode) => (
           <button key={mode} type="button" className={styles.button} onClick={() => run(mode)}>

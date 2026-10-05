@@ -1,11 +1,12 @@
+import type { Locale } from "@/shared/i18n";
 import { ActionForm } from "./ActionForm";
 import { HandlerConsole } from "./HandlerConsole";
 
-export function ActionsAndHandlersDemo() {
+export function ActionsAndHandlersDemo({ locale }: { locale: Locale }) {
   return (
     <div>
-      <HandlerConsole />
-      <ActionForm />
+      <HandlerConsole locale={locale} />
+      <ActionForm locale={locale} />
     </div>
   );
 }

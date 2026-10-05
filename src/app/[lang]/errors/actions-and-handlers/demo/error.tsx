@@ -3,5 +3,5 @@
 import { BoundaryFallback, type BoundaryFallbackProps } from "@/modules/error-boundaries";
 
 export default function Error(props: BoundaryFallbackProps) {
-  return <BoundaryFallback boundary="errors/actions-and-handlers/demo/error.tsx" {...props} />;
+  return <BoundaryFallback boundary="handlers" {...props} />;
 }

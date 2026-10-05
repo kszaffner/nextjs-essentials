@@ -1,18 +1,20 @@
+import { LocalizedLink, type Locale } from "@/shared/i18n";
+import { getErrorBoundariesText } from "../text";
 import styles from "./Boundaries.module.css";
-import { LocalizedLink } from "@/shared/i18n";
 
 const base = "/errors/error-boundaries/demo";
 
-const links = [
-  { href: base, label: "Demo home" },
-  { href: `${base}/page-crash`, label: "A page throws (its own error.tsx catches it)" },
-  { href: `${base}/layout-crash`, label: "A layout throws (the segment's own error.tsx cannot catch it)" },
-  { href: `${base}/event-handler`, label: "An event handler throws (no boundary involved)" },
-] as const;
+export function ErrorDemoNavigation({ locale }: { locale: Locale }) {
+  const text = getErrorBoundariesText(locale).navigation;
+  const links = [
+    { href: base, label: text.home },
+    { href: `${base}/page-crash`, label: text.page },
+    { href: `${base}/layout-crash`, label: text.layout },
+    { href: `${base}/event-handler`, label: text.handler },
+  ];
 
-export function ErrorDemoNavigation() {
   return (
-    <nav aria-label="Error boundaries demo">
+    <nav aria-label={text.label}>
       <ul className={styles.links}>
         {links.map((link) => (
           <li key={link.href}>

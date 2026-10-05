@@ -1,18 +1,20 @@
 "use client";
 
 import { useActionState } from "react";
+import type { Locale } from "@/shared/i18n";
 import { initialRiskyActionState, type RiskyActionState } from "../actionState";
 import { reserveAction } from "../server/actions";
+import { getHandlingText, type HandlingText } from "../text";
 import styles from "./Handling.module.css";
 
-function describe(state: RiskyActionState): string {
+function describe(state: RiskyActionState, text: HandlingText["action"]): string {
   switch (state.status) {
     case "idle":
-      return "No result yet.";
+      return text.idle;
     case "reserved":
-      return `Reserved: ${state.reservation}`;
+      return text.reserved(state.reservation);
     case "refused":
-      return `Refused: ${state.message}`;
+      return text.refused(text.refusals[state.code]);
     default: {
       const unreachable: never = state;
       return unreachable;
@@ -22,15 +24,16 @@ function describe(state: RiskyActionState): string {
 
 const actionModes = ["ok", "expected", "unexpected"] as const;
 
-export function ActionForm() {
+export function ActionForm({ locale }: { locale: Locale }) {
+  const text = getHandlingText(locale).action;
   const [state, formAction, isPending] = useActionState(reserveAction, initialRiskyActionState);
 
   return (
     <section className={styles.panel}>
-      <h3 className={styles.title}>Server Action</h3>
+      <h3 className={styles.title}>{text.title}</h3>
       <form action={formAction}>
         <fieldset className={styles.choices}>
-          <legend>Outcome to simulate</legend>
+          <legend>{text.legend}</legend>
           {actionModes.map((mode) => (
             <label key={mode}>
               <input type="radio" name="mode" value={mode} defaultChecked={mode === "ok"} /> {mode}
@@ -39,17 +42,14 @@ export function ActionForm() {
         </fieldset>
         <div className={styles.buttons}>
           <button type="submit" className={styles.button} disabled={isPending}>
-            Run the action
+            {text.run}
           </button>
         </div>
       </form>
       <p className={styles.result} role="status">
-        {describe(state)}
+        {describe(state, text)}
       </p>
-      <p className={styles.hint}>
-        &quot;unexpected&quot; throws: the error boundary of this demo replaces
-        the page with a safe message.
-      </p>
+      <p className={styles.hint}>{text.hint}</p>
     </section>
   );
 }

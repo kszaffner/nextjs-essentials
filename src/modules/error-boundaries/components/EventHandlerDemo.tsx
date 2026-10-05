@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useErrorBoundariesText } from "../text";
 import styles from "./Boundaries.module.css";
 
 function riskyOperation(): never {
@@ -10,7 +11,8 @@ function riskyOperation(): never {
 // Error boundaries only catch errors thrown while React renders. An error
 // thrown in an event handler never reaches one, so handle it where it happens.
 export function EventHandlerDemo() {
-  const [handledMessage, setHandledMessage] = useState("nothing has happened yet");
+  const text = useErrorBoundariesText().eventHandler;
+  const [handledMessage, setHandledMessage] = useState(text.initial);
 
   function throwUnhandled() {
     riskyOperation();
@@ -21,26 +23,23 @@ export function EventHandlerDemo() {
       riskyOperation();
     } catch (error) {
       // Translate into something the user sees: we can act on it here.
-      setHandledMessage(error instanceof Error ? `handled: ${error.message}` : "handled: unknown error");
+      setHandledMessage(error instanceof Error ? `${text.handledPrefix} ${error.message}` : text.unknown);
     }
   }
 
   return (
     <section className={styles.panel}>
-      <h3 className={styles.title}>Event handler errors</h3>
+      <h3 className={styles.title}>{text.title}</h3>
       <button type="button" className={styles.button} onClick={throwUnhandled}>
-        Throw without try/catch
+        {text.unhandled}
       </button>
       <button type="button" className={styles.button} onClick={throwHandled}>
-        Throw with try/catch
+        {text.handled}
       </button>
       <p className={styles.readout} role="status">
         {handledMessage}
       </p>
-      <p className={styles.hint}>
-        The first button reports an error in the console, but no error.tsx
-        appears and the page stays as it is.
-      </p>
+      <p className={styles.hint}>{text.hint}</p>
     </section>
   );
 }

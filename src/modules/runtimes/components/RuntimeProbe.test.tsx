@@ -23,7 +23,7 @@ function stubFetch(handlerBody: unknown, proxyRuntime: string | null) {
 describe("RuntimeProbe", () => {
   it("shows where the route handler and the proxy ran", async () => {
     stubFetch({ runtime: "nodejs", nodeVersion: "v22.0.0", hasEdgeGlobal: false }, "nodejs");
-    render(<RuntimeProbe />);
+    render(<RuntimeProbe locale="en" />);
 
     fireEvent.click(screen.getByRole("button", { name: /Probe/ }));
 
@@ -33,7 +33,7 @@ describe("RuntimeProbe", () => {
 
   it("says so instead of failing silently when the response has the wrong shape", async () => {
     stubFetch({ unexpected: true }, "nodejs");
-    render(<RuntimeProbe />);
+    render(<RuntimeProbe locale="en" />);
 
     fireEvent.click(screen.getByRole("button", { name: /Probe/ }));
 

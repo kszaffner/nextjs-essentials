@@ -169,8 +169,8 @@ module index, and an `<InternalsPanel>` composed in the demo route. See
 | L1  | Panel foundation + App Router fundamentals + `next/dynamic` (pilot) | file-conventions, dynamic-segments, parallel-routes, intercepting-routes, navigation, dynamic-import | done (merged) |
 | L2  | Rendering + Server/Client Components                | static-vs-dynamic, isr, streaming, ppr, use-client-boundary, composition, pitfalls | done (merged) |
 | L3  | Data fetching and caching                           | fetch-extensions, cache-layers, parallel-vs-sequential, revalidation, use-cache-migration | done (merged) |
-| L4  | Server Actions and forms                            | basics, forms, form-hooks, validation-and-redirect | in review |
-| L5  | Advanced routing + error handling                   | route-handlers, proxy, runtimes, error-boundaries, not-found, actions-and-handlers | planned |
+| L4  | Server Actions and forms                            | basics, forms, form-hooks, validation-and-redirect | done (merged) |
+| L5  | Advanced routing + error handling                   | route-handlers, proxy, runtimes, error-boundaries, not-found, actions-and-handlers | in review |
 | L6  | Metadata and SEO + testing                          | generate-metadata, sitemap-robots, og-images, server-vs-client, mocking-and-actions | planned |
 | L7  | Optimization                                        | image, font, bundlers, web-vitals | planned |
 | L8  | Wrap-up: test that every topic has both languages and a panel, Playwright smoke for the language switch, docs | - | planned |
@@ -184,6 +184,15 @@ Unscheduled candidates. Promote an item to a stage when it is planned.
 ## Change log
 
 Newest first. One line per change: date, IDs, what changed.
+
+- 2026-10-05: L5 (PR 19) — six topics (route-handlers, proxy, runtimes,
+  error-boundaries, not-found, actions-and-handlers) translated with panels.
+  Server code returns codes, not sentences, where the UI shows the result:
+  `RefusalCode` in actions-and-handlers, and the shared `BoundaryFallback` and
+  `NotFoundPanel` now take a `boundary`/`variant` key and read the language with
+  `useLocale()`. Measured on a production build: not-found is 404 before
+  streaming and 200 inside Suspense, a crashing page or layout answers 200,
+  proxy/runtime header is `nodejs`, and an uncaught handler throw is a bare 500.
 
 - 2026-10-05: Code blocks (PR 18) — `src/shared/code-block` (`CodeBlock`: dark
   editor look in both color schemes, `sugar-high` highlighting, `--color-code-*`
