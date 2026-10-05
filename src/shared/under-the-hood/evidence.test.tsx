@@ -6,6 +6,8 @@ import { ResponseHeaders } from "./ResponseHeaders";
 import { ResponseStream } from "./ResponseStream";
 import { RscPayload } from "./RscPayload";
 
+const CHUNK_A_URL = "http://x/_next/static/chunks/a.js";
+
 afterEach(() => {
   cleanup();
   vi.unstubAllGlobals();
@@ -91,9 +93,9 @@ describe("RscPayload", () => {
 describe("ChunkSearch", () => {
   it("reports which loaded chunks contain the text, and none when absent", async () => {
     vi.spyOn(performance, "getEntriesByType").mockReturnValue([
-      { name: "http://x/_next/static/chunks/a.js" },
+      { name: CHUNK_A_URL },
       { name: "http://x/_next/static/chunks/b.js" },
-      { name: "http://x/_next/static/chunks/a.js" },
+      { name: CHUNK_A_URL },
     ] as PerformanceEntry[]);
     stubFetch((url) => new Response(url.endsWith("a.js") ? "const marker = 'FOUND_ME'" : "nothing here"));
     inEnglish(<ChunkSearch needle="FOUND_ME" />);
@@ -105,7 +107,7 @@ describe("ChunkSearch", () => {
 
   it("says the text was not shipped when no chunk has it", async () => {
     vi.spyOn(performance, "getEntriesByType").mockReturnValue([
-      { name: "http://x/_next/static/chunks/a.js" },
+      { name: CHUNK_A_URL },
     ] as PerformanceEntry[]);
     stubFetch(() => new Response("nothing"));
     inEnglish(<ChunkSearch needle="SECRET" />);
