@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/components/composition/demo";
 
@@ -13,12 +14,10 @@ export const basics = (
       <code>children</code> (or any other prop) from a Server Component above
       it.
     </p>
-    <pre>
-      <code>{`// Server Component: owns the composition
+    <CodeBlock code={`// Server Component: owns the composition
 <Collapsible title="...">      // "use client", has state
   <ServerFactsPanel />         // Server Component, rendered first
-</Collapsible>`}</code>
-    </pre>
+</Collapsible>`} />
     <p>
       The server renders <code>ServerFactsPanel</code> first and hands the
       result to <code>Collapsible</code> as already-rendered output. The

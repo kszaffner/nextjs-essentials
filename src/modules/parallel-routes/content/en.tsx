@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoBase = "/fundamentals/parallel-routes/demo";
 
@@ -33,6 +34,23 @@ export const basics = (
       navigation and just the team panel changes, the other two keep what
       they showed. Then reload the page and compare.
     </p>
+    <CodeBlock title="app/dashboard/layout.tsx" code={`
+// app/dashboard/@analytics/page.tsx   -> the "analytics" slot
+// app/dashboard/@team/page.tsx        -> the "team" slot
+// app/dashboard/page.tsx              -> "children"
+//
+// Slots are props of the layout, not URL segments:
+export default function Layout({ children, analytics, team }: LayoutProps<"/dashboard">) {
+  return (
+    <>
+      {children}
+      {analytics}   {/* has its own loading.tsx and error.tsx */}
+      {team}
+    </>
+  );
+}
+// On a hard load a slot with no match for the URL needs a default.tsx.
+`} />
   </>
 );
 

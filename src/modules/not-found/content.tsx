@@ -1,5 +1,6 @@
 import type { InterviewQuestion } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/errors/not-found/demo";
 
@@ -12,15 +13,13 @@ export const basics = (
       version, so a missing item can say &quot;no such item&quot; while an
       unknown URL says &quot;page not found&quot;.
     </p>
-    <pre>
-      <code>{`export default async function Page({ params }) {
+    <CodeBlock code={`export default async function Page({ params }) {
   const { slug } = await params;
   if (!isKnownSlug(slug)) {
     notFound();           // throws; the closest not-found.tsx renders
   }
   return <Item slug={slug} />;
-}`}</code>
-    </pre>
+}`} />
     <p>
       The <LocalizedLink href={demoHref}>demo</LocalizedLink> checks the HTTP status of five
       requests on a production build:

@@ -185,6 +185,12 @@ Unscheduled candidates. Promote an item to a stage when it is planned.
 
 Newest first. One line per change: date, IDs, what changed.
 
+- 2026-10-05: Code blocks (PR 18) — `src/shared/code-block` (`CodeBlock`: dark
+  editor look in both color schemes, `sugar-high` highlighting, `--color-code-*`
+  tokens). The 25 existing `<pre>` blocks were migrated and the 19 topics that
+  had no example got one (en and pl). Topics not yet translated (L5 to L7) have
+  the English example; translate its comments with the topic.
+
 - 2026-10-05: L4 (PR 17) — four Server Actions topics translated with panels
   (live request log, source excerpts). Action results no longer carry English
   sentences: `form-hooks` returns a rejection code and `validation-and-redirect`

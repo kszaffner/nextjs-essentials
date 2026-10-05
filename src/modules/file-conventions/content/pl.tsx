@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/fundamentals/file-conventions/demo";
 
@@ -47,6 +48,20 @@ const basics = (
       layoutu i w pole template, a potem użyj linków z dema. Pole layoutu
       zachowuje tekst; pole template zostaje wyczyszczone.
     </p>
+    <CodeBlock title="app/dashboard/" code={`
+// Jak zagnieżdżone są pliki specjalne jednego segmentu (od zewnątrz):
+<Layout>                              {/* layout.tsx: trwa między nawigacjami */}
+  <Template>                          {/* template.tsx: montuje się od nowa */}
+    <ErrorBoundary fallback={<Error />}>          {/* error.tsx */}
+      <Suspense fallback={<Loading />}>           {/* loading.tsx */}
+        <NotFoundBoundary fallback={<NotFound />}> {/* not-found.tsx */}
+          <Page />                    {/* page.tsx: udostępnia trasę */}
+        </NotFoundBoundary>
+      </Suspense>
+    </ErrorBoundary>
+  </Template>
+</Layout>
+`} />
   </>
 );
 

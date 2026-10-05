@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoBase = "/fundamentals/intercepting-routes/demo";
 
@@ -31,6 +32,14 @@ const basics = (
       obok <code>children</code>. Wypróbuj{" "}
       <LocalizedLink href={demoBase}>galerię</LocalizedLink>.
     </p>
+    <CodeBlock title="app/demo/" code={`
+// app/demo/@modal/(.)photo/[id]/page.tsx   miękka nawigacja: modal nad /demo
+// app/demo/photo/[id]/page.tsx             bezpośrednia wizyta lub reload: pełna strona
+// app/demo/layout.tsx                      renderuje { children, modal }
+//
+// (.) ten sam poziom   (..) poziom wyżej   (..)(..) dwa wyżej   (...) od korzenia
+// Slot @modal nie jest segmentem URL, więc (.)photo pasuje do /demo/photo/[id].
+`} />
   </>
 );
 

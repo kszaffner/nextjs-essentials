@@ -1,5 +1,6 @@
 import type { InterviewQuestion } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/errors/actions-and-handlers/demo";
 
@@ -60,6 +61,21 @@ export const basics = (
         </tr>
       </tbody>
     </table>
+    <CodeBlock title="route.ts" code={`
+export async function POST(request: Request) {
+  try {
+    const input = ReservationSchema.parse(await request.json());
+    return Response.json(await reserve(input), { status: 201 });
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      // Expected: a stable 4xx contract the client can rely on.
+      return Response.json({ code: "invalid", message: "Invalid input" }, { status: 400 });
+    }
+    reportError(error); // unexpected: report it, never leak the cause
+    return Response.json({ code: "internal", message: "Something went wrong" }, { status: 500 });
+  }
+}
+`} />
   </>
 );
 

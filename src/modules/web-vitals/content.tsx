@@ -1,5 +1,6 @@
 import { LocalizedLink } from "@/shared/i18n";
 import type { InterviewQuestion } from "@/shared/topic-page";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/optimization/web-vitals/demo";
 
@@ -19,8 +20,7 @@ export const basics = (
       so use a tiny component that renders nothing and mount it in the root
       layout:
     </p>
-    <pre>
-      <code>{`"use client";
+    <CodeBlock code={`"use client";
 import { useReportWebVitals } from "next/web-vitals";
 
 const report = (metric) => { /* send it somewhere */ };   // a stable reference
@@ -28,8 +28,7 @@ const report = (metric) => { /* send it somewhere */ };   // a stable reference
 export function WebVitals() {
   useReportWebVitals(report);
   return null;
-}`}</code>
-    </pre>
+}`} />
     <p>
       This site mounts such a collector in the root layout and keeps the latest
       value of each metric in a small store. The <LocalizedLink href={demoHref}>demo</LocalizedLink>{" "}

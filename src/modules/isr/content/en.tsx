@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/rendering/isr/demo";
 
@@ -11,14 +12,12 @@ export const basics = (
       frozen at build time. With Cache Components (on in this project) ISR is
       expressed on the cached data, not on the route:
     </p>
-    <pre>
-      <code>{`async function getCatalogSnapshot() {
+    <CodeBlock code={`async function getCatalogSnapshot() {
   "use cache";
   cacheLife({ stale: 300, revalidate: 10, expire: 600 });
   cacheTag("catalog");
   return loadCatalog();
-}`}</code>
-    </pre>
+}`} />
     <ul>
       <li>
         <strong>Time-based:</strong> <code>cacheLife({"{ revalidate }"})</code>{" "}

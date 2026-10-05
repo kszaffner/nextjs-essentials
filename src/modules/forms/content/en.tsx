@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/server-actions/forms/demo";
 
@@ -10,8 +11,7 @@ export const basics = (
       <code>action</code>. Pass a Server Action and the function receives the
       form&apos;s <code>FormData</code>:
     </p>
-    <pre>
-      <code>{`async function addGuest(role: string, formData: FormData) {
+    <CodeBlock code={`async function addGuest(role: string, formData: FormData) {
   "use server";
   const name = formData.get("name");   // string | File | null
   // parse, then mutate
@@ -21,8 +21,7 @@ export const basics = (
   <input name="name" />
   <button>Add</button>
   <button formAction={clearGuests}>Clear</button>
-</form>`}</code>
-    </pre>
+</form>`} />
     <ul>
       <li>
         <code>formData.get(name)</code> returns a string, a <code>File</code>,

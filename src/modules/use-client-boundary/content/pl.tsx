@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/components/use-client-boundary/demo";
 
@@ -38,6 +39,21 @@ const basics = (
       Panel „Pod maską” pokazuje te same wartości w surowym ładunku RSC, tak jak
       wyszły z serwera.
     </p>
+    <CodeBlock title="app/page.tsx" code={`
+// app/page.tsx (Server Component)
+import { Counter } from "./counter"; // counter.tsx zaczyna się od "use client"
+
+export default function Page() {
+  return (
+    <Counter
+      initial={1}                     // ok: liczba
+      user={{ id: 1, name: "Ada" }}   // ok: zwykły obiekt
+      createdAt={new Date()}          // ok: Date jest serializowalny
+      onDone={() => {}}               // błąd: funkcja nie przekroczy granicy
+    />
+  );
+}
+`} />
   </>
 );
 

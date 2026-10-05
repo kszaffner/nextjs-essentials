@@ -1,5 +1,6 @@
 import type { InterviewQuestion } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/optimization/image/demo";
 
@@ -10,15 +11,13 @@ export const basics = (
       <code>&lt;img&gt;</code> and handles the parts that are easy to get wrong:
       resizing, modern formats, lazy loading, and reserving space.
     </p>
-    <pre>
-      <code>{`<Image
+    <CodeBlock code={`<Image
   src="/demo/hero.jpg"
   alt="..."
   width={1600} height={900}      // reserves space: no layout shift
   sizes="(min-width: 60rem) 40rem, 100vw"   // how wide it will really be
   preload                         // only for the LCP image
-/>`}</code>
-    </pre>
+/>`} />
     <ul>
       <li>
         It builds a <code>srcset</code> of URLs like{" "}

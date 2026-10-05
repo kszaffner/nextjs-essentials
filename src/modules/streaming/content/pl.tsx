@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/rendering/streaming/demo";
 
@@ -31,6 +32,29 @@ const basics = (
       opóźnień, bo bloki renderują się równolegle. Panel „Pod maską” czyta
       odpowiedź jako strumień i pokazuje moment dotarcia każdego fragmentu.
     </p>
+    <CodeBlock title="app/dashboard/page.tsx" code={`
+import { Suspense } from "react";
+
+// Powłoka jest wysyłana pierwsza; każda granica dopływa, gdy jej dane są gotowe.
+export default function Page() {
+  return (
+    <>
+      <h1>Dashboard</h1>
+      <Suspense fallback={<p>Ładowanie statystyk…</p>}>
+        <Stats />      {/* wolny: nie blokuje reszty */}
+      </Suspense>
+      <Suspense fallback={<p>Ładowanie feedu…</p>}>
+        <Feed />       {/* niezależny: pojawia się, gdy jest gotowy */}
+      </Suspense>
+    </>
+  );
+}
+
+// app/dashboard/loading.tsx opakowuje całą stronę granicą Suspense:
+export default function Loading() {
+  return <p>Ładowanie dashboardu…</p>;
+}
+`} />
   </>
 );
 

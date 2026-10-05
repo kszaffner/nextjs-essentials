@@ -1,5 +1,6 @@
 import type { InterviewQuestion } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/metadata/og-images/demo";
 
@@ -12,16 +13,14 @@ export const basics = (
       returns an <code>ImageResponse</code> (from <code>next/og</code>) built from
       JSX:
     </p>
-    <pre>
-      <code>{`export const alt = "About Acme";
+    <CodeBlock code={`export const alt = "About Acme";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function Image({ params }) {
   const { slug } = await params;
   return new ImageResponse(<div style={{ display: "flex" }}>{slug}</div>, size);
-}`}</code>
-    </pre>
+}`} />
     <p>
       This site has a site-wide <code>src/app/opengraph-image.tsx</code>, and the{" "}
       <LocalizedLink href={demoHref}>demo</LocalizedLink> adds a per-slug one. Observed on a

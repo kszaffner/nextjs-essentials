@@ -1,6 +1,7 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { DemoLinks } from "../components/DemoLinks";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoBase = "/fundamentals/dynamic-segments/demo";
 
@@ -88,6 +89,18 @@ const basics = (
       , <DemoLink path="docs">/docs</DemoLink> lub dowolny z poniższych:
     </p>
     <DemoLinks />
+    <CodeBlock title="app/blog/[slug]/page.tsx" code={`
+// app/blog/[slug]/page.tsx       /blog/hello         -> { slug: "hello" }
+// app/docs/[...slug]/page.tsx    /docs/a/b           -> { slug: ["a", "b"] }
+//                                /docs               -> brak dopasowania (404)
+// app/shop/[[...slug]]/page.tsx  /shop               -> { slug: undefined }
+//                                /shop/a/b           -> { slug: ["a", "b"] }
+
+export default async function Page({ params }: PageProps<"/blog/[slug]">) {
+  const { slug } = await params; // params to Promise
+  return <h1>{slug}</h1>;
+}
+`} />
   </>
 );
 

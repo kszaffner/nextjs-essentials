@@ -1,5 +1,6 @@
 import type { InterviewQuestion } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/optimization/bundlers/demo";
 
@@ -72,6 +73,16 @@ export const basics = (
       <LocalizedLink href={demoHref}>demo</LocalizedLink> shows which bundler produced the build you
       are looking at; the commands to switch are on the same page.
     </p>
+    <CodeBlock title="package.json" language="json" code={`
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "build:webpack": "next build --webpack",
+    "analyze": "next experimental-analyze"
+  }
+}
+`} />
   </>
 );
 

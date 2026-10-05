@@ -275,6 +275,14 @@ Rules for a translated topic:
   code it shows cannot drift. Keep server-only code (file reads) out of module
   `index.ts` graphs: an `error.tsx` imports them too.
 
+## Code examples
+
+Every topic's Basics section has at least one code example, written with
+`<CodeBlock>` from `@/shared/code-block` (dark editor-style block in both color
+schemes, syntax highlighting by `sugar-high`, an optional `title` for a file
+name). Never use a bare `<pre>`. Comments inside an example are translated in
+`content/pl.tsx`; identifiers and file names are not.
+
 ## Key commands
 
 ```text

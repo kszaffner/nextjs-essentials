@@ -1,5 +1,6 @@
 import type { InterviewQuestion } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/testing/mocking-and-actions/demo";
 
@@ -64,6 +65,25 @@ export const basics = (
       The <LocalizedLink href={demoHref}>demo</LocalizedLink> maps ten real tests in this repository
       to the technique each uses.
     </p>
+    <CodeBlock title="actions.test.ts" code={`
+import { expect, it, vi } from "vitest";
+
+// revalidatePath needs a running Next.js request, so mock next/cache.
+// vi.mock is hoisted above imports, so the spy comes from vi.hoisted.
+const { revalidatePath } = vi.hoisted(() => ({ revalidatePath: vi.fn() }));
+vi.mock("next/cache", () => ({ revalidatePath }));
+
+it("redirects after a valid submit", async () => {
+  const formData = new FormData();
+  formData.set("name", "Ada");
+
+  // redirect() throws NEXT_REDIRECT: assert on its digest.
+  await expect(createUser(formData)).rejects.toMatchObject({
+    digest: expect.stringContaining("/welcome"),
+  });
+  expect(revalidatePath).toHaveBeenCalledWith("/users");
+});
+`} />
   </>
 );
 

@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/server-actions/basics/demo";
 
@@ -34,6 +35,27 @@ export const basics = (
       kliknięcia. Obie zwiększają licznik na serwerze, który aktualizuje się 600
       ms, a potem odświeżają stronę.
     </p>
+    <CodeBlock title="Server Actions" code={`
+// 1. Inline, w Server Component:
+export default function Page() {
+  async function increment() {
+    "use server";
+    await incrementCount();
+  }
+  return <form action={increment}><button>Add</button></form>;
+}
+
+// 2. W module, by Client Component mógł ją zaimportować (actions.ts):
+"use server";
+
+export async function incrementCounter() {
+  const count = await incrementCount();
+  refresh();
+  return { count }; // zwracana wartość musi być serializowalna
+}
+
+// W obu wersjach to publiczny endpoint POST: uwierzytelniaj, autoryzuj, waliduj.
+`} />
   </>
 );
 

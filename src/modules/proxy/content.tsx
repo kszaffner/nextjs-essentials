@@ -1,5 +1,6 @@
 import type { InterviewQuestion } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/advanced-routing/proxy/demo";
 
@@ -11,13 +12,11 @@ export const basics = (
       the cache and before any route renders. For each request it can continue,
       rewrite, redirect, change headers or cookies, or answer directly.
     </p>
-    <pre>
-      <code>{`export function proxy(request: NextRequest) {
+    <CodeBlock code={`export function proxy(request: NextRequest) {
   return NextResponse.rewrite(new URL("/target", request.url));
 }
 
-export const config = { matcher: ["/demo/:path*"] };`}</code>
-    </pre>
+export const config = { matcher: ["/demo/:path*"] };`} />
     <p>
       Four things the <LocalizedLink href={demoHref}>demo</LocalizedLink> does, observed with{" "}
       <code>curl -i</code> on a production build:

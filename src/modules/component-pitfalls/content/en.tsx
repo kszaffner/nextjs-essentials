@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/components/pitfalls/demo";
 
@@ -29,6 +30,23 @@ export const basics = (
       where the second card&apos;s static text ships to every visitor and the
       first card&apos;s does not.
     </p>
+    <CodeBlock title="app/page.tsx" code={`
+// A Server Component cannot take event handlers or hold state:
+export default function Page() {
+  return <button onClick={() => console.log("liked")}>Like</button>; // error
+}
+
+// Fix: move only the interactive part into a Client Component.
+// like-button.tsx
+"use client";
+
+import { useState } from "react";
+
+export function LikeButton() {
+  const [likes, setLikes] = useState(0);
+  return <button onClick={() => setLikes(likes + 1)}>Like ({likes})</button>;
+}
+`} />
   </>
 );
 

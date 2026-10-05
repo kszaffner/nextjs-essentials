@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoBase = "/rendering/static-vs-dynamic/demo";
 
@@ -54,6 +55,28 @@ const basics = (
       <code>export const dynamic = &quot;force-dynamic&quot;</code> ją
       wymuszało.
     </p>
+    <CodeBlock title="app/page.tsx" code={`
+import { Suspense } from "react";
+import { connection } from "next/server";
+
+export default function Page() {
+  return (
+    <>
+      <p>Takie samo dla wszystkich: renderowane raz, w buildzie.</p>
+      <Suspense fallback={<p>Ładowanie…</p>}>
+        <Now />
+      </Suspense>
+    </>
+  );
+}
+
+// Praca w czasie żądania (connection(), cookies(), headers(), searchParams)
+// czyni tę część dynamiczną; granica Suspense zostawia resztę statyczną.
+async function Now() {
+  await connection();
+  return <p>Wyrenderowano o {new Date().toISOString()}</p>;
+}
+`} />
   </>
 );
 

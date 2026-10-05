@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/data/fetch-extensions/demo";
 
@@ -46,6 +47,16 @@ export const basics = (
       <code>&quot;use cache&quot;</code> is the recommended way to cache data
       (see the migration topic).
     </p>
+    <CodeBlock title="fetch options" code={`
+await fetch(url);                                  // not cached (default)
+await fetch(url, { cache: "no-store" });           // always fetched
+await fetch(url, { cache: "force-cache" });        // cached, reused
+await fetch(url, { next: { revalidate: 10 } });    // cached, refreshed after 10 s
+await fetch(url, {                                 // cached and invalidatable
+  cache: "force-cache",
+  next: { tags: ["posts"] },                       // revalidateTag("posts", "max")
+});
+`} />
   </>
 );
 

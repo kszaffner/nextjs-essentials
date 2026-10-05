@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoPath = "/fundamentals/navigation/demo";
 
@@ -40,6 +41,29 @@ export const basics = (
       <code> router.refresh()</code> re-renders the server clock below it
       without resetting the client state.
     </p>
+    <CodeBlock title="navigation.tsx" code={`
+"use client";
+
+import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
+export function Toolbar() {
+  const pathname = usePathname();          // "/en/docs"
+  const searchParams = useSearchParams();  // ?tab=api (needs a Suspense boundary)
+  const router = useRouter();
+
+  return (
+    <nav>
+      <Link href="/docs">Docs</Link>                   {/* prefetches in production */}
+      <Link href="/docs" prefetch={false}>Docs</Link>   {/* opt out of prefetching */}
+      <button onClick={() => router.push("/docs?tab=api")}>Open API</button>
+      <button onClick={() => router.replace("/docs")}>Replace</button>
+      <button onClick={() => router.back()}>Back</button>
+      <button onClick={() => router.refresh()}>Refresh</button>
+    </nav>
+  );
+}
+`} />
   </>
 );
 

@@ -1,5 +1,6 @@
 import type { InterviewQuestion } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/metadata/sitemap-robots/demo";
 
@@ -12,8 +13,7 @@ export const basics = (
       <code>MetadataRoute.Sitemap</code>, <code>MetadataRoute.Robots</code>)
       and Next.js serializes them.
     </p>
-    <pre>
-      <code>{`export default function sitemap(): MetadataRoute.Sitemap {
+    <CodeBlock code={`export default function sitemap(): MetadataRoute.Sitemap {
   return [{ url: "https://example.com/", priority: 1 }];
 }
 
@@ -22,8 +22,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: [{ userAgent: "*", allow: "/", disallow: ["/api/"] }],
     sitemap: "https://example.com/sitemap.xml",
   };
-}`}</code>
-    </pre>
+}`} />
     <p>
       This site generates both from the topic catalog: the sitemap lists the home
       page and every topic (38 URLs), never the demo pages or the API, and

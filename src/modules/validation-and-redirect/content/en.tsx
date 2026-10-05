@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/server-actions/validation-and-redirect/demo";
 
@@ -9,14 +10,12 @@ export const basics = (
       An action is the trust boundary, so it parses its input first.{" "}
       <code>FormData</code> values are strings, so the schema also coerces them:
     </p>
-    <pre>
-      <code>{`const parsed = SignupSchema.safeParse(values);
+    <CodeBlock code={`const parsed = SignupSchema.safeParse(values);
 if (!parsed.success) {
   return { status: "invalid", fieldErrors, values };  // data, not a throw
 }
 // ...create the account...
-redirect(\`/welcome?name=\${encodeURIComponent(parsed.data.name)}\`);`}</code>
-    </pre>
+redirect(\`/welcome?name=\${encodeURIComponent(parsed.data.name)}\`);`} />
     <ul>
       <li>
         <strong>Validate with a schema</strong> (Zod) and return errors per

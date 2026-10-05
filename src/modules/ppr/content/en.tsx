@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/rendering/ppr/demo";
 
@@ -50,6 +51,34 @@ export const basics = (
       on every request, and the seconds-cache part refreshes about every
       second. The build output marks the route <code>◐</code>.
     </p>
+    <CodeBlock title="app/page.tsx" code={`
+import { Suspense } from "react";
+import { cacheLife } from "next/cache";
+import { connection } from "next/server";
+
+export default function Page() {
+  return (
+    <>
+      <h1>Static shell</h1>                         {/* prerendered at build */}
+      <Cached />                                    {/* cached: part of the shell */}
+      <Suspense fallback={<p>Loading…</p>}>
+        <PerRequest />                              {/* streamed per request */}
+      </Suspense>
+    </>
+  );
+}
+
+async function Cached() {
+  "use cache";
+  cacheLife("hours");
+  return <p>{new Date().toISOString()}</p>;
+}
+
+async function PerRequest() {
+  await connection(); // opts out of prerendering: runs for each request
+  return <p>{new Date().toISOString()}</p>;
+}
+`} />
   </>
 );
 

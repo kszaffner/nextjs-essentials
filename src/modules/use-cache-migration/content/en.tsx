@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/data/use-cache-migration/demo";
 
@@ -12,8 +13,7 @@ export const basics = (
       arguments, and the options become <code>cacheLife</code> and{" "}
       <code>cacheTag</code> calls.
     </p>
-    <pre>
-      <code>{`// Before
+    <CodeBlock code={`// Before
 export const getUser = unstable_cache(
   async (id: string) => db.users.find(id),
   ["user"],                                  // key parts
@@ -26,8 +26,7 @@ export async function getUser(id: string) {
   cacheLife("hours");
   cacheTag("users");
   return db.users.find(id);
-}`}</code>
-    </pre>
+}`} />
     <p>
       The <LocalizedLink href={demoHref}>demo</LocalizedLink> calls the migrated form with the ids{" "}
       <code>1</code>, <code>2</code>, <code>1</code>. Three calls, two distinct

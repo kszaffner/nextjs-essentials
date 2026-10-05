@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/data/revalidation/demo";
 
@@ -65,6 +66,31 @@ export const basics = (
       serving slightly stale data while refreshing is fine, and{" "}
       <code>revalidatePath</code> when you think in pages rather than data.
     </p>
+    <CodeBlock title="actions.ts" code={`
+"use server";
+
+import { refresh, revalidatePath, revalidateTag, updateTag } from "next/cache";
+
+export async function addWithUpdateTag() {
+  addEntry();
+  updateTag("entries");              // next render waits for fresh data (Server Actions only)
+}
+
+export async function addWithRevalidateTag() {
+  addEntry();
+  revalidateTag("entries", "max");   // stale-while-revalidate
+}
+
+export async function addWithRevalidatePath() {
+  addEntry();
+  revalidatePath("/entries", "page"); // by path instead of by tag
+}
+
+export async function addWithRefresh() {
+  addEntry();
+  refresh();                         // refreshes the router, invalidates no cache
+}
+`} />
   </>
 );
 

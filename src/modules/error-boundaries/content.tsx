@@ -1,5 +1,6 @@
 import type { InterviewQuestion } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/errors/error-boundaries/demo";
 
@@ -12,16 +13,14 @@ export const basics = (
       component instead, and the rest of the app keeps working. It must be a
       Client Component.
     </p>
-    <pre>
-      <code>{`"use client";
+    <CodeBlock code={`"use client";
 
 export default function Error({ error, retry }: {
   error: Error & { digest?: string };
   retry: () => void;
 }) {
   return <button onClick={() => retry()}>Try again</button>;
-}`}</code>
-    </pre>
+}`} />
     <ul>
       <li>
         The <strong>nearest</strong> boundary above the failing component wins.

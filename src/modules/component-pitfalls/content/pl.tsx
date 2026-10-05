@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/components/pitfalls/demo";
 
@@ -30,6 +31,23 @@ const basics = (
       statyczny tekst drugiej karty trafia do każdego odwiedzającego, a pierwszej
       nie. Panel „Pod maską” przeszukuje chunki i pokazuje to na żywo.
     </p>
+    <CodeBlock title="app/page.tsx" code={`
+// Server Component nie przyjmuje handlerów zdarzeń ani nie trzyma stanu:
+export default function Page() {
+  return <button onClick={() => console.log("liked")}>Like</button>; // błąd
+}
+
+// Poprawka: przenieś do Client Component tylko część interaktywną.
+// like-button.tsx
+"use client";
+
+import { useState } from "react";
+
+export function LikeButton() {
+  const [likes, setLikes] = useState(0);
+  return <button onClick={() => setLikes(likes + 1)}>Like ({likes})</button>;
+}
+`} />
   </>
 );
 
