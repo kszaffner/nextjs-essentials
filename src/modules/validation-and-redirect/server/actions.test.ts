@@ -28,9 +28,9 @@ describe("signUp", () => {
     expect(state).toEqual({
       status: "invalid",
       fieldErrors: {
-        name: "Name needs at least 2 characters",
-        email: "Enter a valid email address",
-        age: "You must be at least 13",
+        name: "nameTooShort",
+        email: "emailInvalid",
+        age: "ageTooYoung",
       },
       values: { name: "A", email: "nope", age: "7" },
     });

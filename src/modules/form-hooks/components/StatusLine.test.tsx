@@ -6,7 +6,7 @@ import { StatusLine } from "./StatusLine";
 afterEach(cleanup);
 
 function renderStatus(state: PostMessageState, isPending = false) {
-  render(<StatusLine state={state} isPending={isPending} />);
+  render(<StatusLine locale="en" state={state} isPending={isPending} />);
   return screen.getByRole("status").textContent;
 }
 
@@ -24,8 +24,8 @@ describe("StatusLine", () => {
   });
 
   it("reports why a message was rejected", () => {
-    expect(renderStatus({ status: "rejected", reason: "No.", text: "x" })).toBe(
-      "useActionState: rejected (No.)",
+    expect(renderStatus({ status: "rejected", reason: "invalidLength", text: "x" })).toBe(
+      "useActionState: rejected (Write between 1 and 60 characters.)",
     );
   });
 });

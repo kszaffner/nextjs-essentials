@@ -1,17 +1,21 @@
+import { LocalizedLink, type Locale } from "@/shared/i18n";
+import { getSignupText } from "../text";
 import styles from "./Signup.module.css";
-import { LocalizedLink } from "@/shared/i18n";
 
 type WelcomePanelProps = {
+  locale: Locale;
   name: string;
 };
 
-export function WelcomePanel({ name }: WelcomePanelProps) {
+export function WelcomePanel({ locale, name }: WelcomePanelProps) {
+  const text = getSignupText(locale).welcome;
+
   return (
     <section className={styles.panel}>
-      <h3 className={styles.title}>Welcome, {name}</h3>
+      <h3 className={styles.title}>{text.title} {name}</h3>
       <p className={styles.hint}>
-        You arrived here through a redirect() in the Server Action.{" "}
-        <LocalizedLink href="/server-actions/validation-and-redirect/demo">Back to the form</LocalizedLink>
+        {text.body}{" "}
+        <LocalizedLink href="/server-actions/validation-and-redirect/demo">{text.back}</LocalizedLink>
       </p>
     </section>
   );

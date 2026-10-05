@@ -31,21 +31,21 @@ describe("SignupSchema", () => {
   });
 
   it("rejects an empty age instead of coercing it to zero", () => {
-    expect(firstMessage({ ...validInput, age: "" }, "age")).toBe("Age is required");
+    expect(firstMessage({ ...validInput, age: "" }, "age")).toBe("ageRequired");
   });
 
   it("explains a non-numeric age", () => {
-    expect(firstMessage({ ...validInput, age: "abc" }, "age")).toBe("Age must be a number");
+    expect(firstMessage({ ...validInput, age: "abc" }, "age")).toBe("ageNotNumber");
   });
 
   it("rejects ages outside the allowed range and fractions", () => {
-    expect(firstMessage({ ...validInput, age: "12" }, "age")).toBe("You must be at least 13");
-    expect(firstMessage({ ...validInput, age: "121" }, "age")).toBe("Age is at most 120");
-    expect(firstMessage({ ...validInput, age: "12.5" }, "age")).toBe("Age must be a whole number");
+    expect(firstMessage({ ...validInput, age: "12" }, "age")).toBe("ageTooYoung");
+    expect(firstMessage({ ...validInput, age: "121" }, "age")).toBe("ageTooOld");
+    expect(firstMessage({ ...validInput, age: "12.5" }, "age")).toBe("ageNotInteger");
   });
 
   it("rejects a short name and an invalid email", () => {
-    expect(firstMessage({ ...validInput, name: "A" }, "name")).toBe("Name needs at least 2 characters");
-    expect(firstMessage({ ...validInput, email: "nope" }, "email")).toBe("Enter a valid email address");
+    expect(firstMessage({ ...validInput, name: "A" }, "name")).toBe("nameTooShort");
+    expect(firstMessage({ ...validInput, email: "nope" }, "email")).toBe("emailInvalid");
   });
 });

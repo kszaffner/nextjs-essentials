@@ -7,27 +7,27 @@ afterEach(cleanup);
 
 const invalidState: SignupState = {
   status: "invalid",
-  fieldErrors: { email: "Enter a valid email address" },
+  fieldErrors: { email: "emailInvalid" },
   values: { name: "Ada", email: "nope", age: "30" },
 };
 
 describe("SignupFields", () => {
   it("starts empty with no errors", () => {
-    render(<SignupFields state={{ status: "idle" }} />);
+    render(<SignupFields locale="en" state={{ status: "idle" }} />);
 
     expect((screen.getByLabelText("Name") as HTMLInputElement).value).toBe("");
     expect(screen.queryByRole("alert")).toBeNull();
   });
 
   it("refills what the user typed and shows the error next to its field", () => {
-    render(<SignupFields state={invalidState} />);
+    render(<SignupFields locale="en" state={invalidState} />);
 
     expect((screen.getByLabelText(/^Name/) as HTMLInputElement).value).toBe("Ada");
     expect(screen.getByRole("alert").textContent).toBe("Enter a valid email address");
   });
 
   it("marks only the invalid field and links it to its message", () => {
-    render(<SignupFields state={invalidState} />);
+    render(<SignupFields locale="en" state={invalidState} />);
 
     const email = screen.getByLabelText(/^Email/);
     expect(email.getAttribute("aria-invalid")).toBe("true");
@@ -36,7 +36,7 @@ describe("SignupFields", () => {
   });
 
   it("does not refill the comment field", () => {
-    render(<SignupFields state={invalidState} />);
+    render(<SignupFields locale="en" state={invalidState} />);
 
     expect((screen.getByLabelText(/Comment/) as HTMLInputElement).value).toBe("");
   });

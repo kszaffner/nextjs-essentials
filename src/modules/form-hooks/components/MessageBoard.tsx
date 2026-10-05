@@ -1,13 +1,16 @@
 "use client";
 
 import { useActionState, useOptimistic } from "react";
+import type { Locale } from "@/shared/i18n";
 import { initialPostMessageState } from "../postMessageState";
 import { postMessage } from "../server/actions";
+import { getFormHooksText } from "../text";
 import { StatusLine } from "./StatusLine";
 import { SubmitButton } from "./SubmitButton";
 import styles from "./FormHooks.module.css";
 
 type MessageBoardProps = {
+  locale: Locale;
   messages: readonly string[];
 };
 
@@ -16,7 +19,8 @@ type DisplayedMessage = {
   isSending: boolean;
 };
 
-export function MessageBoard({ messages }: MessageBoardProps) {
+export function MessageBoard({ locale, messages }: MessageBoardProps) {
+  const text = getFormHooksText(locale);
   const [state, formAction, isPending] = useActionState(
     postMessage,
     initialPostMessageState,
@@ -38,19 +42,19 @@ export function MessageBoard({ messages }: MessageBoardProps) {
 
   return (
     <section className={styles.panel}>
-      <h3 className={styles.title}>Message board</h3>
+      <h3 className={styles.title}>{text.board.title}</h3>
       <ul className={styles.list}>
         {displayedMessages.map((message, index) => (
           // Messages can repeat, so the position is part of the key.
           <li key={`${message.text}-${index}`} className={message.isSending ? styles.sending : undefined}>
             {message.text}
-            {message.isSending ? " (sending…)" : ""}
+            {message.isSending ? text.board.sending : ""}
           </li>
         ))}
       </ul>
       <form action={submit}>
         <label className={styles.field}>
-          Message (type &quot;fail&quot; to see a rollback)
+          {text.board.field}
           <input
             className={styles.input}
             type="text"
@@ -60,9 +64,9 @@ export function MessageBoard({ messages }: MessageBoardProps) {
             autoComplete="off"
           />
         </label>
-        <SubmitButton />
+        <SubmitButton locale={locale} />
       </form>
-      <StatusLine state={state} isPending={isPending} />
+      <StatusLine locale={locale} state={state} isPending={isPending} />
     </section>
   );
 }

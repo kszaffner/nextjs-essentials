@@ -1,4 +1,4 @@
-import type { InterviewQuestion } from "@/shared/topic-page";
+import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/server-actions/forms/demo";
@@ -158,3 +158,11 @@ export const interviewQuestions: readonly InterviewQuestion[] = [
     ),
   },
 ];
+
+export const content: TopicContent = {
+  title: "Forms",
+  summary: "form action and progressive enhancement.",
+  basics,
+  edgeCases,
+  interviewQuestions,
+};

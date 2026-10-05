@@ -1,37 +1,41 @@
+import type { Locale } from "@/shared/i18n";
 import type { SignupFieldName, SignupState } from "../signupState";
+import { getSignupText } from "../text";
 import { FieldError } from "./FieldError";
 import styles from "./Signup.module.css";
 
 type FieldConfig = {
   name: SignupFieldName;
-  label: string;
   type: "text" | "email" | "number";
   autoComplete: string;
 };
 
 const fields: readonly FieldConfig[] = [
-  { name: "name", label: "Name", type: "text", autoComplete: "name" },
-  { name: "email", label: "Email", type: "email", autoComplete: "email" },
-  { name: "age", label: "Age", type: "number", autoComplete: "off" },
+  { name: "name", type: "text", autoComplete: "name" },
+  { name: "email", type: "email", autoComplete: "email" },
+  { name: "age", type: "number", autoComplete: "off" },
 ];
 
 type SignupFieldsProps = {
+  locale: Locale;
   state: SignupState;
 };
 
-export function SignupFields({ state }: SignupFieldsProps) {
+export function SignupFields({ locale, state }: SignupFieldsProps) {
+  const text = getSignupText(locale);
   const fieldErrors = state.status === "invalid" ? state.fieldErrors : {};
   const values = state.status === "invalid" ? state.values : undefined;
 
   return (
     <>
       {fields.map((field) => {
-        const message = fieldErrors[field.name];
+        const errorCode = fieldErrors[field.name];
+        const message = errorCode ? text.errors[errorCode] : undefined;
         const errorId = `signup-${field.name}-error`;
 
         return (
           <label key={field.name} className={styles.field}>
-            {field.label}
+            {text.fields[field.name]}
             <input
               className={styles.input}
               name={field.name}
@@ -49,7 +53,7 @@ export function SignupFields({ state }: SignupFieldsProps) {
         );
       })}
       <label className={styles.field}>
-        Comment (optional, deliberately not refilled)
+        {text.fields.comment}
         <input className={styles.input} name="comment" type="text" maxLength={100} autoComplete="off" />
       </label>
     </>

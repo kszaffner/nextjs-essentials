@@ -4,12 +4,21 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 import { localizePath } from "@/shared/i18n";
 import { getCookieLocale } from "@/shared/i18n/cookie";
-import type { SignupState } from "../signupState";
+import { isSignupErrorCode, type SignupErrorCode, type SignupState } from "../signupState";
 import { SignupSchema } from "./signupSchema";
 
 function readText(formData: FormData, field: string): string {
   const value = formData.get(field);
   return typeof value === "string" ? value : "";
+}
+
+// Anything outside the known codes still reaches the user as a generic message.
+function firstErrorCode(messages: readonly string[] | undefined): SignupErrorCode | undefined {
+  const message = messages?.[0];
+  if (message === undefined) {
+    return undefined;
+  }
+  return isSignupErrorCode(message) ? message : "invalidValue";
 }
 
 // Public on purpose: it creates nothing, it only validates and redirects. A
@@ -30,9 +39,9 @@ export async function signUp(
     return {
       status: "invalid",
       fieldErrors: {
-        name: fieldErrors.name?.[0],
-        email: fieldErrors.email?.[0],
-        age: fieldErrors.age?.[0],
+        name: firstErrorCode(fieldErrors.name),
+        email: firstErrorCode(fieldErrors.email),
+        age: firstErrorCode(fieldErrors.age),
       },
       // Sent back so the form can refill what the user typed.
       values,

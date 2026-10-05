@@ -1,12 +1,15 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import type { Locale } from "@/shared/i18n";
 import { incrementCounter } from "../server/actions";
+import { getServerActionsBasicsText } from "../text";
 import styles from "./Actions.module.css";
 
 // A Client Component cannot declare an inline action; it imports one from a
 // "use server" file and calls it from an event handler.
-export function ClientInvoker() {
+export function ClientInvoker({ locale }: { locale: Locale }) {
+  const text = getServerActionsBasicsText(locale).invoker;
   const [isPending, startTransition] = useTransition();
   const [log, setLog] = useState<string[]>([]);
 
@@ -20,7 +23,7 @@ export function ClientInvoker() {
         const elapsedMs = Math.round(performance.now() - clickedAt);
         setLog((previous) => [
           ...previous,
-          `call ${clickNumber} returned count ${result.count} after ${elapsedMs} ms`,
+          text.logEntry(clickNumber, result.count, elapsedMs),
         ]);
       });
     }
@@ -28,24 +31,21 @@ export function ClientInvoker() {
 
   return (
     <section className={styles.panel}>
-      <h3 className={styles.title}>2. Imported action, called from a handler</h3>
+      <h3 className={styles.title}>{text.title}</h3>
       <button
         type="button"
         className={styles.button}
         onClick={incrementThreeTimes}
         disabled={isPending}
       >
-        Call it three times at once
+        {text.button}
       </button>
       <ol className={styles.log}>
         {log.map((entry) => (
           <li key={entry}>{entry}</li>
         ))}
       </ol>
-      <p className={styles.hint}>
-        Fired together, but dispatched one at a time: each call waits for the
-        previous one to finish.
-      </p>
+      <p className={styles.hint}>{text.hint}</p>
     </section>
   );
 }

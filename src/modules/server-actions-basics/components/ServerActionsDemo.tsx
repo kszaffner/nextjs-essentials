@@ -1,16 +1,18 @@
 import { Suspense } from "react";
+import type { Locale } from "@/shared/i18n";
+import { getServerActionsBasicsText } from "../text";
 import { ClientInvoker } from "./ClientInvoker";
 import { CounterDisplay } from "./CounterDisplay";
 import { InlineActionForm } from "./InlineActionForm";
 
-export function ServerActionsDemo() {
+export function ServerActionsDemo({ locale }: { locale: Locale }) {
   return (
     <div>
-      <Suspense fallback={<p>Reading the counter…</p>}>
-        <CounterDisplay />
+      <Suspense fallback={<p>{getServerActionsBasicsText(locale).readingCounter}</p>}>
+        <CounterDisplay locale={locale} />
       </Suspense>
-      <InlineActionForm />
-      <ClientInvoker />
+      <InlineActionForm locale={locale} />
+      <ClientInvoker locale={locale} />
     </div>
   );
 }

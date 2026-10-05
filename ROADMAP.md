@@ -168,8 +168,8 @@ module index, and an `<InternalsPanel>` composed in the demo route. See
 | L0  | Routing foundation: `[lang]`, proxy redirect, catalog, sitemap | - | done (merged) |
 | L1  | Panel foundation + App Router fundamentals + `next/dynamic` (pilot) | file-conventions, dynamic-segments, parallel-routes, intercepting-routes, navigation, dynamic-import | done (merged) |
 | L2  | Rendering + Server/Client Components                | static-vs-dynamic, isr, streaming, ppr, use-client-boundary, composition, pitfalls | done (merged) |
-| L3  | Data fetching and caching                           | fetch-extensions, cache-layers, parallel-vs-sequential, revalidation, use-cache-migration | in review |
-| L4  | Server Actions and forms                            | basics, forms, form-hooks, validation-and-redirect | planned |
+| L3  | Data fetching and caching                           | fetch-extensions, cache-layers, parallel-vs-sequential, revalidation, use-cache-migration | done (merged) |
+| L4  | Server Actions and forms                            | basics, forms, form-hooks, validation-and-redirect | in review |
 | L5  | Advanced routing + error handling                   | route-handlers, proxy, runtimes, error-boundaries, not-found, actions-and-handlers | planned |
 | L6  | Metadata and SEO + testing                          | generate-metadata, sitemap-robots, og-images, server-vs-client, mocking-and-actions | planned |
 | L7  | Optimization                                        | image, font, bundlers, web-vitals | planned |
@@ -184,6 +184,13 @@ Unscheduled candidates. Promote an item to a stage when it is planned.
 ## Change log
 
 Newest first. One line per change: date, IDs, what changed.
+
+- 2026-10-05: L4 (PR 17) — four Server Actions topics translated with panels
+  (live request log, source excerpts). Action results no longer carry English
+  sentences: `form-hooks` returns a rejection code and `validation-and-redirect`
+  returns field error codes (`signupErrorCodes`), and the UI picks the wording
+  per language. Measured on a production build: three fired action calls are
+  three POST fetches to the page URL, about 600 ms apart.
 
 - 2026-10-05: L3 (PR 16) — five data topics translated with panels
   (response headers, streamed chunk timing, source excerpts). Measured on a
