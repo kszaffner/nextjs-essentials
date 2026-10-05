@@ -1,4 +1,4 @@
-import type { InterviewQuestion } from "@/shared/topic-page";
+import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/data/parallel-vs-sequential/demo";
@@ -168,3 +168,11 @@ export const interviewQuestions: readonly InterviewQuestion[] = [
     ),
   },
 ];
+
+export const content: TopicContent = {
+  title: "Parallel vs sequential fetching",
+  summary: "The waterfall problem and how to avoid it.",
+  basics,
+  edgeCases,
+  interviewQuestions,
+};

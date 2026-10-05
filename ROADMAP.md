@@ -167,8 +167,8 @@ module index, and an `<InternalsPanel>` composed in the demo route. See
 | --- | --------------------------------------------------- | ------ | ------ |
 | L0  | Routing foundation: `[lang]`, proxy redirect, catalog, sitemap | - | done (merged) |
 | L1  | Panel foundation + App Router fundamentals + `next/dynamic` (pilot) | file-conventions, dynamic-segments, parallel-routes, intercepting-routes, navigation, dynamic-import | done (merged) |
-| L2  | Rendering + Server/Client Components                | static-vs-dynamic, isr, streaming, ppr, use-client-boundary, composition, pitfalls | in review |
-| L3  | Data fetching and caching                           | fetch-extensions, cache-layers, parallel-vs-sequential, revalidation, use-cache-migration | planned |
+| L2  | Rendering + Server/Client Components                | static-vs-dynamic, isr, streaming, ppr, use-client-boundary, composition, pitfalls | done (merged) |
+| L3  | Data fetching and caching                           | fetch-extensions, cache-layers, parallel-vs-sequential, revalidation, use-cache-migration | in review |
 | L4  | Server Actions and forms                            | basics, forms, form-hooks, validation-and-redirect | planned |
 | L5  | Advanced routing + error handling                   | route-handlers, proxy, runtimes, error-boundaries, not-found, actions-and-handlers | planned |
 | L6  | Metadata and SEO + testing                          | generate-metadata, sitemap-robots, og-images, server-vs-client, mocking-and-actions | planned |
@@ -184,6 +184,14 @@ Unscheduled candidates. Promote an item to a stage when it is planned.
 ## Change log
 
 Newest first. One line per change: date, IDs, what changed.
+
+- 2026-10-05: L3 (PR 16) — five data topics translated with panels
+  (response headers, streamed chunk timing, source excerpts). Measured on a
+  production build: the demo pages answer `no-store` (dynamic holes), the
+  static `cache-layers/demo/other` carries `s-maxage=31536000` and
+  `x-nextjs-stale-time: 300`, `revalidation/demo` is a cache HIT with
+  `s-maxage=3600, stale-while-revalidate=82800`; the parallel-vs-sequential
+  page streams for about 1.8 s (sequential and nested strategies).
 
 - 2026-10-05: L2 (PR 15) — seven topics translated with panels. New panel
   evidence in `src/shared/under-the-hood`: `ResponseHeaders`, `ResponseStream`

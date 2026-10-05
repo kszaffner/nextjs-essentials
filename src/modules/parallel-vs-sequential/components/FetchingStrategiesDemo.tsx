@@ -1,4 +1,6 @@
 import { Suspense, type ReactNode } from "react";
+import type { Locale } from "@/shared/i18n";
+import { getFetchingStrategiesText } from "../text";
 import { ParallelStrategy } from "./ParallelStrategy";
 import { PromiseStrategy } from "./PromiseStrategy";
 import { SequentialStrategy } from "./SequentialStrategy";
@@ -11,19 +13,23 @@ type StrategyEntry = {
   element: ReactNode;
 };
 
-const strategies: readonly StrategyEntry[] = [
-  { name: "Sequential", element: <SequentialStrategy /> },
-  { name: "Promise.all", element: <ParallelStrategy /> },
-  { name: "Waterfall", element: <WaterfallStrategy /> },
-  { name: "Siblings", element: <SiblingStrategy /> },
-  { name: "use()", element: <PromiseStrategy /> },
-];
+function getStrategies(locale: Locale): readonly StrategyEntry[] {
+  return [
+    { name: "Sequential", element: <SequentialStrategy locale={locale} /> },
+    { name: "Promise.all", element: <ParallelStrategy locale={locale} /> },
+    { name: "Waterfall", element: <WaterfallStrategy locale={locale} /> },
+    { name: "Siblings", element: <SiblingStrategy locale={locale} /> },
+    { name: "use()", element: <PromiseStrategy locale={locale} /> },
+  ];
+}
 
-export function FetchingStrategiesDemo() {
+export function FetchingStrategiesDemo({ locale }: { locale: Locale }) {
+  const { running } = getFetchingStrategiesText(locale);
+
   return (
     <ul className={styles.list}>
-      {strategies.map(({ name, element }) => (
-        <Suspense key={name} fallback={<li className={styles.strategy}>{name}: running…</li>}>
+      {getStrategies(locale).map(({ name, element }) => (
+        <Suspense key={name} fallback={<li className={styles.strategy}>{name}: {running}</li>}>
           {element}
         </Suspense>
       ))}
