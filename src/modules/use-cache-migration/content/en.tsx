@@ -1,4 +1,4 @@
-import type { InterviewQuestion } from "@/shared/topic-page";
+import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/data/use-cache-migration/demo";
@@ -241,3 +241,11 @@ export const interviewQuestions: readonly InterviewQuestion[] = [
     ),
   },
 ];
+
+export const content: TopicContent = {
+  title: "Migrating to use cache",
+  summary: 'Moving from unstable_cache to "use cache".',
+  basics,
+  edgeCases,
+  interviewQuestions,
+};

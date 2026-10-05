@@ -10,6 +10,7 @@ describe("ReadingsTable", () => {
   it("shows the hit count and time for each fetch variant", () => {
     render(
       <ReadingsTable
+        locale="en"
         variantReadings={[
           { variant: { id: "default", label: "no options (default)" }, reading: reading(1) },
           { variant: { id: "force-cache", label: "force-cache" }, reading: reading(5) },
@@ -24,7 +25,7 @@ describe("ReadingsTable", () => {
   });
 
   it("shows both memoized hit counts so a shared result is visible", () => {
-    render(<ReadingsTable variantReadings={[]} memoizedPair={[reading(7), reading(7)]} />);
+    render(<ReadingsTable locale="en" variantReadings={[]} memoizedPair={[reading(7), reading(7)]} />);
 
     const memoizedRow = screen.getByRole("row", { name: /same URL twice/ });
     expect(within(memoizedRow).getByText("7 and 7")).toBeDefined();

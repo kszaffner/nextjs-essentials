@@ -1,4 +1,4 @@
-import type { InterviewQuestion } from "@/shared/topic-page";
+import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
 
 const demoHref = "/data/fetch-extensions/demo";
@@ -160,3 +160,11 @@ export const interviewQuestions: readonly InterviewQuestion[] = [
     ),
   },
 ];
+
+export const content: TopicContent = {
+  title: "fetch() extensions",
+  summary: "cache, next.revalidate, and next.tags.",
+  basics,
+  edgeCases,
+  interviewQuestions,
+};

@@ -1,14 +1,17 @@
+import type { Locale } from "@/shared/i18n";
 import { getCachedEntries } from "../server/cachedEntries";
+import { getRevalidationText } from "../text";
 import styles from "./Revalidation.module.css";
 
-export async function EntryList() {
+export async function EntryList({ locale }: { locale: Locale }) {
+  const text = getRevalidationText(locale).list;
   const { entries, cachedAt } = await getCachedEntries();
 
   return (
     <section className={styles.panel}>
-      <h3 className={styles.title}>Cached list</h3>
+      <h3 className={styles.title}>{text.title}</h3>
       {entries.length === 0 ? (
-        <p className={styles.readout}>(empty)</p>
+        <p className={styles.readout}>{text.empty}</p>
       ) : (
         <ul className={styles.entries}>
           {entries.map((entry) => (
@@ -16,7 +19,7 @@ export async function EntryList() {
           ))}
         </ul>
       )}
-      <p className={styles.readout}>cached at {cachedAt}</p>
+      <p className={styles.readout}>{text.cachedAt} {cachedAt}</p>
     </section>
   );
 }

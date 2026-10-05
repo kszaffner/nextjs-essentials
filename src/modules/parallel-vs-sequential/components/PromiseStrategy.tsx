@@ -1,22 +1,22 @@
 import { connection } from "next/server";
 import { Suspense } from "react";
+import type { Locale } from "@/shared/i18n";
 import { simulateRequest } from "../server/simulatedRequest";
 import { PromiseReader } from "./PromiseReader";
+import { getFetchingStrategiesText } from "../text";
 import { Strategy } from "./Strategy";
 
 // The request starts on the server right now, but nothing awaits it here:
 // the Client Component unwraps it with use(), so the server does not block.
-export async function PromiseStrategy() {
+export async function PromiseStrategy({ locale }: { locale: Locale }) {
   await connection();
+  const text = getFetchingStrategiesText(locale).promise;
   const pending = simulateRequest("passed-down");
 
   return (
-    <Strategy
-      title="Start on the server, read with use()"
-      hint="The server starts the request and passes the promise to a Client Component, which reads it with use() behind Suspense."
-    >
-      <Suspense fallback={<span>waiting for the promise…</span>}>
-        <PromiseReader promise={pending} />
+    <Strategy title={text.title} hint={text.hint}>
+      <Suspense fallback={<span>{text.waiting}</span>}>
+        <PromiseReader promise={pending} label={text.clientRead} />
       </Suspense>
     </Strategy>
   );
