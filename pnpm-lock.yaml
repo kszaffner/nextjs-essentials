@@ -23,6 +23,9 @@ importers:
       server-only:
         specifier: ^0.0.1
         version: 0.0.1
+      sugar-high:
+        specifier: ^2.5.1
+        version: 2.5.1
       zod:
         specifier: ^4.6.5
         version: 4.6.5
@@ -2613,6 +2616,14 @@ packages:
       '@babel/core':
         optional: true
       babel-plugin-macros:
+        optional: true
+
+  sugar-high@2.5.1:
+    resolution: {integrity: sha512-Skhak2gN96Ywvkdwi8q3kmCmV4rbBTUuYOd71ilxao8wZ1G3O87zofSxl1FogNyeTT2bHC5NMfEEm6/i7Pc8SA==}
+    peerDependencies:
+      gpu-lexer: '>=0.0.2'
+    peerDependenciesMeta:
+      gpu-lexer:
         optional: true
 
   supports-color@7.2.0:
@@ -5588,6 +5599,8 @@ snapshots:
       react: 19.2.8
     optionalDependencies:
       '@babel/core': 7.29.7
+
+  sugar-high@2.5.1: {}
 
   supports-color@7.2.0:
     dependencies:

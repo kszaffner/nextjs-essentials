@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/rendering/ppr/demo";
 
@@ -53,6 +54,34 @@ const basics = (
       Panel „Pod maską” pokazuje to jako strumień: powłoka w pierwszym
       fragmencie, dziury w kolejnych.
     </p>
+    <CodeBlock title="app/page.tsx" code={`
+import { Suspense } from "react";
+import { cacheLife } from "next/cache";
+import { connection } from "next/server";
+
+export default function Page() {
+  return (
+    <>
+      <h1>Statyczna powłoka</h1>                    {/* prerenderowana w buildzie */}
+      <Cached />                                    {/* z cache: część powłoki */}
+      <Suspense fallback={<p>Ładowanie…</p>}>
+        <PerRequest />                              {/* strumieniowane per żądanie */}
+      </Suspense>
+    </>
+  );
+}
+
+async function Cached() {
+  "use cache";
+  cacheLife("hours");
+  return <p>{new Date().toISOString()}</p>;
+}
+
+async function PerRequest() {
+  await connection(); // rezygnuje z prerenderu: działa przy każdym żądaniu
+  return <p>{new Date().toISOString()}</p>;
+}
+`} />
   </>
 );
 

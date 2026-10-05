@@ -1,5 +1,6 @@
 import type { InterviewQuestion } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/metadata/generate-metadata/demo";
 
@@ -20,8 +21,7 @@ export const basics = (
         can fetch data and return the same shape.
       </li>
     </ul>
-    <pre>
-      <code>{`// layout: defaults for everything below
+    <CodeBlock code={`// layout: defaults for everything below
 export const metadata = {
   metadataBase: new URL("https://example.com"),
   title: { template: "%s | Site", default: "Site" },
@@ -32,8 +32,7 @@ export async function generateMetadata({ params }) {
   const { slug } = await params;
   const article = await getArticle(slug);      // cached with React cache()
   return { title: article.title, alternates: { canonical: \`/blog/\${slug}\` } };
-}`}</code>
-    </pre>
+}`} />
     <p>
       <code>metadataBase</code> lets every URL-valued field use a relative path:
       the <code>canonical</code> above becomes an absolute URL. Open the{" "}

@@ -1,5 +1,6 @@
 import { LocalizedLink } from "@/shared/i18n";
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/optimization/dynamic-import/demo";
 
@@ -10,16 +11,14 @@ const basics = (
       potrzebny, w osobnym chunku. To połączenie <code>React.lazy()</code> i{" "}
       <code>&lt;Suspense&gt;</code>.
     </p>
-    <pre>
-      <code>{`"use client";
+    <CodeBlock code={`"use client";
 
 const Heavy = dynamic(() => import("./HeavyPanel").then((m) => m.HeavyPanel), {
   ssr: false,                       // pomiń render na serwerze
   loading: () => <p>Ładowanie…</p>, // pokazywane, gdy chunk się ładuje
 });
 
-{isOpen ? <Heavy /> : null}          // chunk jest pobierany przy pierwszym renderze`}</code>
-    </pre>
+{isOpen ? <Heavy /> : null}          // chunk jest pobierany przy pierwszym renderze`} />
     <ul>
       <li>
         <strong>Server Components</strong> są dzielone na chunki automatycznie;

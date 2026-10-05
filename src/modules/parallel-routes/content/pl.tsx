@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoBase = "/fundamentals/parallel-routes/demo";
 
@@ -33,6 +34,23 @@ const basics = (
       nawigacją, a zmieni się tylko panel zespołu, pozostałe dwa zachowają to,
       co pokazywały. Potem przeładuj stronę i porównaj.
     </p>
+    <CodeBlock title="app/dashboard/layout.tsx" code={`
+// app/dashboard/@analytics/page.tsx   -> slot "analytics"
+// app/dashboard/@team/page.tsx        -> slot "team"
+// app/dashboard/page.tsx              -> "children"
+//
+// Sloty są propsami layoutu, nie segmentami URL:
+export default function Layout({ children, analytics, team }: LayoutProps<"/dashboard">) {
+  return (
+    <>
+      {children}
+      {analytics}   {/* ma własne loading.tsx i error.tsx */}
+      {team}
+    </>
+  );
+}
+// Przy twardym załadowaniu slot bez dopasowania do URL potrzebuje default.tsx.
+`} />
   </>
 );
 

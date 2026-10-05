@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/server-actions/form-hooks/demo";
 
@@ -35,6 +36,37 @@ export const basics = (
       showed the optimistic entry and then removed it when the server rejected
       it.
     </p>
+    <CodeBlock title="message-board.tsx" code={`
+"use client";
+
+import { useActionState, useOptimistic } from "react";
+import { useFormStatus } from "react-dom";
+
+export function MessageBoard({ messages }: { messages: string[] }) {
+  // The action receives the previous state first, then the FormData.
+  const [state, formAction, isPending] = useActionState(postMessage, { status: "idle" });
+  // Shown at once, replaced by the real list when the action settles.
+  const [shown, addOptimistic] = useOptimistic(messages, (current, text: string) => [...current, text]);
+
+  function submit(formData: FormData) {
+    addOptimistic(String(formData.get("text")));
+    formAction(formData);
+  }
+
+  return (
+    <form action={submit}>
+      <input name="text" />
+      <SubmitButton />
+    </form>
+  );
+}
+
+// useFormStatus reads the nearest parent <form>, so it lives in a child.
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return <button disabled={pending}>{pending ? "Posting…" : "Post"}</button>;
+}
+`} />
   </>
 );
 

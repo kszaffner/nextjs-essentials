@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/server-actions/form-hooks/demo";
 
@@ -35,6 +36,37 @@ export const basics = (
       wpis stał się prawdziwy. Wysłanie wiadomości <code>fail</code> pokazało
       wpis optymistyczny, a potem usunęło go, gdy serwer ją odrzucił.
     </p>
+    <CodeBlock title="message-board.tsx" code={`
+"use client";
+
+import { useActionState, useOptimistic } from "react";
+import { useFormStatus } from "react-dom";
+
+export function MessageBoard({ messages }: { messages: string[] }) {
+  // Akcja dostaje najpierw poprzedni stan, potem FormData.
+  const [state, formAction, isPending] = useActionState(postMessage, { status: "idle" });
+  // Pokazane od razu, zastąpione prawdziwą listą, gdy akcja się ustali.
+  const [shown, addOptimistic] = useOptimistic(messages, (current, text: string) => [...current, text]);
+
+  function submit(formData: FormData) {
+    addOptimistic(String(formData.get("text")));
+    formAction(formData);
+  }
+
+  return (
+    <form action={submit}>
+      <input name="text" />
+      <SubmitButton />
+    </form>
+  );
+}
+
+// useFormStatus czyta najbliższy formularz nadrzędny, więc działa w potomku.
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return <button disabled={pending}>{pending ? "Wysyłanie…" : "Wyślij"}</button>;
+}
+`} />
   </>
 );
 

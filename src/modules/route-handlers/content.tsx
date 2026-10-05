@@ -1,5 +1,6 @@
 import type { InterviewQuestion } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/advanced-routing/route-handlers/demo";
 
@@ -13,16 +14,14 @@ export const basics = (
       primitive: it takes a request and returns a response, with no layouts and
       no client-side navigation.
     </p>
-    <pre>
-      <code>{`export async function GET(request: NextRequest) {
+    <CodeBlock code={`export async function GET(request: NextRequest) {
   const limit = request.nextUrl.searchParams.get("limit");
   return NextResponse.json({ notes }, { status: 200 });
 }
 
 export async function GET(_request: NextRequest, context: RouteContext<"/api/notes/[id]">) {
   const { id } = await context.params;     // params is a Promise
-}`}</code>
-    </pre>
+}`} />
     <p>
       <code>NextRequest</code> and <code>NextResponse</code> extend the web{" "}
       <code>Request</code> and <code>Response</code> with helpers such as{" "}

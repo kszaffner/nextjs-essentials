@@ -1,0 +1,44 @@
+/* The block stays dark in the light theme too, like an editor. The syntax
+   colors are local to this component; only the surface uses global tokens. */
+.block {
+  margin-block: var(--space-3);
+  border: 1px solid var(--color-code-border);
+  border-radius: var(--radius-md);
+  background: var(--color-code-bg);
+  color: var(--color-code-fg);
+  overflow: hidden;
+
+  --sh-class: #4ec9b0;
+  --sh-identifier: #9cdcfe;
+  --sh-sign: #d4d4d4;
+  --sh-property: #9cdcfe;
+  --sh-entity: #4ec9b0;
+  --sh-jsxliterals: #ce9178;
+  --sh-string: #ce9178;
+  --sh-keyword: #c586c0;
+  --sh-comment: #6a9955;
+  --sh-space: #d4d4d4;
+  --sh-break: #d4d4d4;
+}
+
+.title {
+  padding: var(--space-2) var(--space-4);
+  border-bottom: 1px solid var(--color-code-border);
+  color: var(--color-code-muted);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+}
+
+.pre {
+  padding: var(--space-3) var(--space-4);
+  overflow-x: auto;
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  tab-size: 2;
+}
+
+.pre:focus-visible {
+  outline: 2px solid var(--color-code-focus);
+  outline-offset: -2px;
+}

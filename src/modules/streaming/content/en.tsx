@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/rendering/streaming/demo";
 
@@ -31,6 +32,29 @@ export const basics = (
       took about 2.4 s, not the sum of the delays, because the blocks render
       in parallel.
     </p>
+    <CodeBlock title="app/dashboard/page.tsx" code={`
+import { Suspense } from "react";
+
+// The shell is sent first; each boundary streams in when its data is ready.
+export default function Page() {
+  return (
+    <>
+      <h1>Dashboard</h1>
+      <Suspense fallback={<p>Loading stats…</p>}>
+        <Stats />      {/* slow: does not block the rest */}
+      </Suspense>
+      <Suspense fallback={<p>Loading feed…</p>}>
+        <Feed />       {/* independent: appears when ready */}
+      </Suspense>
+    </>
+  );
+}
+
+// app/dashboard/loading.tsx wraps the whole page in a Suspense boundary:
+export default function Loading() {
+  return <p>Loading dashboard…</p>;
+}
+`} />
   </>
 );
 

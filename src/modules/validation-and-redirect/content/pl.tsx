@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/server-actions/validation-and-redirect/demo";
 
@@ -10,14 +11,12 @@ export const basics = (
       Wartości <code>FormData</code> to stringi, więc schemat je też
       konwertuje:
     </p>
-    <pre>
-      <code>{`const parsed = SignupSchema.safeParse(values);
+    <CodeBlock code={`const parsed = SignupSchema.safeParse(values);
 if (!parsed.success) {
   return { status: "invalid", fieldErrors, values };  // dane, nie throw
 }
 // ...utwórz konto...
-redirect(\`/welcome?name=\${encodeURIComponent(parsed.data.name)}\`);`}</code>
-    </pre>
+redirect(\`/welcome?name=\${encodeURIComponent(parsed.data.name)}\`);`} />
     <ul>
       <li>
         <strong>Waliduj schematem</strong> (Zod) i zwracaj błędy per pole jako

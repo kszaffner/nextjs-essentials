@@ -1,5 +1,6 @@
 import type { InterviewQuestion } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/optimization/font/demo";
 
@@ -11,13 +12,11 @@ export const basics = (
       <strong>at build time</strong> and served from your own domain; for your own
       files, <code>next/font/local</code> does the same.
     </p>
-    <pre>
-      <code>{`import { Lora } from "next/font/google";
+    <CodeBlock code={`import { Lora } from "next/font/google";
 
 const lora = Lora({ subsets: ["latin"], variable: "--font-lora", display: "swap" });
 
-<div className={lora.variable}>…</div>      // then: font-family: var(--font-lora)`}</code>
-    </pre>
+<div className={lora.variable}>…</div>      // then: font-family: var(--font-lora)`} />
     <p>
       The root layout already loads Geist this way. The{" "}
       <LocalizedLink href={demoHref}>demo</LocalizedLink> adds Lora on that one page, and a button

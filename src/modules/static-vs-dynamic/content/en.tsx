@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoBase = "/rendering/static-vs-dynamic/demo";
 
@@ -50,6 +51,28 @@ export const basics = (
       silently made the <em>whole route</em> dynamic (marked ƒ), and{" "}
       <code>export const dynamic = &quot;force-dynamic&quot;</code> forced it.
     </p>
+    <CodeBlock title="app/page.tsx" code={`
+import { Suspense } from "react";
+import { connection } from "next/server";
+
+export default function Page() {
+  return (
+    <>
+      <p>Same for everyone: rendered once, at build time.</p>
+      <Suspense fallback={<p>Loading…</p>}>
+        <Now />
+      </Suspense>
+    </>
+  );
+}
+
+// Request-time work (connection(), cookies(), headers(), searchParams)
+// makes this part dynamic; the Suspense boundary keeps the rest static.
+async function Now() {
+  await connection();
+  return <p>Rendered at {new Date().toISOString()}</p>;
+}
+`} />
   </>
 );
 

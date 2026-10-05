@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/components/composition/demo";
 
@@ -12,12 +13,10 @@ const basics = (
       zamienia go w kod kliencki), ale może go <strong>otrzymać</strong> jako{" "}
       <code>children</code> (lub inny prop) od Server Componentu wyżej.
     </p>
-    <pre>
-      <code>{`// Server Component: właściciel kompozycji
+    <CodeBlock code={`// Server Component: właściciel kompozycji
 <Collapsible title="...">      // "use client", ma stan
   <ServerFactsPanel />         // Server Component, renderowany najpierw
-</Collapsible>`}</code>
-    </pre>
+</Collapsible>`} />
     <p>
       Serwer renderuje najpierw <code>ServerFactsPanel</code> i przekazuje wynik
       do <code>Collapsible</code> jako gotowy output. Klient nigdy nie dostaje

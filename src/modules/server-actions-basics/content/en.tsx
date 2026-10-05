@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/server-actions/basics/demo";
 
@@ -33,6 +34,27 @@ export const basics = (
       form, and an imported action called from a click handler. Both bump a
       server counter that takes 600 ms to update, then refresh the page.
     </p>
+    <CodeBlock title="Server Actions" code={`
+// 1. Inline, inside a Server Component:
+export default function Page() {
+  async function increment() {
+    "use server";
+    await incrementCount();
+  }
+  return <form action={increment}><button>Add</button></form>;
+}
+
+// 2. In a module, so a Client Component can import it (actions.ts):
+"use server";
+
+export async function incrementCounter() {
+  const count = await incrementCount();
+  refresh();
+  return { count }; // the return value must be serializable
+}
+
+// Either way it is a public POST endpoint: authenticate, authorize, validate.
+`} />
   </>
 );
 

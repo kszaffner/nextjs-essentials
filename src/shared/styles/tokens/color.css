@@ -19,3 +19,12 @@
     --color-danger: #f2b8b5;
   }
 }
+
+/* Code examples are dark in every color scheme, so these do not change. */
+:root {
+  --color-code-bg: #1e1e1e;
+  --color-code-fg: #d4d4d4;
+  --color-code-muted: #8b8b8b;
+  --color-code-border: #333333;
+  --color-code-focus: #8ab4f8;
+}

@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/components/use-client-boundary/demo";
 
@@ -35,6 +36,21 @@ export const basics = (
       a <code>Date</code> is still a <code>Date</code>, a <code>Map</code> is
       still a <code>Map</code>.
     </p>
+    <CodeBlock title="app/page.tsx" code={`
+// app/page.tsx (Server Component)
+import { Counter } from "./counter"; // counter.tsx starts with "use client"
+
+export default function Page() {
+  return (
+    <Counter
+      initial={1}                     // ok: number
+      user={{ id: 1, name: "Ada" }}   // ok: plain object
+      createdAt={new Date()}          // ok: Date is serializable
+      onDone={() => {}}               // error: a function cannot cross the boundary
+    />
+  );
+}
+`} />
   </>
 );
 

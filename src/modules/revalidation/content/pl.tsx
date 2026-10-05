@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/data/revalidation/demo";
 
@@ -67,6 +68,31 @@ export const basics = (
       lekko nieaktualnych danych w trakcie odświeżania jest w porządku, oraz{" "}
       <code>revalidatePath</code>, gdy myślisz stronami, a nie danymi.
     </p>
+    <CodeBlock title="actions.ts" code={`
+"use server";
+
+import { refresh, revalidatePath, revalidateTag, updateTag } from "next/cache";
+
+export async function addWithUpdateTag() {
+  addEntry();
+  updateTag("entries");              // następny render czeka na świeże dane (tylko Server Actions)
+}
+
+export async function addWithRevalidateTag() {
+  addEntry();
+  revalidateTag("entries", "max");   // stale-while-revalidate
+}
+
+export async function addWithRevalidatePath() {
+  addEntry();
+  revalidatePath("/entries", "page"); // po ścieżce zamiast po tagu
+}
+
+export async function addWithRefresh() {
+  addEntry();
+  refresh();                         // odświeża router, nie unieważnia żadnego cache
+}
+`} />
   </>
 );
 

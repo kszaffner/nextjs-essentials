@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoBase = "/fundamentals/intercepting-routes/demo";
 
@@ -32,6 +33,14 @@ export const basics = (
       <code>modal</code> slot next to <code>children</code>. Try the{" "}
       <LocalizedLink href={demoBase}>gallery</LocalizedLink>.
     </p>
+    <CodeBlock title="app/demo/" code={`
+// app/demo/@modal/(.)photo/[id]/page.tsx   soft navigation: the modal over /demo
+// app/demo/photo/[id]/page.tsx             direct visit or reload: the full page
+// app/demo/layout.tsx                      renders { children, modal }
+//
+// (.) same level   (..) one level up   (..)(..) two up   (...) from the root
+// The @modal slot is not a URL segment, so (.)photo matches /demo/photo/[id].
+`} />
   </>
 );
 

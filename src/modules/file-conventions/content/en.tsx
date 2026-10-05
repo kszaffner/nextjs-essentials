@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/fundamentals/file-conventions/demo";
 
@@ -46,6 +47,20 @@ export const basics = (
       layout input and the template input, then use the demo links. The
       layout input keeps its text; the template input is emptied.
     </p>
+    <CodeBlock title="app/dashboard/" code={`
+// How the special files of one segment are nested (outside in):
+<Layout>                              {/* layout.tsx: persists across navigation */}
+  <Template>                          {/* template.tsx: remounts on navigation */}
+    <ErrorBoundary fallback={<Error />}>          {/* error.tsx */}
+      <Suspense fallback={<Loading />}>           {/* loading.tsx */}
+        <NotFoundBoundary fallback={<NotFound />}> {/* not-found.tsx */}
+          <Page />                    {/* page.tsx: makes the route public */}
+        </NotFoundBoundary>
+      </Suspense>
+    </ErrorBoundary>
+  </Template>
+</Layout>
+`} />
   </>
 );
 

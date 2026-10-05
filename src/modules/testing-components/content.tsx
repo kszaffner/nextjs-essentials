@@ -1,5 +1,6 @@
 import type { InterviewQuestion } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/testing/server-vs-client/demo";
 
@@ -32,10 +33,8 @@ export const basics = (
       The <LocalizedLink href={demoHref}>demo</LocalizedLink> renders the three side by side; their
       tests sit next to them in <code>src/modules/testing-components/components</code>.
     </p>
-    <pre>
-      <code>{`// the pattern that works for an async Server Component
-render(await AsyncProfileCard({ profileId: "ada", loadProfile }));`}</code>
-    </pre>
+    <CodeBlock code={`// the pattern that works for an async Server Component
+render(await AsyncProfileCard({ profileId: "ada", loadProfile }));`} />
   </>
 );
 

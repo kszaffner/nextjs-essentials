@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/data/parallel-vs-sequential/demo";
 
@@ -44,12 +45,10 @@ export const basics = (
       Zasada: startuj niezależne żądania razem, a łańcuchuj tylko te, które
       naprawdę zależą od wyniku poprzednich.
     </p>
-    <pre>
-      <code>{`// Start wcześnie, await później (wzorzec preload)
+    <CodeBlock code={`// Start wcześnie, await później (wzorzec preload)
 const itemPromise = getItem(id);       // startuje teraz
 const user = await getUser();          // działa w międzyczasie
-const item = await itemPromise;`}</code>
-    </pre>
+const item = await itemPromise;`} />
   </>
 );
 

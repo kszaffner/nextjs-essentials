@@ -1,5 +1,6 @@
 import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/data/cache-layers/demo";
 
@@ -67,6 +68,30 @@ export const basics = (
       niesie <code>x-nextjs-stale-time: 300</code>, czyli pięciominutowy czas
       życia cache klienta.
     </p>
+    <CodeBlock title="layerCounters.ts" code={`
+import { cache } from "react";
+import { cacheLife } from "next/cache";
+
+// Warstwa 1, memoizacja żądań: ciało wykonuje się raz na render,
+// niezależnie od liczby komponentów, które je wołają.
+export const loadMemoizedRun = cache(async () => {
+  memoizedRuns += 1;
+  return { run: memoizedRuns };
+});
+
+// Warstwa 2, cache serwera: ciało wykonuje się tylko wtedy, gdy
+// nie ma świeżego wyniku w cache, niezależnie od tego, kto pyta.
+export async function getCachedRun() {
+  "use cache";
+  cacheLife("hours");
+
+  cachedRuns += 1;
+  return { run: cachedRuns };
+}
+
+// Warstwa 3 to Router Cache w przeglądarce:
+// router.refresh() renderuje stronę ponownie, nie czyści cache serwera.
+`} />
   </>
 );
 

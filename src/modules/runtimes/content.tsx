@@ -1,5 +1,6 @@
 import type { InterviewQuestion } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
+import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/advanced-routing/runtimes/demo";
 
@@ -53,6 +54,15 @@ export const basics = (
         </tr>
       </tbody>
     </table>
+    <CodeBlock title="app/api/runtimes/info/route.ts" code={`
+export async function GET() {
+  return Response.json({
+    // "nodejs" here; "edge" only inside the (deprecated) Edge sandbox.
+    runtime: process.env.NEXT_RUNTIME,
+    edgeGlobalPresent: typeof EdgeRuntime !== "undefined",
+  });
+}
+`} />
   </>
 );
 
