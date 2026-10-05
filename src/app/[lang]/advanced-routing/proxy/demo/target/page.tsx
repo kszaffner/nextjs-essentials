@@ -1,10 +1,8 @@
 import { DemoDestination } from "@/modules/proxy";
+import { readLocale } from "@/shared/i18n";
 
-export default function Page() {
-  return (
-    <DemoDestination
-      title="Rewrite target (/target)"
-      description="You opened /alias; the proxy rewrote it here and the URL did not change."
-    />
-  );
+export default async function Page({ params }: PageProps<"/[lang]/advanced-routing/proxy/demo/target">) {
+  const locale = await readLocale(params);
+
+  return <DemoDestination locale={locale} kind="rewriteTarget" />;
 }

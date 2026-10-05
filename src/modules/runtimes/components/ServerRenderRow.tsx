@@ -1,17 +1,20 @@
 import { connection } from "next/server";
+import type { Locale } from "@/shared/i18n";
 import { getRuntimeInfo } from "../server/runtimeInfo";
+import { getRuntimesText } from "../text";
 import { RuntimeRow } from "./RuntimeRow";
 
 // Rendered per request so the answer comes from the live server process.
-export async function ServerRenderRow() {
+export async function ServerRenderRow({ locale }: { locale: Locale }) {
   await connection();
   const info = getRuntimeInfo();
+  const text = getRuntimesText(locale);
 
   return (
     <RuntimeRow
-      where="Server Component render"
+      where={text.serverRender.where}
       runtime={info.runtime}
-      detail={`node ${info.nodeVersion}, EdgeRuntime global: ${info.hasEdgeGlobal}`}
+      detail={text.detail(info.nodeVersion, info.hasEdgeGlobal)}
     />
   );
 }

@@ -1,5 +1,6 @@
 import { Suspense } from "react";
-import { StreamedLookup } from "@/modules/not-found";
+import { StreamedLookup, getStreamedLookupText } from "@/modules/not-found";
+import { readLocale } from "@/shared/i18n";
 
 export function generateStaticParams() {
   return [{ slug: "alpha" }];
@@ -7,12 +8,14 @@ export function generateStaticParams() {
 
 // The check happens inside Suspense, after the shell has streamed, so the
 // status code is already 200 by the time notFound() runs.
-export default function Page({
+export default async function Page({
   params,
 }: PageProps<"/[lang]/errors/not-found/demo/streamed/[slug]">) {
+  const locale = await readLocale(params);
+
   return (
-    <Suspense fallback={<p>Looking the item up…</p>}>
-      <StreamedLookup params={params} />
+    <Suspense fallback={<p>{getStreamedLookupText(locale)}</p>}>
+      <StreamedLookup locale={locale} params={params} />
     </Suspense>
   );
 }

@@ -1,10 +1,8 @@
 import { DemoDestination } from "@/modules/proxy";
+import { readLocale } from "@/shared/i18n";
 
-export default function Page() {
-  return (
-    <DemoDestination
-      title="Variant B"
-      description="The proxy rewrote /personalized to this page for variant B."
-    />
-  );
+export default async function Page({ params }: PageProps<"/[lang]/advanced-routing/proxy/demo/variant-b">) {
+  const locale = await readLocale(params);
+
+  return <DemoDestination locale={locale} kind="variantB" />;
 }

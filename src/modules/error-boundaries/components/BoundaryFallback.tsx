@@ -1,5 +1,6 @@
 "use client";
 
+import { useErrorBoundariesText, type BoundaryKind } from "../text";
 import styles from "./Boundaries.module.css";
 
 export type BoundaryFallbackProps = {
@@ -9,26 +10,27 @@ export type BoundaryFallbackProps = {
 
 type BoundaryFallbackOwnProps = BoundaryFallbackProps & {
   // Which error.tsx file rendered this, so the demo shows who caught what.
-  boundary: string;
+  boundary: BoundaryKind;
 };
 
 // The fallback UI shared by the demo's error.tsx files. Not reported to error
 // monitoring on purpose: these errors are triggered by hand.
 export function BoundaryFallback({ boundary, error, retry }: BoundaryFallbackOwnProps) {
+  const text = useErrorBoundariesText().fallback;
+
   return (
     <section className={styles.panel}>
-      <h3 className={styles.title}>Caught by {boundary}</h3>
+      <h3 className={styles.title}>{text.caughtBy(text.boundaries[boundary])}</h3>
       <p className={styles.alert} role="alert">
-        message the browser received: {error.message}
+        {text.message} {error.message}
       </p>
-      <p className={styles.readout}>digest: {error.digest ?? "(none)"}</p>
+      <p className={styles.readout}>
+        {text.digest} {error.digest ?? text.none}
+      </p>
       <button type="button" className={styles.button} onClick={() => retry()}>
         retry()
       </button>
-      <p className={styles.hint}>
-        The navigation above still works: the layouts around this boundary kept
-        rendering.
-      </p>
+      <p className={styles.hint}>{text.hint}</p>
     </section>
   );
 }

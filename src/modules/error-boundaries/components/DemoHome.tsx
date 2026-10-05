@@ -1,13 +1,14 @@
+import type { Locale } from "@/shared/i18n";
+import { getErrorBoundariesText } from "../text";
 import styles from "./Boundaries.module.css";
 
-export function DemoHome() {
+export function DemoHome({ locale }: { locale: Locale }) {
+  const text = getErrorBoundariesText(locale).home;
+
   return (
     <section className={styles.panel}>
-      <h3 className={styles.title}>Error boundaries</h3>
-      <p className={styles.hint}>
-        Pick a scenario above. Each failing route has its own error.tsx, and
-        this segment has one too (demo/error.tsx) as the parent boundary.
-      </p>
+      <h3 className={styles.title}>{text.title}</h3>
+      <p className={styles.hint}>{text.hint}</p>
     </section>
   );
 }

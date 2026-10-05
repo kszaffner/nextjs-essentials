@@ -1,24 +1,28 @@
 import { Suspense } from "react";
+import { LocalizedLink, type Locale } from "@/shared/i18n";
 import { PROXY_DEMO_BASE } from "../decideProxyAction";
+import { getProxyText, type DestinationKind } from "../text";
 import { DecisionReport } from "./DecisionReport";
 import styles from "./Proxy.module.css";
-import { LocalizedLink } from "@/shared/i18n";
 
 type DemoDestinationProps = {
-  title: string;
-  description: string;
+  locale: Locale;
+  kind: DestinationKind;
 };
 
-export function DemoDestination({ title, description }: DemoDestinationProps) {
+export function DemoDestination({ locale, kind }: DemoDestinationProps) {
+  const text = getProxyText(locale);
+  const { title, description } = text.destinations[kind];
+
   return (
     <section className={styles.panel}>
       <h3 className={styles.title}>{title}</h3>
       <p className={styles.hint}>{description}</p>
-      <Suspense fallback={<p className={styles.hint}>Reading the proxy decision…</p>}>
-        <DecisionReport />
+      <Suspense fallback={<p className={styles.hint}>{text.report.reading}</p>}>
+        <DecisionReport locale={locale} />
       </Suspense>
       <p className={styles.hint}>
-        <LocalizedLink href={PROXY_DEMO_BASE}>Back to the proxy demo</LocalizedLink>
+        <LocalizedLink href={PROXY_DEMO_BASE}>{text.report.back}</LocalizedLink>
       </p>
     </section>
   );

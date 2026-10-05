@@ -4,5 +4,5 @@ import { NotFoundPanel } from "@/modules/not-found";
 // root layout (see [...unmatched]/page.tsx). A not-found file receives no
 // params, so the panel reads the language from the layout's context.
 export default function NotFound() {
-  return <NotFoundPanel source="src/app/[lang]/not-found.tsx (the root)" />;
+  return <NotFoundPanel variant="root" />;
 }

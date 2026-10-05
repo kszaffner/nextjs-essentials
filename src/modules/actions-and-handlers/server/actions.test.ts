@@ -24,7 +24,7 @@ describe("reserveAction", () => {
   it("returns an expected failure as state instead of throwing", async () => {
     expect(await reserveAction(initialRiskyActionState, formWith("expected"))).toEqual({
       status: "refused",
-      message: "That item is out of stock.",
+      code: "out_of_stock",
     });
   });
 
@@ -35,7 +35,7 @@ describe("reserveAction", () => {
   });
 
   it("refuses an unknown or missing mode without running anything", async () => {
-    const expected = { status: "refused", message: "Choose one of the listed modes." };
+    const expected = { status: "refused", code: "invalid_mode" };
 
     expect(await reserveAction(initialRiskyActionState, formWith("bogus"))).toEqual(expected);
     expect(await reserveAction(initialRiskyActionState, formWith(null))).toEqual(expected);

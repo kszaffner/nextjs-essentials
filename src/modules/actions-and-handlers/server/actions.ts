@@ -14,11 +14,11 @@ export async function reserveAction(
 ): Promise<RiskyActionState> {
   const mode = RiskModeSchema.safeParse(formData.get("mode"));
   if (!mode.success) {
-    return { status: "refused", message: "Choose one of the listed modes." };
+    return { status: "refused", code: "invalid_mode" };
   }
 
   const result = await reserveItem(mode.data);
   return result.ok
     ? { status: "reserved", reservation: result.reservation }
-    : { status: "refused", message: result.message };
+    : { status: "refused", code: result.reason };
 }
