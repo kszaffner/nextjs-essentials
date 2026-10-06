@@ -172,8 +172,8 @@ module index, and an `<InternalsPanel>` composed in the demo route. See
 | L4  | Server Actions and forms                            | basics, forms, form-hooks, validation-and-redirect | done (merged) |
 | L5  | Advanced routing + error handling                   | route-handlers, proxy, runtimes, error-boundaries, not-found, actions-and-handlers | done (merged) |
 | L6  | Metadata and SEO + testing                          | generate-metadata, sitemap-robots, og-images, server-vs-client, mocking-and-actions | done (merged) |
-| L7  | Optimization                                        | image, font, bundlers, web-vitals | in review |
-| L8  | Wrap-up: test that every topic has both languages and a panel, Playwright smoke for the language switch, docs | - | planned |
+| L7  | Optimization                                        | image, font, bundlers, web-vitals | done (merged) |
+| L8  | Wrap-up: test that every topic has both languages and a panel, Playwright smoke for the language switch, docs | - | in review |
 
 ## Backlog / ideas
 
@@ -184,6 +184,13 @@ Unscheduled candidates. Promote an item to a stage when it is planned.
 ## Change log
 
 Newest first. One line per change: date, IDs, what changed.
+
+- 2026-10-06: L8 (PR 22) — wrap-up. `topicCompleteness.test.ts` checks that all
+  37 topics have `en` and `pl` content (summaries differ) and that every demo
+  renders an `InternalsPanel`. First Playwright setup (`@playwright/test`,
+  `playwright.config.ts`, `pnpm test:e2e`, `e2e/language-switch.spec.ts`): the
+  `/` to `/pl` redirect, switching a topic pl to en and back, and the collapsed
+  panel opening. Both pass against a production build. Stage L is complete.
 
 - 2026-10-06: L7 (PR 21) — four optimization topics (image, font, bundlers,
   web-vitals) translated with panels. The bundler commands are now `CodeBlock`s
