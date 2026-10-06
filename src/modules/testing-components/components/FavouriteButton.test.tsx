@@ -14,7 +14,7 @@ afterEach(() => {
 
 describe("FavouriteButton (a Client Component)", () => {
   it("toggles the favourite state and says so to assistive technology", () => {
-    render(<FavouriteButton destination="/somewhere/else" />);
+    render(<FavouriteButton locale="en" destination="/somewhere/else" />);
     const toggle = screen.getByRole("button", { name: "Add to favourites" });
     expect(toggle.getAttribute("aria-pressed")).toBe("false");
 
@@ -25,7 +25,7 @@ describe("FavouriteButton (a Client Component)", () => {
   });
 
   it("navigates to the destination through the router", () => {
-    render(<FavouriteButton destination="/somewhere/else" />);
+    render(<FavouriteButton locale="en" destination="/somewhere/else" />);
 
     fireEvent.click(screen.getByRole("button", { name: "Go to the topic page" }));
 

@@ -17,13 +17,13 @@ afterEach(() => {
 
 describe("HeadInspector", () => {
   it("shows nothing until asked", () => {
-    render(<HeadInspector />);
+    render(<HeadInspector locale="en" />);
 
     expect(screen.queryByRole("status")).toBeNull();
   });
 
   it("lists the title, description, canonical, and Open Graph tags", () => {
-    render(<HeadInspector />);
+    render(<HeadInspector locale="en" />);
 
     fireEvent.click(screen.getByRole("button", { name: /head tags/ }));
 

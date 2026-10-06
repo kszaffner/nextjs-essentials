@@ -1,6 +1,7 @@
 import "server-only";
 import type { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
+import { localizePath, type Locale } from "@/shared/i18n";
 import { getArticle } from "./articles";
 
 const DEMO_BASE = "/metadata/generate-metadata/demo";
@@ -15,13 +16,15 @@ async function requireArticle(slug: string) {
 
 // Replaces `openGraph` outright: metadata is merged shallowly, so the
 // layout's siteName and type are lost.
-export async function buildLossyArticleMetadata(slug: string): Promise<Metadata> {
+export async function buildLossyArticleMetadata(slug: string, locale: Locale): Promise<Metadata> {
   const article = await requireArticle(slug);
 
   return {
     title: article.title,
     description: article.summary,
-    alternates: { canonical: `${DEMO_BASE}/${article.slug}` },
+    // The canonical URL is the language-prefixed one, not the path that
+    // redirects to it.
+    alternates: { canonical: localizePath(locale, `${DEMO_BASE}/${article.slug}`) },
     openGraph: { title: article.title, description: article.summary },
   };
 }
@@ -29,6 +32,7 @@ export async function buildLossyArticleMetadata(slug: string): Promise<Metadata>
 // Reads the metadata resolved so far (the parent segments') and builds on it.
 export async function buildPreservingArticleMetadata(
   slug: string,
+  locale: Locale,
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
   const article = await requireArticle(slug);
@@ -37,7 +41,7 @@ export async function buildPreservingArticleMetadata(
   return {
     title: article.title,
     description: article.summary,
-    alternates: { canonical: `${DEMO_BASE}/preserved/${article.slug}` },
+    alternates: { canonical: localizePath(locale, `${DEMO_BASE}/preserved/${article.slug}`) },
     openGraph: { ...parentOpenGraph, title: article.title, description: article.summary },
   };
 }

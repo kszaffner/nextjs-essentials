@@ -13,7 +13,7 @@ describe("OgInspector", () => {
       "beforeend",
       '<meta property="og:image" content="https://example.com/og.png"><meta property="og:image:width" content="1200">',
     );
-    render(<OgInspector />);
+    render(<OgInspector locale="en" />);
 
     fireEvent.click(screen.getByRole("button"));
 
@@ -23,7 +23,7 @@ describe("OgInspector", () => {
   });
 
   it("says plainly which tags are missing", () => {
-    render(<OgInspector />);
+    render(<OgInspector locale="en" />);
 
     fireEvent.click(screen.getByRole("button"));
 

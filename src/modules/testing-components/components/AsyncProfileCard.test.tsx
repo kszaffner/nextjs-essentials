@@ -13,7 +13,7 @@ describe("AsyncProfileCard (an async Server Component)", () => {
   it("renders the profile the loader returns", async () => {
     const loadProfile = vi.fn<LoadProfile>(async () => ada);
 
-    render(await AsyncProfileCard({ profileId: "ada", loadProfile }));
+    render(await AsyncProfileCard({ locale: "en", profileId: "ada", loadProfile }));
 
     expect(screen.getByRole("heading", { name: "Ada Lovelace" })).toBeDefined();
     expect(loadProfile).toHaveBeenCalledWith("ada");
@@ -22,7 +22,7 @@ describe("AsyncProfileCard (an async Server Component)", () => {
   it("says plainly when there is no such profile", async () => {
     const loadProfile: LoadProfile = async () => undefined;
 
-    render(await AsyncProfileCard({ profileId: "nobody", loadProfile }));
+    render(await AsyncProfileCard({ locale: "en", profileId: "nobody", loadProfile }));
 
     expect(screen.getByRole("alert").textContent).toBe("No profile with id nobody.");
   });
@@ -32,7 +32,7 @@ describe("AsyncProfileCard (an async Server Component)", () => {
       throw new Error("database down");
     };
 
-    await expect(AsyncProfileCard({ profileId: "ada", loadProfile })).rejects.toThrow("database down");
+    await expect(AsyncProfileCard({ locale: "en", profileId: "ada", loadProfile })).rejects.toThrow("database down");
   });
 
   // The trap: rendering an async component as JSX does not fail, it silently
@@ -40,7 +40,7 @@ describe("AsyncProfileCard (an async Server Component)", () => {
   it("renders nothing when it is rendered directly as JSX", () => {
     const loadProfile: LoadProfile = async () => ada;
 
-    const { container } = render(<AsyncProfileCard profileId="ada" loadProfile={loadProfile} />);
+    const { container } = render(<AsyncProfileCard locale="en" profileId="ada" loadProfile={loadProfile} />);
 
     expect(container.textContent).toBe("");
   });

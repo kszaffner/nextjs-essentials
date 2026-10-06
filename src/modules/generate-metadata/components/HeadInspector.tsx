@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import type { Locale } from "@/shared/i18n";
+import { getGenerateMetadataText } from "../text";
 import styles from "./GenerateMetadata.module.css";
 
 const INSPECTED_SELECTORS = [
@@ -19,13 +21,13 @@ function readHead(): string {
 
 // Reads the real <head> on demand. Next.js may stream metadata into the page
 // after the first paint, so the tags are read when asked for, not at load.
-export function HeadInspector() {
+export function HeadInspector({ locale }: { locale: Locale }) {
   const [head, setHead] = useState<string | null>(null);
 
   return (
     <div>
       <button type="button" className={styles.button} onClick={() => setHead(readHead())}>
-        Show this page&apos;s head tags
+        {getGenerateMetadataText(locale).head.button}
       </button>
       {head ? (
         <pre className={styles.result} role="status">

@@ -13,7 +13,7 @@ describe("FilesViewer", () => {
       "fetch",
       vi.fn(async () => new Response("User-Agent: *\nAllow: /", { headers: { "content-type": "text/plain" } })),
     );
-    render(<FilesViewer />);
+    render(<FilesViewer locale="en" />);
 
     fireEvent.click(screen.getByRole("button", { name: "Fetch /robots.txt" }));
 
@@ -25,7 +25,7 @@ describe("FilesViewer", () => {
   it("truncates a long file and says how much was left out", async () => {
     const longBody = Array.from({ length: 30 }, (_, index) => `line ${index + 1}`).join("\n");
     vi.stubGlobal("fetch", vi.fn(async () => new Response(longBody)));
-    render(<FilesViewer />);
+    render(<FilesViewer locale="en" />);
 
     fireEvent.click(screen.getByRole("button", { name: "Fetch /sitemap.xml" }));
 
@@ -34,7 +34,7 @@ describe("FilesViewer", () => {
 
   it("reports a network failure instead of failing silently", async () => {
     vi.stubGlobal("fetch", vi.fn(async () => Promise.reject(new Error("offline"))));
-    render(<FilesViewer />);
+    render(<FilesViewer locale="en" />);
 
     fireEvent.click(screen.getByRole("button", { name: "Fetch /sitemap.xml" }));
 
