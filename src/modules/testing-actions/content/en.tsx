@@ -1,4 +1,4 @@
-import type { InterviewQuestion } from "@/shared/topic-page";
+import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
 import { CodeBlock } from "@/shared/code-block";
 
@@ -209,3 +209,11 @@ export const interviewQuestions: readonly InterviewQuestion[] = [
     ),
   },
 ];
+
+export const content: TopicContent = {
+  title: "Mocking and Server Actions",
+  summary: "Mocking fetch and cache, and testing Server Actions.",
+  basics,
+  edgeCases,
+  interviewQuestions,
+};

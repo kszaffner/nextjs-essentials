@@ -170,8 +170,8 @@ module index, and an `<InternalsPanel>` composed in the demo route. See
 | L2  | Rendering + Server/Client Components                | static-vs-dynamic, isr, streaming, ppr, use-client-boundary, composition, pitfalls | done (merged) |
 | L3  | Data fetching and caching                           | fetch-extensions, cache-layers, parallel-vs-sequential, revalidation, use-cache-migration | done (merged) |
 | L4  | Server Actions and forms                            | basics, forms, form-hooks, validation-and-redirect | done (merged) |
-| L5  | Advanced routing + error handling                   | route-handlers, proxy, runtimes, error-boundaries, not-found, actions-and-handlers | in review |
-| L6  | Metadata and SEO + testing                          | generate-metadata, sitemap-robots, og-images, server-vs-client, mocking-and-actions | planned |
+| L5  | Advanced routing + error handling                   | route-handlers, proxy, runtimes, error-boundaries, not-found, actions-and-handlers | done (merged) |
+| L6  | Metadata and SEO + testing                          | generate-metadata, sitemap-robots, og-images, server-vs-client, mocking-and-actions | in review |
 | L7  | Optimization                                        | image, font, bundlers, web-vitals | planned |
 | L8  | Wrap-up: test that every topic has both languages and a panel, Playwright smoke for the language switch, docs | - | planned |
 
@@ -184,6 +184,14 @@ Unscheduled candidates. Promote an item to a stage when it is planned.
 ## Change log
 
 Newest first. One line per change: date, IDs, what changed.
+
+- 2026-10-05: L6 (PR 20) — five topics (generate-metadata, sitemap-robots,
+  og-images, server-vs-client, mocking-and-actions) translated with panels.
+  `testedUnits` now holds ids and test files only; titles and techniques are per
+  language in `text.ts` (a test checks both languages cover every unit). Fixed:
+  the demo's `canonical` URLs were not language-prefixed. Measured on a
+  production build: sitemap has 76 URLs (the content said 38), the generated
+  OG image is a 1200x630 PNG of about 37 KB, and the og:image URL carries a hash.
 
 - 2026-10-05: L5 (PR 19) — six topics (route-handlers, proxy, runtimes,
   error-boundaries, not-found, actions-and-handlers) translated with panels.

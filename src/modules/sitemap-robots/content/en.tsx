@@ -1,4 +1,4 @@
-import type { InterviewQuestion } from "@/shared/topic-page";
+import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { LocalizedLink } from "@/shared/i18n";
 import { CodeBlock } from "@/shared/code-block";
 
@@ -25,7 +25,7 @@ export default function robots(): MetadataRoute.Robots {
 }`} />
     <p>
       This site generates both from the topic catalog: the sitemap lists the home
-      page and every topic (38 URLs), never the demo pages or the API, and
+      page and every topic in both languages (76 URLs), never the demo pages or the API, and
       robots.txt keeps crawlers out of <code>/api/</code> and points at the
       sitemap. Open the <LocalizedLink href={demoHref}>demo</LocalizedLink> to fetch the real
       files. Observed: <code>sitemap.xml</code> is served as{" "}
@@ -139,3 +139,11 @@ export const interviewQuestions: readonly InterviewQuestion[] = [
     ),
   },
 ];
+
+export const content: TopicContent = {
+  title: "Sitemap and robots",
+  summary: "sitemap.ts and robots.ts.",
+  basics,
+  edgeCases,
+  interviewQuestions,
+};

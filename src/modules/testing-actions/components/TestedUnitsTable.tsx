@@ -1,30 +1,34 @@
+import type { Locale } from "@/shared/i18n";
 import { testedUnits } from "../testedUnits";
+import { getTestingActionsText } from "../text";
 import styles from "./TestedUnits.module.css";
 
-export function TestedUnitsTable() {
+export function TestedUnitsTable({ locale }: { locale: Locale }) {
+  const text = getTestingActionsText(locale);
+
   return (
     <div>
       <table className={styles.table}>
         <thead>
           <tr>
-            <th scope="col">What is tested</th>
-            <th scope="col">Technique</th>
-            <th scope="col">Test file</th>
+            <th scope="col">{text.table.what}</th>
+            <th scope="col">{text.table.technique}</th>
+            <th scope="col">{text.table.file}</th>
           </tr>
         </thead>
         <tbody>
           {testedUnits.map((unit) => (
             <tr key={unit.testFile}>
-              <th scope="row">{unit.title}</th>
-              <td>{unit.technique}</td>
+              <th scope="row">{text.units[unit.id].title}</th>
+              <td>{text.units[unit.id].technique}</td>
               <td className={styles.file}>{unit.testFile}</td>
             </tr>
           ))}
         </tbody>
       </table>
       <p className={styles.hint}>
-        Every row is a real test in this repository; run them with{" "}
-        <code>pnpm test</code>.
+        {text.table.footerBefore} <code>pnpm test</code>
+        {text.table.footerAfter}
       </p>
     </div>
   );

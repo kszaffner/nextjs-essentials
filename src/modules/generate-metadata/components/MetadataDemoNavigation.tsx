@@ -1,17 +1,19 @@
+import { LocalizedLink, type Locale } from "@/shared/i18n";
+import { getGenerateMetadataText } from "../text";
 import styles from "./GenerateMetadata.module.css";
-import { LocalizedLink } from "@/shared/i18n";
 
 const base = "/metadata/generate-metadata/demo";
 
-const links = [
-  { href: `${base}/alpha`, label: "alpha: generateMetadata replaces openGraph" },
-  { href: `${base}/preserved/alpha`, label: "preserved/alpha: builds on the parent's openGraph" },
-  { href: `${base}/beta`, label: "beta: same route, different data" },
-] as const;
+export function MetadataDemoNavigation({ locale }: { locale: Locale }) {
+  const text = getGenerateMetadataText(locale).navigation;
+  const links = [
+    { href: `${base}/alpha`, label: text.alpha },
+    { href: `${base}/preserved/alpha`, label: text.preserved },
+    { href: `${base}/beta`, label: text.beta },
+  ];
 
-export function MetadataDemoNavigation() {
   return (
-    <nav aria-label="generateMetadata demo">
+    <nav aria-label={text.label}>
       <ul className={styles.links}>
         {links.map((link) => (
           <li key={link.href}>
