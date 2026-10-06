@@ -1,11 +1,12 @@
+import type { Locale } from "@/shared/i18n";
 import { BuiltWithBadge } from "./BuiltWithBadge";
 import { SwitchCommands } from "./SwitchCommands";
 
-export function BundlersDemo() {
+export function BundlersDemo({ locale }: { locale: Locale }) {
   return (
     <div>
-      <BuiltWithBadge />
-      <SwitchCommands />
+      <BuiltWithBadge locale={locale} />
+      <SwitchCommands locale={locale} />
     </div>
   );
 }

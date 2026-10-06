@@ -1,13 +1,20 @@
+import { CodeBlock } from "@/shared/code-block";
+import type { Locale } from "@/shared/i18n";
+import { getBundlersText } from "../text";
 import styles from "./Bundlers.module.css";
 
-export function SwitchCommands() {
+export function SwitchCommands({ locale }: { locale: Locale }) {
+  const text = getBundlersText(locale).commands;
+
   return (
     <section className={styles.panel}>
-      <h3 className={styles.title}>Choosing the bundler</h3>
-      <pre className={styles.commands}>{`pnpm dev                          # Turbopack (the default)
-pnpm build                        # Turbopack (the default)
-pnpm exec next dev --webpack      # opt in to Webpack
-pnpm exec next build --webpack    # opt in to Webpack`}</pre>
+      <h3 className={styles.title}>{text.title}</h3>
+      <p className={styles.hint}>{text.turbopack}</p>
+      <CodeBlock title="terminal" code={`pnpm dev
+pnpm build`} />
+      <p className={styles.hint}>{text.webpack}</p>
+      <CodeBlock title="terminal" code={`pnpm exec next dev --webpack
+pnpm exec next build --webpack`} />
     </section>
   );
 }

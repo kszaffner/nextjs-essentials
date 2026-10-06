@@ -12,6 +12,7 @@ import {
   getVitalsSnapshot,
   subscribeToVitals,
 } from "../vitalsStore";
+import { useWebVitalsText } from "../text";
 import styles from "./WebVitals.module.css";
 
 const RATING_CLASS: Record<VitalRating, string | undefined> = {
@@ -21,21 +22,22 @@ const RATING_CLASS: Record<VitalRating, string | undefined> = {
 };
 
 export function VitalsPanel() {
+  const text = useWebVitalsText();
   const vitals = useSyncExternalStore(subscribeToVitals, getVitalsSnapshot, getServerVitalsSnapshot);
   const [clicks, setClicks] = useState(0);
 
   return (
     <section className={styles.panel}>
-      <h3 className={styles.title}>Metrics reported in this tab</h3>
+      <h3 className={styles.title}>{text.title}</h3>
       {vitals.length === 0 ? (
-        <p className={styles.hint}>Nothing reported yet.</p>
+        <p className={styles.hint}>{text.empty}</p>
       ) : (
         <table className={styles.table}>
           <thead>
             <tr>
-              <th scope="col">Metric</th>
-              <th scope="col">Value</th>
-              <th scope="col">Rating</th>
+              <th scope="col">{text.columns.metric}</th>
+              <th scope="col">{text.columns.value}</th>
+              <th scope="col">{text.columns.rating}</th>
             </tr>
           </thead>
           <tbody>
@@ -47,7 +49,7 @@ export function VitalsPanel() {
                   <td className={styles.code}>
                     {isVitalName(vital.name) ? formatVitalValue(vital.name, vital.value) : vital.value}
                   </td>
-                  <td className={rating ? RATING_CLASS[rating] : undefined}>{rating ?? "n/a"}</td>
+                  <td className={rating ? RATING_CLASS[rating] : undefined}>{rating ? text.ratings[rating] : text.notAvailable}</td>
                 </tr>
               );
             })}
@@ -55,12 +57,9 @@ export function VitalsPanel() {
         </table>
       )}
       <button type="button" className={styles.button} onClick={() => setClicks(clicks + 1)}>
-        Interact with the page ({clicks})
+        {text.button(clicks)}
       </button>
-      <p className={styles.hint}>
-        TTFB and FCP appear on load. LCP is final after your first interaction or
-        when the tab is hidden, and INP needs an interaction: press the button.
-      </p>
+      <p className={styles.hint}>{text.hint}</p>
     </section>
   );
 }

@@ -1,5 +1,14 @@
-import { BundlersDemo } from "@/modules/bundlers";
+import { BundlersDemo, getBundlersInternals } from "@/modules/bundlers";
+import { readLocale } from "@/shared/i18n";
+import { InternalsPanel } from "@/shared/under-the-hood";
 
-export default function Page() {
-  return <BundlersDemo />;
+export default async function Page({ params }: PageProps<"/[lang]/optimization/bundlers/demo">) {
+  const locale = await readLocale(params);
+
+  return (
+    <>
+      <BundlersDemo locale={locale} />
+      <InternalsPanel locale={locale} {...getBundlersInternals(locale)} />
+    </>
+  );
 }
