@@ -11,6 +11,7 @@
     "check": "pnpm lint && pnpm typecheck && pnpm architecture:check && pnpm test",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:e2e": "playwright test",
     "architecture:check": "depcruise src --config dependency-cruiser.cjs",
     "analyze": "next experimental-analyze"
   },
@@ -24,6 +25,7 @@
     "zod": "^4.6.5"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/react": "^16.3.3",
     "@types/node": "^22.20.5",

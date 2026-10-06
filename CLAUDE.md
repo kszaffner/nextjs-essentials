@@ -292,13 +292,16 @@ pnpm lint         # eslint
 pnpm typecheck    # next typegen (route types, e.g. LayoutProps) + tsc --noEmit
 pnpm test         # vitest run (jsdom, Testing Library)
 pnpm test:watch   # vitest in watch mode
+pnpm test:e2e     # Playwright smoke (e2e/); needs `pnpm build` first, starts `pnpm start -p 3100`
 pnpm architecture:check  # dependency-cruiser against .claude/rules/architecture.md
 pnpm check        # lint + typecheck + architecture:check + test
 pnpm analyze      # bundle analyzer (next experimental-analyze, Turbopack only)
 ```
 
 Vitest cannot render `async` Server Components; unit-test the synchronous
-ones and cover `async` ones with E2E. Never claim a check passed without
+ones and cover `async` ones with E2E.
+`src/modules/topic-catalog/topicCompleteness.test.ts` fails when a topic lacks
+an `en`/`pl` content file or an "Under the hood" panel on its demo. Never claim a check passed without
 actually running it.
 
 ## How work happens here
