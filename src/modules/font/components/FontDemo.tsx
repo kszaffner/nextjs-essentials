@@ -1,26 +1,26 @@
+import type { Locale } from "@/shared/i18n";
 import { lora } from "../fonts";
+import { getFontText } from "../text";
 import { FontReport } from "./FontReport";
 import styles from "./Font.module.css";
 
-export function FontDemo() {
+export function FontDemo({ locale }: { locale: Locale }) {
+  const text = getFontText(locale);
+
   return (
     <div className={lora.variable}>
       <section className={styles.section}>
-        <h3 className={styles.title}>Three fonts on one page</h3>
-        <p className={`${styles.sample} ${styles.sans}`} data-font-sample="site sans (Geist, from the root layout)">
-          The site font: Geist, loaded once by the root layout.
+        <h3 className={styles.title}>{text.title}</h3>
+        <p className={`${styles.sample} ${styles.sans}`} data-font-sample={text.sampleLabels.sans}>
+          {text.samples.sans}
         </p>
-        <p className={`${styles.sample} ${styles.mono}`} data-font-sample="site mono (Geist Mono, from the root layout)">
-          Monospace: Geist Mono for code and numbers.
+        <p className={`${styles.sample} ${styles.mono}`} data-font-sample={text.sampleLabels.mono}>
+          {text.samples.mono}
         </p>
-        <p className={`${styles.sample} ${styles.serif}`} data-font-sample="Lora (loaded by this page only)">
-          A serif: Lora, loaded only by this page.
+        <p className={`${styles.sample} ${styles.serif}`} data-font-sample={text.sampleLabels.serif}>
+          {text.samples.serif}
         </p>
-        <p className={styles.hint}>
-          Lora&apos;s files were fetched at build time and are served from this
-          site, with a size-adjusted fallback font so the swap does not move
-          the text.
-        </p>
+        <p className={styles.hint}>{text.hint}</p>
       </section>
       <FontReport />
     </div>

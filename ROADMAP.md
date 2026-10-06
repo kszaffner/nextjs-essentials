@@ -171,8 +171,8 @@ module index, and an `<InternalsPanel>` composed in the demo route. See
 | L3  | Data fetching and caching                           | fetch-extensions, cache-layers, parallel-vs-sequential, revalidation, use-cache-migration | done (merged) |
 | L4  | Server Actions and forms                            | basics, forms, form-hooks, validation-and-redirect | done (merged) |
 | L5  | Advanced routing + error handling                   | route-handlers, proxy, runtimes, error-boundaries, not-found, actions-and-handlers | done (merged) |
-| L6  | Metadata and SEO + testing                          | generate-metadata, sitemap-robots, og-images, server-vs-client, mocking-and-actions | in review |
-| L7  | Optimization                                        | image, font, bundlers, web-vitals | planned |
+| L6  | Metadata and SEO + testing                          | generate-metadata, sitemap-robots, og-images, server-vs-client, mocking-and-actions | done (merged) |
+| L7  | Optimization                                        | image, font, bundlers, web-vitals | in review |
 | L8  | Wrap-up: test that every topic has both languages and a panel, Playwright smoke for the language switch, docs | - | planned |
 
 ## Backlog / ideas
@@ -184,6 +184,14 @@ Unscheduled candidates. Promote an item to a stage when it is planned.
 ## Change log
 
 Newest first. One line per change: date, IDs, what changed.
+
+- 2026-10-06: L7 (PR 21) — four optimization topics (image, font, bundlers,
+  web-vitals) translated with panels. The bundler commands are now `CodeBlock`s
+  instead of a bare `<pre>`. Measured on a production build: the font demo's
+  `Link` header preloads three fonts against two on a regular page, the image
+  panel lists the real `/_next/image` requests (widths 384 and 828 for the
+  gallery, 1920 for the hero), and the Turbopack build loads a `turbopack-…`
+  runtime chunk.
 
 - 2026-10-05: L6 (PR 20) — five topics (generate-metadata, sitemap-robots,
   og-images, server-vs-client, mocking-and-actions) translated with panels.

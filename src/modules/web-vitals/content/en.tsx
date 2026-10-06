@@ -1,5 +1,5 @@
 import { LocalizedLink } from "@/shared/i18n";
-import type { InterviewQuestion } from "@/shared/topic-page";
+import type { InterviewQuestion, TopicContent } from "@/shared/topic-page";
 import { CodeBlock } from "@/shared/code-block";
 
 const demoHref = "/optimization/web-vitals/demo";
@@ -164,3 +164,11 @@ export const interviewQuestions: readonly InterviewQuestion[] = [
     ),
   },
 ];
+
+export const content: TopicContent = {
+  title: "Web Vitals",
+  summary: "Bundle analysis and Core Web Vitals.",
+  basics,
+  edgeCases,
+  interviewQuestions,
+};

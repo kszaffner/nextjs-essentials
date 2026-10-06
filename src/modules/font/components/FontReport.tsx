@@ -1,24 +1,26 @@
 "use client";
 
 import { useState } from "react";
+import { useFontText } from "../text";
 import styles from "./Font.module.css";
 
-function describeFonts(): string {
-  const faces = [...document.fonts].map((face) => `${face.family} ${face.weight} ${face.style}: ${face.status}`);
-  const samples = [...document.querySelectorAll<HTMLElement>("[data-font-sample]")].map(
-    (element) => `${element.dataset.fontSample}: ${getComputedStyle(element).fontFamily}`,
-  );
-
-  return [`font faces known to the page (${faces.length}):`, ...faces, "", "computed font-family:", ...samples].join("\n");
-}
-
 export function FontReport() {
+  const text = useFontText().report;
   const [report, setReport] = useState<string | null>(null);
+
+  function describeFonts(): string {
+    const faces = [...document.fonts].map((face) => `${face.family} ${face.weight} ${face.style}: ${face.status}`);
+    const samples = [...document.querySelectorAll<HTMLElement>("[data-font-sample]")].map(
+      (element) => `${element.dataset.fontSample}: ${getComputedStyle(element).fontFamily}`,
+    );
+
+    return [text.faces(faces.length), ...faces, "", text.computed, ...samples].join("\n");
+  }
 
   return (
     <div>
       <button type="button" className={styles.button} onClick={() => setReport(describeFonts())}>
-        Which fonts did the browser load?
+        {text.button}
       </button>
       {report ? (
         <pre className={styles.report} role="status">

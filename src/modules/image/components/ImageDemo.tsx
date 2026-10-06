@@ -1,20 +1,20 @@
 import Image from "next/image";
+import type { Locale } from "@/shared/i18n";
+import { getImageText } from "../text";
 import { ImageReport } from "./ImageReport";
 import styles from "./ImageDemo.module.css";
 
-const galleryPhotos = [
-  { src: "/demo/photo-1.jpg", alt: "Gallery photo one" },
-  { src: "/demo/photo-2.jpg", alt: "Gallery photo two" },
-  { src: "/demo/photo-3.jpg", alt: "Gallery photo three" },
-] as const;
+const galleryPhotoSources = ["/demo/photo-1.jpg", "/demo/photo-2.jpg", "/demo/photo-3.jpg"] as const;
 
-function HeroSection() {
+function HeroSection({ locale }: { locale: Locale }) {
+  const text = getImageText(locale).hero;
+
   return (
     <section className={styles.section}>
-      <h3 className={styles.title}>1. The hero (the LCP element)</h3>
+      <h3 className={styles.title}>{text.title}</h3>
       <Image
         src="/demo/hero.jpg"
-        alt="A wavy colour field used as the hero image"
+        alt={text.alt}
         width={1600}
         height={900}
         sizes="(min-width: 60rem) 40rem, 100vw"
@@ -22,25 +22,23 @@ function HeroSection() {
         // The one image that is certainly the largest paint: fetched early.
         preload
       />
-      <p className={styles.hint}>
-        width and height reserve the space, so nothing shifts when it loads;
-        sizes tells the browser how wide it will be, so it picks a srcset
-        candidate; preload adds a link in the head.
-      </p>
+      <p className={styles.hint}>{text.hint}</p>
     </section>
   );
 }
 
-function GallerySection() {
+function GallerySection({ locale }: { locale: Locale }) {
+  const text = getImageText(locale).gallery;
+
   return (
     <section className={styles.section}>
-      <h3 className={styles.title}>2. A gallery, lazy by default</h3>
+      <h3 className={styles.title}>{text.title}</h3>
       <div className={styles.gallery}>
-        {galleryPhotos.map((photo) => (
+        {galleryPhotoSources.map((source, index) => (
           <Image
-            key={photo.src}
-            src={photo.src}
-            alt={photo.alt}
+            key={source}
+            src={source}
+            alt={text.alts[index] ?? ""}
             width={1200}
             height={800}
             sizes="(min-width: 60rem) 12rem, 33vw"
@@ -52,14 +50,16 @@ function GallerySection() {
   );
 }
 
-function FillSection() {
+function FillSection({ locale }: { locale: Locale }) {
+  const text = getImageText(locale).fill;
+
   return (
     <section className={styles.section}>
-      <h3 className={styles.title}>3. fill inside a sized box</h3>
+      <h3 className={styles.title}>{text.title}</h3>
       <div className={styles.fillBox}>
         <Image
           src="/demo/photo-2.jpg"
-          alt="A photo cropped to fill its box"
+          alt={text.alt}
           fill
           sizes="(min-width: 60rem) 24rem, 100vw"
           className={styles.cover}
@@ -69,13 +69,13 @@ function FillSection() {
   );
 }
 
-export function ImageDemo() {
+export function ImageDemo({ locale }: { locale: Locale }) {
   return (
     <div>
-      <HeroSection />
-      <div className={styles.spacer}>Scroll a long way down: the gallery is far below the fold</div>
-      <GallerySection />
-      <FillSection />
+      <HeroSection locale={locale} />
+      <div className={styles.spacer}>{getImageText(locale).spacer}</div>
+      <GallerySection locale={locale} />
+      <FillSection locale={locale} />
       <ImageReport />
     </div>
   );
